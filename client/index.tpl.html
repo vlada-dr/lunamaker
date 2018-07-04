@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+  <title>
+    <%= htmlWebpackPlugin.options.title %>
+  </title>
+  <link href="http://allfont.ru/allfont.css?fonts=pragmatica" rel="stylesheet" type="text/css" />
+  <style>
+
+
+
+.loading {
+  position: relative;
+  display: block;
+  z-index: 13;
+  margin: 45vh auto;
+  width: 50px;
+  height: 50px;
+  border: 5px solid #fff;
+  border-radius: 50%;
+  background-color:  #fff;
+}
+
+  .before {
+    position: absolute;
+    z-index: 12;
+    top: 2px;
+    left: 2px;
+    width: 41px;
+    height: 41px;
+    border-radius: 50%;
+    background-color:  #fff;
+  }
+  @keyframes loading {
+  0% {
+    transform-origin: 100% 100%;
+    transform: rotate(0deg);
+  }
+  100% {
+    transform-origin: 100% 100%;
+    transform: rotate(360deg);
+  }
+}
+
+  .after {
+    position: absolute;
+    top: 0;
+    z-index: 11;
+    left: 0px;
+    width: 22.5px;
+    height: 22.5px;
+    border-radius: 200px 0 0 0;
+    background: linear-gradient(45deg, rgba(0,0,0,0) 0%,rgba(69,154,215,1) 50%,rgba(69,154,215,1) 100%);
+    animation: loading .9s linear infinite;
+  }
+  </style>
+</head>
+
+<body>
+  <div id="root">
+    <div class='loading'>
+        <div class='before'></div>
+        <div class='after'></div>
+    </div>
+  </div>
+</body>
+
+</html>

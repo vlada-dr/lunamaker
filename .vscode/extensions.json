@@ -1,0 +1,7 @@
+{
+  "recommendations": [
+    "formulahendry.auto-rename-tag",
+    "dbaeumer.vscode-eslint",
+    "jpoissonnier.vscode-styled-components"
+  ]
+}
