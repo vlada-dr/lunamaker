@@ -9,4 +9,5 @@
     "javascript": "javascriptreact"
   },
   "git.ignoreLimitWarning": true,
+  "editor.tabSize": 2,
 }

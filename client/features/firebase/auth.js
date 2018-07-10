@@ -22,3 +22,11 @@ export const doPasswordUpdate = (password) => (
 )
 
 export const getCurrentUser = () => auth.onAuthStateChanged
+
+export const updateCurrentUser = () => auth.currentUser.updateProfile({
+  photoURL: 'http://stuki-druki.com/facts2/images/Emma-Stone.jpg',
+}).then(() => {
+  // Update successful.
+}).catch((error) => {
+  // An error happened.
+})

@@ -4,8 +4,8 @@ import PropTypes from 'prop-types'
 
 import DayPickerInput from 'react-day-picker/DayPickerInput'
 import { Input, Error, Textarea } from '../atoms'
-import { IconLabel } from './'
 import { color, font, variables } from '../theme'
+import { IconLabel } from './'
 
 
 const fieldHeight = variables.fieldHeight + variables.fieldUnit
@@ -79,44 +79,44 @@ ${(p) => p.calendar && css`
 `
 
 export const Field = ({ error, onChange, onBlur, value, label, type, required, maxLength, name, calendar }) => (
-  <FieldContainer active={value && value.trim().length !== 0} >
-      <FieldWrapper>
-          <FieldLabel>{label}</FieldLabel>
-          <Input
-              value={value}
-              onChange={onChange}
-              onBlur={onBlur}
-              type={type}
-              name={name}
-              required={required}
-              aria-describedby={label}
-              aria-label={label}
-              aria-required={required}
-              maxLength ={maxLength}
-              autoCapitalize= "false"
-              autoCorrect= "false"
-              rounded
-              back= {color.backgroundWhite}
-            />
-        </FieldWrapper>
-      <Error error={error} active={!!((error && (error.length > 0)))} />
-      {IconValid(error)}
-    </FieldContainer>
+  <FieldContainer active={!!((value && value.trim().length !== 0))} >
+    <FieldWrapper>
+      <FieldLabel>{label}</FieldLabel>
+      <Input
+          value={value}
+          onChange={onChange}
+          onBlur={onBlur}
+          type={type}
+          name={name}
+          required={required}
+          aria-describedby={label}
+          aria-label={label}
+          aria-required={required}
+          maxLength={maxLength}
+          autoCapitalize="false"
+          autoCorrect="false"
+          rounded
+          back={color.backgroundWhite}
+        />
+    </FieldWrapper>
+    <Error error={error} active={!!((error && (error.length > 0)))} />
+    {IconValid(error)}
+  </FieldContainer>
 )
 
 export const Calendar = ({ error, onChange, onBlur, value, label, name }) => (
   <FieldContainer active>
-      <FieldWrapper calendar>
-          <FieldLabel>{label}</FieldLabel>
-          <DayPickerInput
-value={value}
-              name={name}
-              onDayChange={(e) => onChange(name, e)}
-            />
-        </FieldWrapper>
-      <Error error={error} active={!!((error && (error.length > 0)))} />
-      {IconValid(error)}
-    </FieldContainer>
+    <FieldWrapper calendar>
+      <FieldLabel>{label}</FieldLabel>
+      <DayPickerInput
+          value={value}
+          name={name}
+          onDayChange={(e) => onChange(name, e)}
+        />
+    </FieldWrapper>
+    <Error error={error} active={!!((error && (error.length > 0)))} />
+    {IconValid(error)}
+  </FieldContainer>
 )
 
 
@@ -127,33 +127,33 @@ const IconValid = (error) => error != null && <IconLabel
   height={iconHeight / 2.5}
   position='right'
   color={error.length == 0 ? color.success : color.danger}
-/>;
+/>
 
 export const FieldArea = ({ error, onChange, onBlur, value, label, type, required, maxLength, name }) => (
   <FieldContainer active={value && value.trim().length !== 0} area>
-      <FieldWrapper area >
-                      <FieldLabel>{label}</FieldLabel>
-                      <Textarea
-                          value={value}
-                          onChange={onChange}
-                          onBlur={onBlur}
-                          type={type}
-                          name={name}
-                          required={required}
-                          aria-describedby={label}
-                          aria-label={label}
-                          aria-required={required}
-                          maxLength={maxLength}
-                          autoCapitalize="false"
-                          autoCorrect="false"
-                          bordered
-                          back={color.backgroundWhite}
-                          height='12rem'
-                        />
-                    </FieldWrapper>
-      <Error error={error} active={!!((error && (error.length > 0)))} />
-      {IconValid(error)}
-    </FieldContainer>
+    <FieldWrapper area >
+      <FieldLabel>{label}</FieldLabel>
+      <Textarea
+          value={value}
+          onChange={onChange}
+          onBlur={onBlur}
+          type={type}
+          name={name}
+          required={required}
+          aria-describedby={label}
+          aria-label={label}
+          aria-required={required}
+          maxLength={maxLength}
+          autoCapitalize="false"
+          autoCorrect="false"
+          bordered
+          back={color.backgroundWhite}
+          height='12rem'
+        />
+    </FieldWrapper>
+    <Error error={error} active={!!((error && (error.length > 0)))} />
+    {IconValid(error)}
+  </FieldContainer>
 )
 
 FieldContainer.propTypes = {

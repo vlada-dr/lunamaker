@@ -36,7 +36,7 @@ export const authReducer = (state = { error: {} }, action) => {
     case AUTH_USER_SET:
       return {
         ...state,
-        isAuth: true,
+        isAuth: action.authUser !== null,
       }
     case ASYNC_START:
       if (action.subtype === LOGIN || action.subtype === REGISTER) {

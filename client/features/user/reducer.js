@@ -5,14 +5,23 @@
   BLUR_SETTINGS_FIELD,
 } from '../../types'
 
-export const userReducer = (state = {}, action) => {
+
+const initial = {
+  edit: {
+    errors: {},
+    touched: {},
+    password: {},
+  },
+}
+
+export const userReducer = (state = initial, action) => {
   switch (action.type) {
     case LOGIN:
       return {
         ...state,
         user: action.payload.user,
       }
-        case PROFILE_PAGE_LOADED:
+    case PROFILE_PAGE_LOADED:
       return {
         ...state,
         edit: {
@@ -25,7 +34,7 @@ export const userReducer = (state = {}, action) => {
           touched: {},
         },
       }
-        case CHANGE_SETTINGS_FIELD:
+    case CHANGE_SETTINGS_FIELD:
       return {
         ...state,
         edit: {
@@ -33,7 +42,7 @@ export const userReducer = (state = {}, action) => {
           [action.key]: action.value,
         },
       }
-        case BLUR_SETTINGS_FIELD:
+    case BLUR_SETTINGS_FIELD:
       return {
         ...state,
         edit: {
@@ -49,7 +58,7 @@ export const userReducer = (state = {}, action) => {
 
         },
       }
-        default:
+    default:
       return state
-    }
+  }
 }

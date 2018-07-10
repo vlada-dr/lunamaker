@@ -11,6 +11,8 @@ import { Autocomplete } from '../organisms'
 
 import { filterOn, filterOff, changeSearch, searchPresent, refreshTags } from '../../features/present/actions'
 import { getTags } from '../../features/tag/actions'
+
+
 const mapStateToProps = (state) => ({
   search: state.present.search,
   isFilter: state.present.isFilter,
@@ -28,64 +30,82 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 class Filter extends Component {
-    componentDidMount = () => this.props.getTags()
-    closeSearch = () => this.props.filterOff()
+  componentDidMount = () => this.props.getTags()
 
-    search = () => this.props.onSearch(this.props.search)
-    onChange = (name, value) => this.props.onChange(name, value)
-    onRangeChange = (value) => {
-      this.props.onChange('startAge', value[0])
-      this.props.onChange('endAge', value[1])
-    }
 
-    onAddTag = (tag) => {
-      const tags = this.props.search.tags.concat(tag)
-        this.props.onTagsChange(tags)
-    }
+  onChange = (name, value) => this.props.onChange(name, value)
 
-    onDeleteTag = (newTag) => {
-      const tags = this.props.search.tags.filter((tag) => tag.id !== newTag.id)
-        this.props.onTagsChange(tags)
-    }
+  onRangeChange = (value) => {
+    this.props.onChange('startAge', value[0])
+    this.props.onChange('endAge', value[1])
+  }
 
-    render() {
-      const { isFilter, search, likes, celebrations } = this.props
-        return (<Wrapper isFilter={isFilter} >
-            {isFilter ? <Form>
-                <Main>
-                <GenderTriple
-                    value={search.gender}
-                    onChange={this.onChange}
-                />
-                <Slider
-                    startAge={search.startAge}
-                    endAge={search.endAge}
-                    onChange={this.onRangeChange}
-                />
-                </Main>
-                <Autocomplete width='25%'
-                    suggestions={likes}
-                    title='Подобається'
-                    onAdd={this.onAddTag}
-                    onDelete={this.onDeleteTag}
-                />
-                <Autocomplete width='25%'
-                    suggestions={celebrations}
-                    title='Свята'
-                    onAdd={this.onAddTag}
-                    onDelete={this.onDeleteTag}
-                />
-                <Icons>
-                    <Icon css={Scale} name='Check' size='2.5vh' color='#1C1C59' onClick={this.search} />
-                    <Icon css={Scale} name='X' size='2vh' color='#1C1C59' onClick={this.closeSearch} />
-                </Icons>
-            </Form> : undefined}
-        </Wrapper>)
-    }
+  onAddTag = (tag) => {
+    const tags = this.props.search.tags.concat(tag)
+
+    this.props.onTagsChange(tags)
+  }
+
+  onDeleteTag = (newTag) => {
+    const tags = this.props.search.tags.filter((tag) => tag.id !== newTag.id)
+
+    this.props.onTagsChange(tags)
+  }
+
+  search = () => {
+    const { gender, startAge, endAge } = this.props.search
+    const queryString = `gender=${gender}&startAge_gte=${startAge}&startAge_lte=${endAge}&endAge_gte=${startAge}&endAge_lte=${endAge}`
+
+    this.props.onSearch(queryString)
+  }
+
+  closeSearch = () => this.props.filterOff()
+
+  render() {
+    const { isFilter, search, likes, celebrations } = this.props
+
+    return (
+      <Wrapper isFilter={isFilter} >
+        {isFilter ? (
+          <Form>
+            <Main>
+              <GenderTriple
+                value={search.gender}
+                onChange={this.onChange}
+              />
+              <Slider
+                startAge={search.startAge}
+                endAge={search.endAge}
+                onChange={this.onRangeChange}
+              />
+            </Main>
+            <Autocomplete
+              width='25%'
+              suggestions={likes}
+              title='Подобається'
+              onAdd={this.onAddTag}
+              onDelete={this.onDeleteTag}
+            />
+            <Autocomplete
+              width='25%'
+              suggestions={celebrations}
+              title='Свята'
+              onAdd={this.onAddTag}
+              onDelete={this.onDeleteTag}
+            />
+            <Icons>
+              <Icon css={Scale} name='Check' size='2.5vh' color='#1C1C59' onClick={this.search} />
+              <Icon css={Scale} name='X' size='2vh' color='#1C1C59' onClick={this.closeSearch} />
+            </Icons>
+          </Form>
+      ) : undefined}
+      </Wrapper>
+    )
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filter)
-//render() {
+// render() {
 //    const { searchParams, isFilter, searchChange } = this.props.presentsStore;
 //    const { likes, celebrations } = this.props.tagsStore;
 //    return <Wrapper isFilter={isFilter} >
@@ -113,7 +133,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Filter)
 //            </Icons>
 //        </Form> : undefined}
 //    </Wrapper>
-//}
+// }
 const Scale = `
     transition: all .5s ease;
     &:hover {

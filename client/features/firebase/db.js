@@ -3,11 +3,16 @@ import { db } from './firebase'
 // User API
 
 export const doCreateUser = (user) => (
-  db.ref.child(`users/${user.uid}/info`).set({
-    email: user.email,
-    uid: user.uid,
-  })
-    .then(() => user)
+  db.collection('users').add(user)
+    .then((docRef) => console.log(docRef))
+    .catch((error) => {
+      console.error('Error adding document: ', error)
+    })
 )
 
-export const onceGetUsers = () => db.ref('users').once('value')
+export const onceGetUsers = () => db.collection('users').get().then((querySnapshot) => {
+  querySnapshot.forEach((doc) => {
+    console.log(`${doc.id} => ${doc.data()}`)
+  })
+})
+

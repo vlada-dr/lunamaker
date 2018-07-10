@@ -1,11 +1,11 @@
 ﻿import {
-    GET_TAGS,
-    FILTER_ON
-} from '../../types';
+  GET_TAGS,
+} from 'types'
 
-import api from '../../api';
+import { tag } from 'api'
+
 
 export const getTags = () => ({
-    type: GET_TAGS,
-    payload: api.tag.all()
+  type: GET_TAGS,
+  payload: tag.all(),
 })

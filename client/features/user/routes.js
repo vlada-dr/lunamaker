@@ -20,17 +20,17 @@ export const userRoutes = () => [
     component: Offers,
   },
   {
-    path: '/id:id',
+    path: '/user/:id',
     exact: true,
     component: AuthHOC(Profile),
   },
   {
-    path: '/id:id/likes',
+    path: '/user/:id/likes',
     exact: true,
     component: Likes,
   },
   {
-    path: '/id:id/friends',
+    path: '/user/:id/friends',
     exact: true,
     component: Friends,
   },

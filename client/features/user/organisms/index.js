@@ -1,3 +1,3 @@
-﻿export { default as Account } from './edit-main'
-export { default as Contacts } from './edit-contacts'
-export { default as Password } from './edit-password'
+﻿export { Account } from './edit-main'
+export { Contacts } from './edit-contacts'
+export { Password } from './edit-password'

@@ -12,6 +12,7 @@
   AUTH_USER_SET,
 } from 'types'
 
+
 export const commonReducer = (state = {}, action) => {
   switch (action.type) {
     case APP_LOAD:
@@ -19,25 +20,26 @@ export const commonReducer = (state = {}, action) => {
         ...state,
         appLoaded: true,
       }
-    case AUTH_USER_SET:
+    case AUTH_USER_SET: {
+      const user = action.authUser.providerData[0]
+
       return {
         ...state,
         currentUser: action.authUser,
-      }
+        user: {
+
+          ...user,
+          uid: user.uid.split('@')[0],
+        },
+      } }
     case REDIRECT:
       return { ...state, redirectTo: null }
     case LOGOUT:
       return { ...state, currentUser: null }
-    case SETTINGS_SAVED:
-      return {
-        ...state,
-        redirectTo: action.error ? null : '/',
-        currentUser: action.error ? null : action.payload.user,
-      }
     case LOGIN:
       return {
         ...state,
-        redirectTo: action.error ? null : `/${action.payload.user.uid}`,
+        redirectTo: action.error ? null : `/user/${action.payload.user.providerData[0].uid.split('@')[0]}`,
         token: action.error ? null : action.payload.user.ba.a,
         currentUser: action.error ? null : action.payload,
       }

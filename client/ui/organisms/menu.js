@@ -14,11 +14,12 @@ import { Search } from 'ui/organisms'
 
 
 const mapStateToProps = (state) => ({
-  id: state.common.currentUser ? state.common.currentUser.uid : null,
+  id: state.common.user ? state.common.user.uid : null,
   isAuth: state.auth.isAuth,
   isFilter: state.present.isFilter,
-  photo: state.common.currentUser ? state.common.currentUser.photoUrl : null,
+  photo: state.common.user ? state.common.user.photoURL : null,
   search: state.present.search.title,
+  gender: state.common.user ? state.common.user.gender : null,
 })
 
 
@@ -50,7 +51,7 @@ class MenuView extends Component {
   handleScroll = () => this.setState({ windowPosition: window.pageYOffset })
 
   render() {
-    const { isAuth, photo, id, search, isFilter, match } = this.props
+    const { isAuth, gender, photo, id, search, isFilter, match } = this.props
     const scroll = this.state.windowPosition > 0 && !isFilter
 
     return (
@@ -72,10 +73,9 @@ class MenuView extends Component {
         {
           isAuth ? (
             <Flex w='25%' child='1rem'>
-              <Link to={`/id${id}`}>
-                <Avatar src={photo} size='3vh' />
+              <Link to={`/user/${id}`}>
+                <Avatar src={photo} size='3vh' gender={gender} />
               </Link>
-              <IconLink to='/anketa' name='Clipboard' />
               <IconLink onClick={this.logout} to='/login' name='Exit' />
             </Flex>
           ) : <IconLink to='/login' name='Enter' />
@@ -113,6 +113,7 @@ const MenuWrapper = styled.div`
 
 MenuView.propTypes = {
   filterOn: PropTypes.func,
+  gender: PropTypes.number,
   id: PropTypes.string,
   isAuth: PropTypes.bool,
   isFilter: PropTypes.bool,
@@ -125,6 +126,7 @@ MenuView.propTypes = {
 
 MenuView.defaultProps = {
   filterOn: null,
+  gender: 0,
   id: null,
   isAuth: false,
   isFilter: false,

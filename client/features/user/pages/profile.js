@@ -1,73 +1,91 @@
 ﻿import * as React from 'react'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
-import { ProfileTemplate } from '../../../ui/templates'
-import { Avatar, Tag } from '../../../ui/molecules'
-import { Cloud, Icon, IconLink, Flex } from '../../../ui/atoms'
-import { Cloudlet, Add } from '../atoms'
-
+import { ProfileTemplate } from 'ui/templates'
+import { Avatar, Tag } from 'ui/molecules'
+import { Cloud, Icon, IconLink, Flex } from 'ui/atoms'
+import { FemaleAvatar, MaleAvatar } from 'ui/icons'
 import { onLoad } from '../actions'
+import { Cloudlet } from '../atoms'
 
-
-const mapStateToProps = state => ({
-    user: state.common.currentUser
-});
-
-const mapDispatchToProps = dispatch => ({
-    onUnload: () => true,
-    onLoad: () => dispatch(onLoad())
-});
-
-class ProfilePage extends React.Component {
-
-    componentDidMount = () => this.props.onLoad();
-
-    render() {
-        const { user } = this.props;
-        return <ProfileTemplate>
-            <Cloud
-                leftIcon={<Icon name='Search' color='#888898' size='2.5vh'/>}
-                rightIcon={<IconLink to={'/edit/account'} color='#888898' name='Edit' size='2.5vh' />}
-            >
-                <Main>
-                    <Flex column align='center'>
-                        <Avatar src={user.photo} size='15vh' />
-                        <Name>{user.name}</Name>
-                        <Age>{user.age.split('T')[0]}</Age>
-                    </Flex>
-                    <Tags>
-                        <Input placeholder='+'/>
-                        <Tag name='Instagram' check />
-                        <Tag name='кушать' check />
-                        <Tag name='спать' check />
-                        <Tag name='красивые фотки' check />
-                        <Tag name='одежда' check />
-                    </Tags>
-                </Main>
-                <Cloudlet presents={presents} title='Друзі' to={`/id${user.id}/friends`} />
-                <Cloudlet presents={presents} title='Вподобані подарунки' to={`/id${user.id}/likes`} />
-                <Cloudlet presents={presents} title='Запропоновані подарунки' isAdd to={`/id${user.id}/offers`} />
-                <Flex width='100%' justify='space-around' p='0 20%'>
-                    <Icon name="Twitter3D" />
-                    <Icon name="Google3D" />
-                    <Icon name="Facebook3D" />
-                </Flex>
-            </Cloud>
-        </ProfileTemplate>;
-    }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);
 
 const presents = [
-    { id: 1, src: 'https://bake-n-cake.ru/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/v/a/vanilla-cupcakes2_1.jpg' },
-    { id: 2, src: 'https://bake-n-cake.ru/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/v/a/vanilla-cupcakes2_1.jpg' },
-    { id: 3, src: 'https://bake-n-cake.ru/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/v/a/vanilla-cupcakes2_1.jpg' },
-    { id: 4, src: 'https://bake-n-cake.ru/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/v/a/vanilla-cupcakes2_1.jpg' },
-   ];
+  { id: 1, src: 'https://bake-n-cake.ru/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/v/a/vanilla-cupcakes2_1.jpg' },
+  { id: 2, src: 'https://bake-n-cake.ru/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/v/a/vanilla-cupcakes2_1.jpg' },
+  { id: 3, src: 'https://bake-n-cake.ru/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/v/a/vanilla-cupcakes2_1.jpg' },
+  { id: 4, src: 'https://bake-n-cake.ru/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/v/a/vanilla-cupcakes2_1.jpg' },
+]
+
+const mapStateToProps = (state) => ({
+  user: state.common.user,
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onUnload: () => true,
+  onLoad: () => dispatch(onLoad()),
+})
 
 
+const ProfileView = ({ user: { photoURL, displayName, email, uid, age, gender } }) => (
+  <ProfileTemplate>
+    <Cloud
+      leftIcon={<Icon name='Search' color='#888898' size='2.5vh' />}
+      rightIcon={<IconLink to="/edit/account" color='#888898' name='Edit' size='2.5vh' />}
+    >
+      <Main>
+        <Flex column align='center'>
+          <Avatar src={photoURL} size='15vh' gender={gender} />
+          <Name>{displayName || email.split('@')[0]}</Name>
+          {
+                age ? <Age>{age.split('T')[0]}</Age> : null
+            }
+        </Flex>
+        <Tags>
+          <Input placeholder='+' />
+          <Tag name='Instagram' check />
+          <Tag name='кушать' check />
+          <Tag name='спать' check />
+          <Tag name='красивые фотки' check />
+          <Tag name='одежда' check />
+        </Tags>
+      </Main>
+      <Cloudlet presents={presents} title='Друзі' to={`/user/${uid}/friends`} />
+      <Cloudlet presents={presents} title='Вподобані подарунки' to={`/user/${uid}/likes`} />
+      <Cloudlet presents={presents} title='Запропоновані подарунки' isAdd to={`/user/${uid}/offers`} />
+      <Flex width='100%' justify='space-around' p='0 20%'>
+        <Icon name="Twitter3D" />
+        <Icon name="Google3D" />
+        <Icon name="Facebook3D" />
+      </Flex>
+    </Cloud>
+  </ProfileTemplate>
+)
+
+export const Profile = connect(mapStateToProps, mapDispatchToProps)(ProfileView)
+
+ProfileView.propTypes = {
+  user: PropTypes.shape({
+    photoURL: PropTypes.string,
+    displayName: PropTypes.string,
+    uid: PropTypes.string,
+    age: PropTypes.string,
+    gender: PropTypes.number,
+    email: PropTypes.string,
+  }),
+}
+
+ProfileView.defaultProps = {
+  user: {
+    photoURL: null,
+    displayName: null,
+    uid: null,
+    age: null,
+    gender: 0,
+    email: null,
+  },
+}
 
 const Input = styled.input`
     font-family: 'Lobster', cursive;
@@ -88,7 +106,6 @@ const Input = styled.input`
         border: 1px solid #ECE4F4;
         background: rgba(255, 255, 255, 0.5);
     }
-
     &::-webkit-input-placeholder {
         color: #31394D;
     font-weight: 500;
@@ -105,7 +122,7 @@ const Main = styled.div`
     align-items:center;
     justify-content: space-between;
     height: 25%;
-    width: 100%; 
+    width: 100%;
     margin-top: 2rem;
     padding:1rem 2rem;
 
@@ -120,8 +137,6 @@ const Tags = styled.div`
 
 const Name = styled.span`
     font-family: 'Source Sans Pro', sans-serif;
-    letter-spacing: 0.07rem;
-    font-size: 1.5rem;
     color: #31394D;
     font-weight: bold;
 `
@@ -132,5 +147,3 @@ const Age = styled.span`
     font-size: 1rem;
     letter-spacing: 0.08rem;
 `
-
-

@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { hot } from 'react-hot-loader'
 import { connect } from 'react-redux'
-import { APP_LOAD, REDIRECT, LOAD_USER } from '../types'
-import { auth } from '../features/firebase'
 import { rootRoutes } from 'routes'
+import { db } from 'features/firebase'
+import { APP_LOAD, REDIRECT, LOAD_USER } from '../types'
 
 const mapStateToProps = (state) => ({
   appLoaded: state.common.appLoaded,
@@ -17,13 +17,15 @@ const mapDispatchToProps = (dispatch) => ({
 export class Layout extends React.Component {
   componentDidMount() {
     const token = window.localStorage.getItem('jwt')
+
+    db.onceGetUsers()
   }
 
 
   render() {
     return (
       <div>
-      {rootRoutes()}
+        {rootRoutes()}
       </div>
     )
   }

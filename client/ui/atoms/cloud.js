@@ -4,19 +4,21 @@ import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import { Icon } from './'
 
+
 const Fade = keyframes`
-    0% { 
-        opacity: 0; 
+    0% {
+        opacity: 0;
         transform: translateY(-20px);
     }
-    100% { 
-        opacity: 1; 
+    100% {
+        opacity: 1;
         transform: translateY(0);
     }
-` 
+`
+
 export const CloudWrapper = styled.div`
     height: 85vh;
- animation: ${Fade} 1s both;
+    animation: ${Fade} 1s both;
     @media (orientation: portrait) {
         width: 90%;
     }
@@ -47,21 +49,30 @@ const Right = styled.div`
     position:absolute;
     top:2rem;
     right:2rem;
+    z-index: 2;
 `
 
-@withRouter
-export class Cloud extends React.Component {
-    back = () => this.props.history.goBack();
-    render() {
-        const { children, rightIcon, leftIcon } = this.props;
-        return <CloudWrapper>
-            <Back>
-                {leftIcon || <Icon name='Back' color='#888898' onClick={this.back} />}
-            </Back>
-            <Right>
-                {rightIcon}
-            </Right>
-            {children}
-        </CloudWrapper>
-    }
+const CloudView = ({ children, rightIcon, leftIcon }) => (
+  <CloudWrapper>
+    <Back>
+      {leftIcon || <Icon name='Back' color='#888898' />}
+    </Back>
+    <Right>
+      {rightIcon}
+    </Right>
+    {children}
+  </CloudWrapper>
+)
+
+export const Cloud = withRouter(CloudView)
+
+CloudView.propTypes = {
+  children: PropTypes.node.isRequired,
+  leftIcon: PropTypes.node,
+  rightIcon: PropTypes.node,
+}
+
+CloudView.defaultProps = {
+  leftIcon: null,
+  rightIcon: null,
 }

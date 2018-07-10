@@ -1,5 +1,5 @@
-﻿export { default as Profile } from './profile'
+﻿export { Profile } from './profile'
 export { default as Friends } from './friends'
 export { default as Likes } from './likes'
 export { default as Offers } from './offers'
-export { default as EditUser } from './edit'
+export { EditUser } from './edit'
