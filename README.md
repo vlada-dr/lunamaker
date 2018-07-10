@@ -10,4 +10,5 @@
 - Eslint
 - Firebase
 
-> Other commits can be seen in the previous version. View the fullstack app [repository](https://bitbucket.org/mouire/surpriseu-fullstack/src/master/) (backend is implemented with  ASP. NET Core).
+> Other commits can be seen in the previous version (fullstack app). 
+> View the [repository](https://bitbucket.org/mouire/surpriseu-fullstack/src/master/).
