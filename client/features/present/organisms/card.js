@@ -1,43 +1,61 @@
 ﻿import React from 'react'
-import styled, {css } from 'styled-components'
+import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import { Card, Image, Icon } from '../../../ui/atoms'
-import { Like } from '../../../ui/molecules'
-import { Link } from 'react-router-dom';
+import { Card, Image, Icon } from 'ui/atoms'
+import { Like } from 'ui/molecules'
+import { Link } from 'react-router-dom'
 
-export class PresentCard extends React.Component {
-   
-    state = { liked: false }
 
-    
-    onLike = () => {
-        this.setState(prevState => ({ liked: !prevState.liked }));
-        console.log(this.state.liked)
+export const PresentCard = ({ isLiked, onLike, present: { photo, title, id, content, tags, users } }) => (
+  <Card photo={photo} name={title}>
+    <Content>
+      {content}
+    </Content>
+    <Bottom>
+      <Link to={`/present/${id}`}>
+        <ReadMore>
+          Читати далі
+          <Icon name='RightArrow' size='2vh' />
+        </ReadMore>
+      </Link>
+      <Likes >
+        <User size='3vh' round src={users[0] && users[0].photo} />
+        <User round size='3vh' src={users[1] && users[1].photo} />
+        <User round size='3vh' src={users[2] && users[2].photo} />
+        <p>
+          {users.length > 3 ? ` +${users.length}` : null}
+        </p>
+        <Like liked={isLiked} onClick={onLike} />
+      </Likes>
+    </Bottom>
+  </Card>
+)
 
-    }
-        render() {
-        const { present } = this.props;
-        return <Card photo={present.photo} name={present.title}>
-            <Content>
-                {present.content}
-            </Content>
-            <Bottom>
-                <Link to={`/present/${present.id}`}><ReadMore >
-                    Читати далі
-                        <Icon name='RightArrow' size='2vh' />
-                </ReadMore></Link>
-                <Likes >
-                    <User size='3vh' round src='https://www.handletheheat.com/wp-content/uploads/2015/02/Chocolate-Raspberry-Cupcakes-square.jpg' />
-                    <User round size='3vh' src='https://merrybee.com.ua/wp-content/uploads/2017/05/DSC_1829-min.jpg' />
-                    <User round size='3vh' src='http://shop.djournal.com.ua/published/publicdata/DMAGAZIN/attachments/SC/products_pictures/oh-my-book-ua-bir-11.jpg' />
-                    +10
-                    <Like liked={this.state.liked} onClick={this.onLike} />
-                </Likes>
-            </Bottom>
-            </Card>;
-    }
+PresentCard.propTypes = {
+  isLiked: PropTypes.bool,
+  onLike: PropTypes.func,
+  present: PropTypes.shape({
+    photo: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    content: PropTypes.string,
+    tags: PropTypes.arrayOf(PropTypes.string),
+    users: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      photo: PropTypes.string.isRequired,
+    })),
+  }),
 }
 
+PresentCard.defaultProps = {
+  isLiked: false,
+  onLike: null,
+  present: {
+    content: null,
+    tags: [],
+    users: [],
+  },
+}
 const Content = styled.div`
 overflow: hidden;
 text-overflow: ellipsis;
@@ -68,7 +86,7 @@ font-weight: 500;
 `
 
 const User = Image.extend`
-margin-right: -2vh;
+margin-right: -1.5vh;
 
 `
 
@@ -76,6 +94,8 @@ const Likes = styled.div`
  display: flex;
         align-items: center;
         font-weight: 500;
-width:13vh;
-justify-content: space-between;
+
+p {
+    margin: 0 0.5rem 0 1rem;
+}
 `

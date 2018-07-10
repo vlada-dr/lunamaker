@@ -10,10 +10,11 @@
   EDIT_PRESENT,
   ADD_PRESENT,
   AUTH_USER_SET,
+  LOAD_PRESENTS,
 } from 'types'
 
 
-export const commonReducer = (state = {}, action) => {
+export const commonReducer = (state = { userLikes: [] }, action) => {
   switch (action.type) {
     case APP_LOAD:
       return {

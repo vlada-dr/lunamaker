@@ -1,51 +1,60 @@
-﻿import * as React from 'react';
-import { PresentCard } from '../organisms'
+﻿import * as React from 'react'
 import styled from 'styled-components'
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 
-import { all } from '../actions';
-import { Spinner } from '../../../ui/atoms'
-const mapStateToProps = state => ({
-    presents: state.present.presents
-});
+import { Spinner } from 'ui/atoms'
+import { all } from '../actions'
 
-const mapDispatchToProps = dispatch => ({
-    onLoad: () => dispatch(all())
-});
+import { PresentCard } from '../organisms'
+
+
+const mapStateToProps = (state) => ({
+  presents: state.present.presents,
+  user: state.common.user,
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onLoad: () => dispatch(all()),
+})
 
 class PresentsList extends React.Component {
-
-    componentWillMount = () => this.props.onLoad()
+    componentDidMount = () => this.props.onLoad()
 
     render() {
-        if (!this.props.presents) {
-            return <Spin><Spinner /> </Spin>
-        }
+      const { presents, user } = this.props
 
-        if (this.props.presents.length === 0) {
-            return (
-                <div className="article-preview">
-                    No articles are here... yet.
-      </div>
-            );
-        }
+      if (!presents) {
+        return <Spin><Spinner /> </Spin>
+      }
+
+      if (presents.length === 0) {
         return (
-            <div>
-                <List>
-                    {
-                        this.props.presents.map(present =>
-                            <PresentCard key={present.id}
-                                present={present} />)
-                    }
-                </List>
-            </div>
-        );
-    };
-
+          <div className="article-preview">
+                    No articles are here... yet.
+          </div>
+        )
+      }
+      return (
+        <div>
+          <List>
+            {
+              presents.map((present) => (
+                <PresentCard
+                  key={present.id}
+                  present={present}
+                  isLiked={user && (present.users.find((like) => like.id === user.uid) !== undefined)}
+                  onLike={() => console.log('gift is liked/unliked')}
+                />
+            ))
+            }
+          </List>
+        </div>
+      )
+    }
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(PresentsList);
+export default connect(mapStateToProps, mapDispatchToProps)(PresentsList)
 
 const List = styled.div`
     width: 97vw;

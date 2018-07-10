@@ -5,6 +5,7 @@ import { rootRoutes } from 'routes'
 import { db } from 'features/firebase'
 import { APP_LOAD, REDIRECT, LOAD_USER } from '../types'
 
+
 const mapStateToProps = (state) => ({
   appLoaded: state.common.appLoaded,
   currentUser: state.common.currentUser,

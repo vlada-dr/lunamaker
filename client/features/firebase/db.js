@@ -3,6 +3,7 @@ import { db } from './firebase'
 // User API
 
 export const doCreateUser = (user) => (
+
   db.collection('users').add(user)
     .then((docRef) => console.log(docRef))
     .catch((error) => {
@@ -10,9 +11,10 @@ export const doCreateUser = (user) => (
     })
 )
 
-export const onceGetUsers = () => db.collection('users').get().then((querySnapshot) => {
-  querySnapshot.forEach((doc) => {
-    console.log(`${doc.id} => ${doc.data()}`)
-  })
-})
+export const onceGetUsers = () => db.enablePersistence().then(() => db.collection('users').get().then((querySnapshot) => {
+    console.log('ffff')
+    querySnapshot.forEach((doc) => {
+      console.log(`${doc} => ${doc.data()}`)
+    })
+  }))
 

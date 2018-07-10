@@ -3,7 +3,7 @@
   LOGIN,
   CHANGE_SETTINGS_FIELD,
   BLUR_SETTINGS_FIELD,
-} from '../../types'
+} from 'types'
 
 
 const initial = {

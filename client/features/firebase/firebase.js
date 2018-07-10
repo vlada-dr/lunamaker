@@ -19,6 +19,9 @@ if (!firebase.apps.length) {
 const auth = firebase.auth()
 const db = firebase.firestore()
 
+
+db.settings({ timestampsInSnapshots: true })
+
 export {
   db,
   auth,
