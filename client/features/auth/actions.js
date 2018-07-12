@@ -4,12 +4,12 @@
   REGISTER,
   LOGOUT,
 } from 'types'
-import { auth } from 'features/firebase'
+import { auth, db } from 'features/firebase'
 
 
-export const login = (email, password, rememberMe) => ({
+export const login = (id) => ({
   type: LOGIN,
-  payload: auth.doSignInWithEmailAndPassword(email, password),
+  payload: db.currentUser(id),
 })
 
 export const unload = () => ({
@@ -18,10 +18,7 @@ export const unload = () => ({
 
 export const register = (user) => ({
   type: REGISTER,
-  payload: auth.doCreateUserWithEmailAndPassword(
-    user.email,
-    user.password,
-  ),
+  payload: db.doCreateUser(user),
 })
 
 export const logout = () => ({

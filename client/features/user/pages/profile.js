@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 
-const ProfileView = ({ user: { photoURL, displayName, email, uid, age, gender } }) => (
+const ProfileView = ({ user: { photoURL, name, email, uid, age, gender } }) => (
   <ProfileTemplate>
     <Cloud
       leftIcon={<Icon name='Search' color='#888898' size='2.5vh' />}
@@ -37,10 +37,10 @@ const ProfileView = ({ user: { photoURL, displayName, email, uid, age, gender } 
       <Main>
         <Flex column align='center'>
           <Avatar src={photoURL} size='15vh' gender={gender} />
-          <Name>{displayName || email.split('@')[0]}</Name>
+          <Name>{name}</Name>
           {
-                age ? <Age>{age.split('T')[0]}</Age> : null
-            }
+            age ? <Age>{age.split('T')[0]}</Age> : null
+          }
         </Flex>
         <Tags>
           <Input placeholder='+' />
@@ -68,7 +68,7 @@ export const Profile = connect(mapStateToProps, mapDispatchToProps)(ProfileView)
 ProfileView.propTypes = {
   user: PropTypes.shape({
     photoURL: PropTypes.string,
-    displayName: PropTypes.string,
+    name: PropTypes.string,
     uid: PropTypes.string,
     age: PropTypes.string,
     gender: PropTypes.number,
@@ -79,7 +79,7 @@ ProfileView.propTypes = {
 ProfileView.defaultProps = {
   user: {
     photoURL: null,
-    displayName: null,
+    name: null,
     uid: null,
     age: null,
     gender: 0,

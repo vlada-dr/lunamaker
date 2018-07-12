@@ -3,7 +3,7 @@ import { hot } from 'react-hot-loader'
 import { connect } from 'react-redux'
 import { rootRoutes } from 'routes'
 import { db } from 'features/firebase'
-import { APP_LOAD, REDIRECT, LOAD_USER } from '../types'
+import { APP_LOAD, REDIRECT, LOAD_USER } from 'types'
 
 
 const mapStateToProps = (state) => ({

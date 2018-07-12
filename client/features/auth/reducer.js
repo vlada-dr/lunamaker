@@ -27,7 +27,7 @@ export const authReducer = (state = { error: {} }, action) => {
       return {
         ...state,
         loading: false,
-        user: action.payload.user,
+        user: action.payload,
       }
     case LOGIN_PAGE_UNLOADED:
       return {

@@ -1,77 +1,101 @@
-﻿import React, { Component } from 'react';
+﻿import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
+import { compose, withHandlers, withState } from 'recompose'
+import { auth } from 'features/firebase'
+import { LoginField, Checkbox } from 'ui/molecules'
+import { Button, Layout, Icon, Error, Spinner } from 'ui/atoms'
+import { login } from '../actions'
 
-import { login } from '../actions';
-import { update } from '../../actions';
-import { LoginField, Checkbox } from '../../../ui/molecules'
-import { Button, Layout, Icon, Error, Spinner } from '../../../ui/atoms'
 
-const mapStateToProps = state => ({ ...state.auth });
+const Social = () => (
+  <Layout flow='row' justify='space-around' width='100%' padding={2}>
+    <Icon size='5vh' name="Twitter3D" />
+    <Icon size='5vh' name="Google3D" />
+    <Icon size='5vh'name="Facebook3D" />
+  </Layout>
+)
 
-const mapDispatchToProps = dispatch => ({
-    onChange: (name, value) => dispatch(update(name, value)),
-    onSubmit: (email, password, remember) => dispatch(login(email, password, remember))
-});
+const mapDispatchToProps = (dispatch) => ({ onLogin: (id) => dispatch(login(id)) })
 
-class LoginForm extends Component {
+const enhance = compose(
+  connect(null, mapDispatchToProps),
+  withState('email', 'onEmail', ''),
+  withState('password', 'onPassword', ''),
+  withState('error', 'setError', null),
+  withState('remember', 'changeRemember', false),
+  withState('loading', 'onLoading', false),
+  withHandlers({
+    updateEmail: ({ onEmail }) => ({ target: { value } }) => onEmail(value),
+    updatePassword: ({ onPassword }) => ({ target: { value } }) => onPassword(value),
+    onRemember: ({ remember, changeRemember }) => () => {
+      const newValue = !remember
 
-    state = { remember: true }
+      changeRemember(newValue)
+    },
+    submitForm: ({ email, password, onLogin, remember, setError }) => (e) => {
+      e.preventDefault()
+      auth.doSignInWithEmailAndPassword(email, password)
+        .then((res) => onLogin(res.user.uid))
+        .catch((error) => setError(error))
+    },
+  }),
+)
 
-    onRemember = () => this.setState((prevState) => ({ remember: !prevState.remember }))
+const LoginView = ({
+  email, password, remember, error, loading,
+  updateEmail, updatePassword, onRemember, submitForm,
+}) => (
+  <form onSubmit={submitForm}>
+    <Layout flow="column" align='center' width='100%' gap={1.6} padding={2}>
+      <Social />
+      <LoginField
+        name='email'
+        value={email}
+        onChange={updateEmail}
+        icon='User'
+        label='Імя'
+      />
+      <LoginField
+        name='password'
+        value={password}
+        onChange={updatePassword}
+        icon='Password'
+        label='Пароль'
+      />
+      <Checkbox
+        onClick={onRemember}
+        checked={remember}
+        text="Запам'ятати мене"
+      />
+      <Error
+        error='Невірний логін або пароль'
+        active={error != null}
+      />
+      {
+        loading ? <Spinner /> : <Button shine darkblue onClick={submitForm}>Увійти</Button>
+      }
+    </Layout>
+  </form>
+)
 
-    onChange = e => this.props.onChange(e.target.name, e.target.value);
-
-    submitForm = e => {
-        e.preventDefault();
-        const { email, password } = this.props;
-        this.props.onSubmit(email, password, this.state.remember);
-    }
-
-    render() {
-        const { email = '', password = '', loading, error }= this.props;
-        return <form onSubmit={this.submitForm}>
-            <Layout flow="column" align='center' width='100%' gap={1.6} padding={2}>
-                <Social />
-
-                <LoginField
-                    name='email'
-                    value={email}
-                    onChange={this.onChange}
-                    icon='User'
-                    label='Імя'
-                    login
-                />
-
-                <LoginField
-                    name='password'
-                    value={password}
-                    onChange={this.onChange}
-                    icon='Password'
-                    label='Пароль'
-                    type='password'
-                    login
-                />
-
-                <Checkbox
-                    onClick={this.onRemember}
-                    checked={this.state.remember}
-                    text="Запам'ятати мене" />
-
-                <Error error='Невірний логін або пароль' active={error != null && error.status === 401} />
-
-                {
-                    loading ? <Spinner />
-                        : <Button shine darkblue onClick={this.login}>Увійти</Button>
-                }
-            </Layout>
-        </form>;
-    }
+LoginView.propTypes = {
+  email: PropTypes.string.isRequired,
+  error: PropTypes.objectOf(PropTypes.string),
+  loading: PropTypes.bool,
+  onRemember: PropTypes.func,
+  password: PropTypes.string.isRequired,
+  remember: PropTypes.bool,
+  submitForm: PropTypes.func.isRequired,
+  updateEmail: PropTypes.func.isRequired,
+  updatePassword: PropTypes.func.isRequired,
 }
 
-const Social = () => <Layout flow='row' justify='space-around' width='100%' padding={2}>
-            <Icon size='5vh' name="Twitter3D"/>
-            <Icon  size='5vh' name="Google3D"/>
-            <Icon  size='5vh'name="Facebook3D" />
-</Layout>
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+LoginView.defaultProps = {
+  error: null,
+  loading: false,
+  onRemember: PropTypes.func,
+  remember: false,
+}
+
+export const Login = enhance(LoginView)

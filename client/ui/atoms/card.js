@@ -1,9 +1,9 @@
 ﻿import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import Fade from 'react-reveal/Fade';
-import { Image } from './';
-export const Card = ({ photo, name, children }) => <Fade bottom >
+import Fade from 'react-reveal/Fade'
+import { Image } from './'
+export const Card = ({ photo, name, children }) => (<Fade bottom >
     <CardWrapper >
         <Img round size='20vh' src={photo} />
         <Content>
@@ -12,7 +12,7 @@ export const Card = ({ photo, name, children }) => <Fade bottom >
             </Content>
 
     </CardWrapper>
-</Fade>;
+</Fade>);
 
 const Img = Image.extend`
 position: absolute;
@@ -21,7 +21,7 @@ left:0;
 
 const Title = styled.div`
  position:absolute;
-        font-family: 'Lobster';
+ font-family: 'Dancing Script OT', arial;
         font-size:4vh;
         top:-2vh;
         left:15vh;

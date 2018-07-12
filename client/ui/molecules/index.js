@@ -1,6 +1,6 @@
 ﻿export { IconLabel } from './icon-label'
 export { Field, FieldArea, Calendar } from './field'
-export { LoginField } from './login-field'
+export { LoginField, RegisterField } from './login-field'
 export { Form } from './form'
 export { default as Slider } from './slider'
 export { Select, GenderDouble, GenderTriple } from './select'

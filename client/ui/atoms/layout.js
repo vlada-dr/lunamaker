@@ -2,9 +2,7 @@
 import PropTypes from 'prop-types'
 
 
-const marginDir = (p) => p.flow === 'column'
-    ? 'top'
-    : 'left'
+const marginDir = (p) => p.flow === 'column' ? 'top' : 'left'
 
 export const Layout = styled.div`
   display: flex;
@@ -28,20 +26,20 @@ export const Layout = styled.div`
 `
 
 Layout.propTypes = {
-    align: PropTypes.oneOf(['center', 'flex-start', 'flex-end', 'baseline']),
-    flow: PropTypes.oneOf(['column', 'row']).isRequired,
-    gap: PropTypes.number,
-    justify: PropTypes.oneOf(['center', 'flex-start', 'flex-end', 'space-between', 'space-around']),
-    padding: PropTypes.number,
-    width: PropTypes.string,
-    wrap: PropTypes.oneOf(['wrap', 'nowrap'])
+  align: PropTypes.oneOf(['center', 'flex-start', 'flex-end', 'baseline']),
+  flow: PropTypes.oneOf(['column', 'row']).isRequired,
+  gap: PropTypes.number,
+  justify: PropTypes.oneOf(['center', 'flex-start', 'flex-end', 'space-between', 'space-around']),
+  padding: PropTypes.number,
+  width: PropTypes.string,
+  wrap: PropTypes.oneOf(['wrap', 'nowrap']),
 }
 
 Layout.defaultProps = {
-    wrap: 'nowrap',
-    padding: 0,
-    gap: 0,
-    justify: undefined,
-    align: undefined,
-    width: '0rem'
+  wrap: 'nowrap',
+  padding: 0,
+  gap: 0,
+  justify: undefined,
+  align: undefined,
+  width: '0rem',
 }

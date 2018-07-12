@@ -3,8 +3,8 @@ import styled from 'styled-components'
 import { connect } from 'react-redux'
 
 import { Spinner } from 'ui/atoms'
+import { db } from 'features/firebase'
 import { all } from '../actions'
-
 import { PresentCard } from '../organisms'
 
 
@@ -18,7 +18,9 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 class PresentsList extends React.Component {
-    componentDidMount = () => this.props.onLoad()
+    componentDidMount = () => {
+      this.props.onLoad()
+    }
 
     render() {
       const { presents, user } = this.props

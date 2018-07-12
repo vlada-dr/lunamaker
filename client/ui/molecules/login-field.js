@@ -1,115 +1,109 @@
 import React from 'react'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import Fade from 'react-reveal/Fade'; 
-
 import { Input, Error } from '../atoms'
-import { IconLabel } from './'
 import { color, font, variables } from '../theme'
+import { IconLabel } from './icon-label'
 
 
-const fieldHeight = variables.inputHeight + variables.inputUnit;
-const propHeight = variables.inputHeight;
-const iconHeight = 2.4;
+const height = 2.4
+const left = 1.5
+const right = 2.5
 
 const FieldContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    @media (orientation: portrait) {
-       width: 80vw;
-    }
-    @media (orientation: landscape) {
-        width: 40vw;
-    }
-    height: 5rem;
-    font-family: ${font.formElement};
-    color: ${color.text};
-    -webkit-appearance: none;
-    border-radius: 3px;
-    flex-shrink: 0;
-    align-items: center;
-    border-radius: 2px;
-    ${Input} {
-        padding-left: ${fieldHeight};
-        height: 100%;
-width: 100%;
-    }
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  @media (orientation: portrait) {
+    width: 80vw;
+  }
+  width: 40vw;
+  height: 5rem;
+  font-family: ${font.formElement};
+  color: ${color.text};
+  -webkit-appearance: none;
+  border-radius: 3px;
+  flex-shrink: 0;
+  align-items: center;
+  border-radius: 2px;
+  ${Input} {
+    padding-left: ${variables.inputHeight + variables.inputUnit};
+    height: 100%;
+    width: 100%;
+  }
 `
 
 const FieldWrapper = styled.div`
-    height: ${fieldHeight};
-    position: relative;
-    width: 100%;
+  height: ${variables.inputHeight + variables.inputUnit};
+  position: relative;
+  width: 100%;
 `
 
-export const LoginField = ({ register, error, onChange, onBlur, value, label, type, required, maxLength, name, icon }) => (
-    <FieldContainer>
-        <FieldWrapper>
-            <IconLabel
-                name={icon}
-                propHeight={propHeight}
-                height={iconHeight / 1.5}
-                unit={variables.inputUnit}
-                position='left' />
-            <Input
-                value={value}
-                onChange={onChange}
-                onBlur={onBlur}
-                type={type}
-                name={name}
-                required={required}
-                aria-describedby={label}
-                aria-label={label}
-                aria-required={required}
-                maxLength={maxLength}
-                autoCapitalize="false"
-                autoCorrect="false"
-                bordered
-                placeholder={label}
-                back={color.backgroundWhite}
-            />
-        </FieldWrapper>
-        <Error error={error} active={(error && (error.length > 0))? true : false} />
-        {register && IconValid(error)}
-    </FieldContainer>
+export const LoginField = ({ error, label, name, icon, children, ...rest }) => (
+  <FieldContainer>
+    <FieldWrapper>
+      <IconLabel
+        name={icon}
+        propHeight={variables.inputHeight}
+        height={height / left}
+        unit={variables.inputUnit}
+        position='left'
+      />
+      <Input
+        {...rest}
+        type={name.includes('pass') ? 'password' : 'text'}
+        name={name}
+        aria-describedby={label}
+        aria-label={label}
+        autoCapitalize="false"
+        autoCorrect="false"
+        bordered
+        placeholder={label}
+        back={color.backgroundWhite}
+      />
+    </FieldWrapper>
+    <Error error={error} active={!!(error && (error.length > 0))} />
+    {children}
+  </FieldContainer>
 )
 
+export const RegisterField = ({ error, ...props }) => {
+  const isValid = error !== null ? (
+    <IconLabel
+      name={error.length === 0 ? 'Check' : 'X'}
+      propHeight={variables.inputHeight}
+      unit={variables.fieldUnit}
+      height={height / right}
+      position='right'
+      color={error.length === 0 ? color.success : color.danger}
+    />
+  ) : null
 
+  return (
+    <LoginField {...props} error={error}>
+      {isValid}
+    </LoginField>
+  )
+}
 
-const IconValid = (error) => error !== null && <IconLabel
-    name={error.length === 0 ? 'Check' : 'X'}
-    propHeight={variables.inputHeight}
-    unit={variables.fieldUnit}
-    height={iconHeight / 2.5}
-    position='right'
-    color={error.length === 0 ? color.success : color.danger} />;
+RegisterField.propTypes = { error: PropTypes.string }
 
+RegisterField.defaultProps = { error: null }
 
 LoginField.propTypes = {
-    onBlur: PropTypes.func,
-    onChange: PropTypes.func,
-    value: PropTypes.string,
-    label: PropTypes.string,
-    type: PropTypes.oneOf(['text', 'password']),
-    required: PropTypes.bool,
-    maxLength: PropTypes.number,
-    name: PropTypes.string,
-    icon: PropTypes.string,
-    error: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.object
-    ])
+  children: PropTypes.node,
+  error: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]),
+  icon: PropTypes.string,
+  label: PropTypes.string,
+  name: PropTypes.string.isRequired,
 }
 
 LoginField.defaultProps = {
-    value: '',
-    label: '',
-    type: 'text',
-    required: false,
-    maxLength: 30,
-    name: undefined,
-    icon: 'User',
-    error: null
+  children: null,
+  error: null,
+  icon: null,
+  label: null,
 }
-

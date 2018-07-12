@@ -42,12 +42,22 @@ const rules = {
 
     return error
   },
+  password: (value) => {
+    const error = value.length <= 6
+      ? 'Пароль має містити хоча б 6 символів' : ''
+
+    return error
+  },
   title: (value) => {
     const error = (value.length <= 30 && value.length >= 3 && value.search(/\d/) == -1) ? '' : 'Введіть назву'
 
     return error
   },
+  password2: (value) => {
+    const error = value[0] === value[1] ? '' : 'Паролі відрізняються'
 
+    return error
+  },
   compare: (value) => {
     const error = value[0] === value[1] ? '' : 'Паролі відрізняються'
 

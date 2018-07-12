@@ -1,9 +1,8 @@
 ﻿import * as React from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router'
-
+import { LoginTemplate } from 'ui/templates'
 import { unload } from '../actions'
-import { LoginTemplate } from '../../../ui/templates'
 import { Login, Register } from './'
 
 
@@ -23,15 +22,16 @@ export class Log extends React.Component {
     onClick = () => this.setState((prevState) => ({ login: !prevState.login }));
     render() {
       const { login } = this.state
-        const { redirectTo, isAuth } = this.props
-        return (<LoginTemplate onClick={this.onClick} tab={login ? 'Реєстрація' : 'Вхід'}>
-            {
+      const { redirectTo, isAuth } = this.props
+
+      return (<LoginTemplate onClick={this.onClick} tab={login ? 'Реєстрація' : 'Вхід'}>
+        {
                 login ? <Login /> : <Register />
             }
-            {
+        {
                 isAuth && <Redirect to={redirectTo} />
             }
-        </LoginTemplate>)
+              </LoginTemplate>)
     }
 }
 

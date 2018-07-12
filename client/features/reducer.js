@@ -22,16 +22,12 @@ export const commonReducer = (state = { userLikes: [] }, action) => {
         appLoaded: true,
       }
     case AUTH_USER_SET: {
-      const user = action.authUser.providerData[0]
+      const user = action.authUser && action.authUser.providerData[0]
 
       return {
         ...state,
         currentUser: action.authUser,
-        user: {
-
-          ...user,
-          uid: user.uid.split('@')[0],
-        },
+        user,
       } }
     case REDIRECT:
       return { ...state, redirectTo: null }
@@ -40,16 +36,15 @@ export const commonReducer = (state = { userLikes: [] }, action) => {
     case LOGIN:
       return {
         ...state,
-        redirectTo: action.error ? null : `/user/${action.payload.user.providerData[0].uid.split('@')[0]}`,
-        token: action.error ? null : action.payload.user.ba.a,
+        redirectTo: action.error ? null : `/user/${action.payload.uid}`,
         currentUser: action.error ? null : action.payload,
       }
     case REGISTER:
       return {
         ...state,
-        redirectTo: action.error ? null : `/id${action.payload.user.uid}`,
-        token: action.error ? null : action.payload.user.ba.a,
+        redirectTo: action.error ? null : `/id${action.payload.uid}`,
         currentUser: action.error ? null : action.payload,
+        user: action.payload,
       }
     case DELETE_PRESENT:
       return { ...state, redirectTo: '/' }

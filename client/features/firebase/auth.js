@@ -1,10 +1,12 @@
-import { auth } from './firebase'
-import { doCreateUser } from './db'
+import { auth, db } from './firebase'
 
 
 export const doCreateUserWithEmailAndPassword = (email, password) => (
   auth.createUserWithEmailAndPassword(email, password)
-    .then(doCreateUser)
+    .then(
+      (result) => result,
+      (error) => console.log(`Error: ${error.message}`),
+    )
 )
 
 export const doSignInWithEmailAndPassword = (email, password) => (
