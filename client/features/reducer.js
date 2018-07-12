@@ -2,15 +2,12 @@
   APP_LOAD,
   REDIRECT,
   LOGOUT,
-  SETTINGS_SAVED,
   LOGIN,
   REGISTER,
   EDITOR_PAGE_UNLOADED,
   DELETE_PRESENT,
   EDIT_PRESENT,
   ADD_PRESENT,
-  AUTH_USER_SET,
-  LOAD_PRESENTS,
 } from 'types'
 
 
@@ -21,14 +18,7 @@ export const commonReducer = (state = { userLikes: [] }, action) => {
         ...state,
         appLoaded: true,
       }
-    case AUTH_USER_SET: {
-      const user = action.authUser && action.authUser.providerData[0]
 
-      return {
-        ...state,
-        currentUser: action.authUser,
-        user,
-      } }
     case REDIRECT:
       return { ...state, redirectTo: null }
     case LOGOUT:

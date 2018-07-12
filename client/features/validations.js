@@ -64,7 +64,7 @@ const rules = {
     return error
   },
   content: (value) => {
-    const error = (value.length <= 200 && value.length >= 3 && value.search(/\d/) == -1) ? '' : 'Введіть назву'
+    const error = (value.length <= 300 && value.length >= 3) ? '' : 'Введіть інформацію'
 
     return error
   },

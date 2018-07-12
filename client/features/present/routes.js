@@ -14,7 +14,7 @@ export const presentsRoutes = () => [
   },
   {
     path: '/present/:id/edit',
-    exact: false,
+    exact: true,
     component: EditPresent,
   },
 ]

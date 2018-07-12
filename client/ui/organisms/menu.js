@@ -14,12 +14,12 @@ import { Search } from 'ui/organisms'
 
 
 const mapStateToProps = (state) => ({
-  id: state.common.user ? state.common.user.uid : null,
-  isAuth: state.auth.isAuth,
+  id: state.firebase.profile.uid,
+  isAuth: state.firebase.profile.uid !== null,
   isFilter: state.present.isFilter,
-  photo: state.common.user ? state.common.user.photoURL : null,
+  photo: state.firebase.profile.photoURL,
   search: state.present.search.title,
-  gender: state.common.user ? state.common.user.gender : null,
+  gender: state.firebase.profile.gender,
 })
 
 
@@ -74,7 +74,7 @@ class MenuView extends Component {
           isAuth ? (
             <Flex w='25%' child='1rem'>
               <Link to={`/user/${id}`}>
-                <Avatar src={photo} size='3vh' gender={gender} />
+                <Avatar src={photo} size='4vh' gender={gender} />
               </Link>
               <IconLink onClick={this.logout} to='/login' name='Exit' />
             </Flex>
@@ -86,7 +86,6 @@ class MenuView extends Component {
 }
 
 export const Menu = compose(
-  withAuthentication,
   withRouter,
   connect(mapStateToProps, mapDispatchToProps),
 )(MenuView)

@@ -8,8 +8,6 @@ export const withAuthentication = (Component) => {
   class WithAuthentication extends React.Component {
     componentDidMount() {
       const { onSetAuthUser } = this.props
-
-      firebase.auth.onAuthStateChanged((authUser) => onSetAuthUser(authUser))
     }
 
     render() {

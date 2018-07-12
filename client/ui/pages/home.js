@@ -1,19 +1,30 @@
-import * as React from 'react';
+import React from 'react'
+import PropTypes from 'prop-types'
+import {
+  firebaseConnect,
+  isLoaded,
+  isEmpty,
+} from 'react-redux-firebase'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
 import { Menu, Filter } from '../organisms'
 import { PresentsList } from '../../features'
 
 
-export class Home extends React.Component {
-    render() {
-        return <div>
-            <Filter /><Menu isSearch />
-            <PresentsList presents={this.props.presents}/>
-        </div>;
-    }
-}
+const enhance = compose(
+  firebaseConnect(['presents']),
+  connect(({ firebase }) => ({
+    presents: firebase.data.presents,
+  })),
+)
 
+const HomeView = () => (
+  <div>
+    <Filter />
+    <Menu isSearch />
+    <PresentsList />
+  </div>
+)
 
-export default Home;
-
-
+export const Home = enhance(HomeView)
 

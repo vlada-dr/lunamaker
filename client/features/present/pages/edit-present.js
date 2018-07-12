@@ -1,50 +1,46 @@
-﻿import React, { Component } from 'react'
-import { connect } from 'react-redux';
-
+﻿import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { compose, withHandlers } from 'recompose'
+import { withFirebase } from 'react-redux-firebase'
 import { PresentForm } from '../organisms'
-import { createForm, add, edit, update, blur, refreshTags } from '../actions';
 
-const mapStateToProps = state => ({
-    present: state.present.edit,
-    errors: state.present.edit.errors,
-    touched: state.present.edit.touched,
-    likes: state.tag.likes,
-    celebrations: state.tag.holidays
-});
 
-const mapDispatchToProps = dispatch => ({
-    onChange: (name, value) => dispatch(update(name, value)),
-    onBlur: (name, error) => dispatch(blur(name, error)),
-    onLoad: () => dispatch(createForm('edit')),
-    onSubmit: present => dispatch(edit(present)),
-    onTagsChange: tag => dispatch(update('tags', tag))
-});
+const enhance = compose(
+  withFirebase,
+  connect((state, props) => ({
+    id: props.match.params.id,
+    present: state.firebase.data.presents[props.match.params.id],
+  })),
+  withHandlers({
+    updatePresent: ({ firebase, id }) => (present) => firebase.set(`presents/${id}`, present),
+  }),
+)
 
-class EditPresent extends Component {
-    componentWillMount = () => this.props.onLoad()
-
-    onSubmit = e => {
-        e.preventDefault();
-        const { present, touched, errors } = this.props,
-            { title, content, startAge, endAge, id, gender, tags, photo } = this.props.present;
-        const isValid = Object.values(errors).every(err => err.length === 0);
-        isValid && this.props.onSubmit({ title, content, startAge, endAge, id, gender, tags, photo });
-    }
-    render() {
-        const { present, touched, errors, likes, celebrations } = this.props;
-        return <PresentForm
-            onBlur={this.props.onBlur}
-            onChange={this.props.onChange}
-            onTagsChange={this.props.onTagsChange}
-            onSubmit={this.onSubmit}
-            title='Редагувати'
-            present={present}
-            touched={touched}
-            errors={errors}
-            likes={likes}
-            celebrations={celebrations}
-        />
-    }
+const initialTouched = {
+  title: true,
+  content: true,
+  photo: true,
+  gender: true,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditPresent);
+const UpdatePresentView = ({ updatePresent, present }) => (
+  <PresentForm
+    propsSubmit={updatePresent}
+    present={present}
+    title='Редагувати'
+    touched={initialTouched}
+  />
+)
+
+UpdatePresentView.propTypes = {
+  present: PropTypes.objectOf(PropTypes.string),
+  updatePresent: PropTypes.func,
+}
+
+UpdatePresentView.defaultProps = {
+  present: {},
+  updatePresent: null,
+}
+
+export const EditPresent = enhance(UpdatePresentView)

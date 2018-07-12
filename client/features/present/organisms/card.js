@@ -6,44 +6,45 @@ import { Like } from 'ui/molecules'
 import { Link } from 'react-router-dom'
 
 
-export const PresentCard = ({ isLiked, onLike, present: { photo, title, id, content, tags, users } }) => (
-  <Card photo={photo} name={title}>
-    <Content>
-      {content}
-    </Content>
-    <Bottom>
-      <Link to={`/present/${id}`}>
-        <ReadMore>
-          Читати далі
-          <Icon name='RightArrow' size='2vh' />
-        </ReadMore>
-      </Link>
-      <Likes >
-        <User size='3vh' round src={users[0] && users[0].photo} />
-        <User round size='3vh' src={users[1] && users[1].photo} />
-        <User round size='3vh' src={users[2] && users[2].photo} />
-        <p>
-          {users.length > 3 ? ` +${users.length}` : null}
-        </p>
-        <Like liked={isLiked} onClick={onLike} />
-      </Likes>
-    </Bottom>
-  </Card>
-)
+export const PresentCard = ({ id, isLiked, onLike, present }) => {
+  const { photo, title, content, tags, likes } = present
 
+  return (
+
+    <Card photo={photo} name={title}>
+      <Content>
+        {content}
+      </Content>
+      <Bottom>
+        <Link to={`/present/${id}`}>
+          <ReadMore>
+            Читати далі
+            <Icon name='RightArrow' size='2vh' />
+          </ReadMore>
+        </Link>
+        <Likes >
+          {likes[0] && <User size='3vh' round src={likes[0].photo} />}
+          {likes[1] && <User round size='3vh' src={likes[1].photo} />}
+          {likes[2] && <User round size='3vh' src={likes[2].photo} />}
+          <p>
+            {likes.length > 3 ? ` +${likes.length}` : null}
+          </p>
+          <Like liked={isLiked} onClick={onLike} />
+        </Likes>
+      </Bottom>
+    </Card>
+  )
+}
 PresentCard.propTypes = {
   isLiked: PropTypes.bool,
   onLike: PropTypes.func,
+  id: PropTypes.string.isRequired,
   present: PropTypes.shape({
     photo: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
     content: PropTypes.string,
-    tags: PropTypes.arrayOf(PropTypes.string),
-    users: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      photo: PropTypes.string.isRequired,
-    })),
+    tags: PropTypes.arrayOf(PropTypes.object),
+    likes: PropTypes.arrayOf(PropTypes.object),
   }),
 }
 
@@ -53,7 +54,7 @@ PresentCard.defaultProps = {
   present: {
     content: null,
     tags: [],
-    users: [],
+    likes: [],
   },
 }
 const Content = styled.div`

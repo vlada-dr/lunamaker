@@ -1,62 +1,47 @@
 ﻿import * as React from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
-
+import PropTypes from 'prop-types'
+import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase'
+import { compose } from 'redux'
 import { Spinner } from 'ui/atoms'
-import { db } from 'features/firebase'
-import { all } from '../actions'
 import { PresentCard } from '../organisms'
 
 
-const mapStateToProps = (state) => ({
-  presents: state.present.presents,
-  user: state.common.user,
-})
+const enhance = compose(
+  firebaseConnect(['presents']),
+  connect(({ firebase }) => ({
+    presents: firebase.data.presents,
+  })),
+)
 
-const mapDispatchToProps = (dispatch) => ({
-  onLoad: () => dispatch(all()),
-})
-
-class PresentsList extends React.Component {
-    componentDidMount = () => {
-      this.props.onLoad()
-    }
-
-    render() {
-      const { presents, user } = this.props
-
-      if (!presents) {
-        return <Spin><Spinner /> </Spin>
+const ListView = ({ presents }) => (
+  <div>
+    <List>
+      {
+        /* eslint-disable no-nested-ternary */
+        !isLoaded(presents)
+        ? <Spin><Spinner /> </Spin>
+        : isEmpty(presents)
+          ? 'Present list is empty'
+          : presents.map((present) => (
+            <PresentCard
+              key={present}
+              present={present}
+              id={present.id}
+              isLiked={false}
+              onLike={() => console.log('gift is liked/unliked')}
+            />
+          ))
       }
+    </List>
+  </div>
+)
 
-      if (presents.length === 0) {
-        return (
-          <div className="article-preview">
-                    No articles are here... yet.
-          </div>
-        )
-      }
-      return (
-        <div>
-          <List>
-            {
-              presents.map((present) => (
-                <PresentCard
-                  key={present.id}
-                  present={present}
-                  isLiked={user && (present.users.find((like) => like.id === user.uid) !== undefined)}
-                  onLike={() => console.log('gift is liked/unliked')}
-                />
-            ))
-            }
-          </List>
-        </div>
-      )
-    }
+ListView.propTypes = {
+  presents: PropTypes.objectOf(PropTypes.any).isRequired,
 }
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(PresentsList)
+export const PresentsList = enhance(ListView)
 
 const List = styled.div`
     width: 97vw;

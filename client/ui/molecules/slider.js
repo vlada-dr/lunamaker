@@ -1,137 +1,110 @@
-
-import * as React from 'react';
-import Slider from 'rc-slider';
-import {Error, Input} from '../atoms'
-import styled, { css } from 'styled-components'
-import { color, font } from '../theme'
+import React from 'react'
+import styled from 'styled-components'
 import PropTypes from 'prop-types'
-const Range = Slider.Range;
+import { withHandlers } from 'recompose'
 
+/* eslint-disable no-magic-numbers */
+const enhance = withHandlers({
+  updateLower: ({ end, max, onChange }) => ({ target: { value } }) => {
+    const low = parseInt(value, 10)
+    const upper = (low > end - 4) ? (low + 4) : end
+    const lower = ((low > end - 4) && (upper === max)) ? (max - 4) : low
 
-const fieldHeight = '3.6rem'
+    onChange({ start: lower, end: upper })
+  },
+  updateUpper: ({ start, min, onChange }) => ({ target: { value } }) => {
+    const up = parseInt(value, 10)
+    const lower = (up < start + 4) ? (up - 4) : start
+    const upper = ((up < lower + 4) && (lower === min)) ? 4 : up
 
-const Wrapper = styled.div`
-width: 100%;
-display: flex;
-justify-content: space-between;
-align-items: flex-startAge;
-position: relative;
-height: 5rem;
-`
+    onChange({ start: lower, end: upper })
+  },
+})
+
 const RangeWrapper = styled.div`
-    width: 55%;
-    height:3.6rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+   position: relative;
+   height: 50px;
+   width: 100%;
+   margin: 2rem auto;
+   input[type=range] {
+      position: absolute;
+      &:nth-child(1) {
+         &::-webkit-slider-thumb::before {
+            background-color: red;
+         }
+      }
+      &:nth-child(2) {
+         background: none;
+         &::-webkit-slider-thumb::before {
+             background-color: grey;
+         }
+      }
+   }
 `
-const ErrorWrapper = styled.div`
-    width: 100%;
+
+const Range = styled.input`
+  box-sizing: border-box;
+  appearance: none;
+  width: 80%;
+  margin: 0;
+  padding: 0 2px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 1px;
+  outline: none;
+  background: linear-gradient(to right, ${((p) => `grey ${p.start}%, orchid  ${p.start}%, orchid ${p.end}%, grey ${p.end}%`)}) no-repeat center;
+  background-size: 100% 2px;
+  pointer-events: none;
+  left: 10%;
+  &:active, &:focus {
+    outline: none;
+  }
+  &::-webkit-slider-thumb {
+    height: 2rem;
+    width: 2rem;
+    border-radius: 2rem;
+    background-color: #fff;
+    position: relative;
+    margin: 5px 0;
+    cursor: pointer;
+    appearance: none;
+    pointer-events: all;
+    box-shadow: 0 1px 4px 0.5px rgba(0, 0, 0, 0.25);
+  }
+  &::before {
+    content: '';
+    display: block;
     position: absolute;
-    bottom: 0;
-    text-align: center;
+    top: 13px;
+    left: 100%;
+    width: 2000px;
+    height: 2px;
+  }
 `
 
-const FieldContainer = styled.div`
-    width: 20%;
-    height: 3.6rem;
-    font-family: ${font.formElement};
-    color: ${color.text};
-    -webkit-appearance: none;
-    flex-shrink: 0;
-    position:relative;
-    top: 0;
-    display: flex;
-`
-
-
-const Field = ({ error, onChange, onBlur, value, label, type, required, maxLength, name }) => (
-  <FieldContainer >
-      <Input
-          value={value}
-          onChange={onChange}
-          type={type}
-          name={name}
-          required={required}
-          aria-describedby={label}
-          aria-label={label}
-          aria-required={required}
-          maxLength={maxLength}
-          autoCapitalize="false"
-          autoCorrect="false"
-          rounded
-          back={color.backgroundWhite}
-        />
-    </FieldContainer>
+const SliderView = ({ updateUpper, updateLower, min, max, start, end }) => (
+  <RangeWrapper>
+    <Range type="range" value={start} start={start} end={end} min={min} max={max} onChange={updateLower} />
+    <Range type="range" value={end} min={min} max={max} onChange={updateUpper} />
+  </RangeWrapper>
 )
 
-const MySlider = ({ startAge, endAge, onChange }) => (<Wrapper>
-        <Field
-            name='startAge'
-            value={startAge} />
-        <RangeWrapper>
-            <Range
-                value={[startAge, endAge]}
-                onChange={onChange}
-                allowCross={false} />
-        </RangeWrapper>
-        <Field
-            name='endAge'
-            value={endAge} />
-    </Wrapper>)
+export const Slider = enhance(SliderView)
 
-export default MySlider
-
-MySlider.defaultProps = {
-  startAge: 0,
-  endAge: 100,
+SliderView.propTypes = {
+  updateUpper: PropTypes.func,
+  updateLower: PropTypes.func,
+  max: PropTypes.number,
+  min: PropTypes.number,
+  start: PropTypes.number,
+  end: PropTypes.number,
 }
 
-// export default class MySlider extends React.Component {
-//    state = {
-//        startAge: this.props.start,
-//        endAge: this.props.end,
-//        error: null
-//    }
-
-//    onChange = (field, value) => {
-
-//        const newAge = /[^[0-9]/.test(value) ? this.state[field] : Number(value);
-
-//        const error = (this.state.startAge > this.state.endAge) ?
-//            '���������� �� �� ���� ������ �� �������' : '';
-//        this.setState({ [field]: newAge, error: error });
-
-//    };
-
-//    rangeChange = (value) => {
-//        this.setState({ startAge: value[0], endAge: value[1] });
-//        this.props.onChange("startAge", value[0]);
-//        this.props.onChange("endAge", value[1]);
-//    }
-
-//    render() {
-//        const { startAge, endAge } = this.props;
-//        const { error } = this.state;
-//        return <Wrapper><Field
-//            name='startAge'
-//            value={startAge}
-//            onChange={this.onChange} />
-//            <RangeWrapper>
-//                <Range
-//                    value={[startAge, endAge]}
-//                    onChange={this.rangeChange}
-//                    allowCross={false} />
-//            </RangeWrapper>
-//            <Field
-//                name='endAge'
-//                value={endAge}
-//                onChange={this.onChange} />
-//            <ErrorWrapper>
-//                <Error
-//                    error={this.state.error}
-//                    active={(error && (error.length > 0)) ? true : false} />
-//            </ErrorWrapper>
-//        </Wrapper>;
-//    }
-// }
+SliderView.defaultProps = {
+  updateUpper: null,
+  updateLower: null,
+  max: 100,
+  min: 0,
+  start: 15,
+  end: 60,
+}

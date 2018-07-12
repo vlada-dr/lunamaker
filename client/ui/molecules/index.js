@@ -2,7 +2,7 @@
 export { Field, FieldArea, Calendar } from './field'
 export { LoginField, RegisterField } from './login-field'
 export { Form } from './form'
-export { default as Slider } from './slider'
+export { Slider } from './slider'
 export { Select, GenderDouble, GenderTriple } from './select'
 export { Avatar } from './avatar'
 export { Tag } from './tag'
