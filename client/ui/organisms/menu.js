@@ -57,7 +57,7 @@ class MenuView extends Component {
     return (
       <MenuWrapper scroll={scroll}>
         <Flex width='75%' >
-          <Link to="/"><Name size='2rem' /></Link>
+          <Link to="/"><Name size='1.8rem' /></Link>
           {
             match.path === '/' && (
               <Search

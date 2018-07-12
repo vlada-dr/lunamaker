@@ -1,14 +1,14 @@
 ﻿import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import Fade from 'react-reveal/Fade';
+import Fade from 'react-reveal/Fade'
+import React from 'react'
 import { color } from '../theme'
 
-import React from 'react';
 const Title = styled.span`
     display: inline-block;
     h2 {
-        font-size: ${p => p.size};
-    letter-spacing: 0.3em;
+        font-size: ${(p) => p.size};
+    letter-spacing: 0.5rem;
 margin: 0;
     }
     text-transform: uppercase;
@@ -21,9 +21,9 @@ font-weight: 800;
 export const Name = ({ size }) => <Title size={size}><h2>SurpriseU</h2></Title>
 
 Name.propTypes = {
-    size: PropTypes.string
-};
+  size: PropTypes.string,
+}
 
 Name.defaultTypes = {
-    size: '5rem'
-};
+  size: '5rem',
+}

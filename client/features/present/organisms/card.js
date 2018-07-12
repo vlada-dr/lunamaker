@@ -8,18 +8,19 @@ import { Link } from 'react-router-dom'
 
 export const PresentCard = ({ id, isLiked, onLike, present }) => {
   const { photo, title, content, tags, likes } = present
+  const parts = content.split('.')
+  const info = parts[0] + (parts[1] ? parts[1] : '') + (parts[2] ? '..' : '')
 
   return (
-
     <Card photo={photo} name={title}>
       <Content>
-        {content}
+        {info}
       </Content>
       <Bottom>
         <Link to={`/present/${id}`}>
           <ReadMore>
             Читати далі
-            <Icon name='RightArrow' size='2vh' />
+            <Icon name='RightArrow' size='1.5vh' />
           </ReadMore>
         </Link>
         <Likes >
@@ -69,21 +70,29 @@ align-items: center;
 const Bottom = styled.div`
 color: #282F49;
 display: flex;
+@media (orientation: portrait) {
+  width: 110%;
+  left: -10%;
+}
 width: 100%;
 justify-content: space-between;
+align-items: center;
 max-height: 3vh;
 position: relative;
 bottom: 0;
 `
 
 const ReadMore = styled.div`
-
 color: #444C54;
 display: flex;
 align-items: center;
 text-transform: uppercase;
 letter-spacing: 0.05em;
 font-weight: 500;
+font-size: 0.95rem;
+span {
+  margin: 0.3rem;
+}
 `
 
 const User = Image.extend`
