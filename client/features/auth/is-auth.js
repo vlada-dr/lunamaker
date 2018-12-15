@@ -3,7 +3,7 @@ import { Redirect } from 'react-router'
 import { connect } from 'react-redux'
 
 
-const mapStateToProps = (state) => ({ isAuth: state.firebase.profile.uid })
+const mapStateToProps = (state) => ({ isAuth: state.common.user !== null })
 
 export const Authorized = (WrappedComponent) => {
   /* eslint-disable react/prefer-stateless-function */

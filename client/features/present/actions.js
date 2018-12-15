@@ -22,7 +22,8 @@ import { validate } from '../validations'
 export const all = () => ({
   type: LOAD_PRESENTS,
   payload: presents.all(),
-})
+});
+
 export const update = (key, value) => ({
   type: CHANGE_FIELD,
   key,

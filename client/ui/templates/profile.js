@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import { Container } from '../atoms'
-import img from '../../styles/profile.jpg'
 import { Menu } from '../organisms'
 
 const RootContainer = styled.section`
@@ -14,7 +13,6 @@ const RootContainer = styled.section`
     padding-top: 8vh;
     justify-content: center;
     align-items: center;
-    background-image: url(${img});
     background-size: cover;
 `
 

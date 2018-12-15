@@ -55,7 +55,7 @@ const promiseMiddleware = (store) => (next) => (action) => {
 const localStorageMiddleware = (store) => (next) => (action) => {
   if (action.type === REGISTER || action.type === LOGIN) {
     if (!action.error) {
-      window.localStorage.setItem('id', action.payload.id)
+      window.localStorage.setItem('jwt', action.payload.user.token)
     }
   }
   else if (action.type === LOGOUT) {

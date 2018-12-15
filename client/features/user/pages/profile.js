@@ -19,7 +19,7 @@ const presents = [
 ]
 
 const mapStateToProps = (state) => ({
-  user: state.firebase.profile,
+  user: state.common.user,
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 
-const ProfileView = ({ user: { tags, photo, name, email, uid, age, gender } }) => (
+const ProfileView = ({ user: { tags, image, name, email, uid, age, gender } }) => (
   <ProfileTemplate>
     <Cloud
       leftIcon={<Icon name='Search' color='#888898' size='2.5vh' />}
@@ -36,7 +36,7 @@ const ProfileView = ({ user: { tags, photo, name, email, uid, age, gender } }) =
     >
       <Main>
         <Flex column align='center'>
-          <Avatar src={photo} size='15vh' gender={gender} />
+          <Avatar src={image} size='15vh' gender={gender} />
           <Name>{name}</Name>
           {
             age ? <Age>{age.split('T')[0]}</Age> : null
@@ -44,7 +44,7 @@ const ProfileView = ({ user: { tags, photo, name, email, uid, age, gender } }) =
         </Flex>
         <Tags>
           <Input placeholder='+' />
-          {tags.map((t) => <Tag name={t} check />)}
+          {tags && tags.map((t) => <Tag name={t} check />)}
         </Tags>
       </Main>
       <Cloudlet presents={presents} title='Друзі' to={`/user/${uid}/friends`} />

@@ -7,14 +7,15 @@ import { Link } from 'react-router-dom'
 
 
 export const PresentCard = ({ id, isLiked, onLike, present }) => {
-  const { photo, title, content, tags, likes } = present
-  const parts = content.split('.')
-  const info = parts[0] + (parts[1] ? parts[1] : '') + (parts[2] ? '..' : '')
+  const { photo, title, description, tags, likes, favoritesCount, author } = present
 
   return (
-    <Card photo={photo} name={title}>
+    <Card photo={author.image} name={title}>
+      <Author>
+        {author.username}
+      </Author>
       <Content>
-        {info}
+        {description}
       </Content>
       <Bottom>
         <Link to={`/present/${id}`}>
@@ -24,11 +25,8 @@ export const PresentCard = ({ id, isLiked, onLike, present }) => {
           </ReadMore>
         </Link>
         <Likes >
-          {likes[0] && <User size='3vh' round src={likes[0].photo} />}
-          {likes[1] && <User round size='3vh' src={likes[1].photo} />}
-          {likes[2] && <User round size='3vh' src={likes[2].photo} />}
           <p>
-            {likes.length > 3 ? ` +${likes.length}` : null}
+            {favoritesCount}
           </p>
           <Like liked={isLiked} onClick={onLike} />
         </Likes>
@@ -58,10 +56,19 @@ PresentCard.defaultProps = {
     likes: [],
   },
 }
+
+
+const Author = styled.div`
+  font-size: .8em;
+  text-transform: uppercase;
+  letter-spacing: .3em;
+  color: #BFBFBF;
+  font-weight: 500;
+`
+
 const Content = styled.div`
 overflow: hidden;
 text-overflow: ellipsis;
-height: 70%;
 display: flex;
 justify-content: start;
 align-items: center;
@@ -70,16 +77,11 @@ align-items: center;
 const Bottom = styled.div`
 color: #282F49;
 display: flex;
-@media (orientation: portrait) {
-  width: 110%;
-  left: -10%;
-}
 width: 100%;
 justify-content: space-between;
 align-items: center;
-max-height: 3vh;
 position: relative;
-bottom: 0;
+padding: 8px;
 `
 
 const ReadMore = styled.div`
@@ -95,10 +97,6 @@ span {
 }
 `
 
-const User = Image.extend`
-margin-right: -1.5vh;
-
-`
 
 const Likes = styled.div`
  display: flex;

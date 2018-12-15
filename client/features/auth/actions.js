@@ -3,25 +3,33 @@
   LOGIN_PAGE_UNLOADED,
   REGISTER,
   LOGOUT,
-} from 'types'
-import { auth, db } from 'features/firebase'
+  LOAD_USER,
+} from 'types';
 
+import {
+  auth,
+} from 'api';
 
-export const login = (id) => ({
+export const login = (user) => ({
   type: LOGIN,
-  payload: db.currentUser(id),
-})
+  payload: auth.login(user),
+});
 
 export const unload = () => ({
   type: LOGIN_PAGE_UNLOADED,
-})
+});
+
+export const current = () => ({
+  type: LOAD_USER,
+  payload: auth.current(),
+});
 
 export const register = (user) => ({
   type: REGISTER,
-  payload: db.doCreateUser(user),
-})
+  payload: auth.register(user),
+});
 
 export const logout = () => ({
   type: LOGOUT,
-  payload: auth.doSignOut(),
-})
+  payload: auth.logout(),
+});

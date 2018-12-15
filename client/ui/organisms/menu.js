@@ -5,7 +5,6 @@ import { Link, withRouter } from 'react-router-dom'
 import { compose } from 'recompose'
 import { connect } from 'react-redux'
 
-import { withAuthentication } from 'features/auth'
 import { changeSearchInput, filterOn, searchPresent } from 'features/present/actions'
 import { logout } from 'features/auth/actions'
 import { IconLink, Name, Flex } from 'ui/atoms'
@@ -14,12 +13,10 @@ import { Search } from 'ui/organisms'
 
 
 const mapStateToProps = (state) => ({
-  id: state.firebase.profile.uid,
-  isAuth: state.firebase.profile.uid !== null,
-  isFilter: state.present.isFilter,
-  photo: state.firebase.profile.photoURL,
-  search: state.present.search.title,
-  gender: state.firebase.profile.gender,
+  id: state.common.user ? state.common.user.username : null,
+  isAuth: state.common.user !== null,
+  isFilter: state.isFilter,
+  ...state.common.user,
 })
 
 

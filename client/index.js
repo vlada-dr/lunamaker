@@ -10,7 +10,7 @@ import { createBrowserHistory } from 'history'
 import { globalStyles } from 'ui/theme'
 import { configureStore } from 'configure-store'
 import { Root } from 'routes'
-import { App } from 'ui/layout'
+import App from 'ui/layout'
 const history = createBrowserHistory()
 const store = configureStore({ history })
 

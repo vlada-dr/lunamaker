@@ -5,33 +5,37 @@ const superagent = require('superagent-promise')(require('superagent'), Promise)
 
 const responseBody = (res) => res.body
 
-const baseUrl = 'https://my-json-server.typicode.com/mouire/surpriseu-server'
+const baseUrl = '/api'
 const api = {
   del: (url) => superagent
     .del(baseUrl + url)
+    .set('Authorization', `Token ${window.localStorage.getItem('jwt')}`)
     .then(responseBody),
   get: (url) => superagent
     .get(baseUrl + url)
+    .set('Authorization', `Token ${window.localStorage.getItem('jwt')}`)
     .set('Content-type', 'application/json')
     .then(responseBody),
   put: (url, body) => superagent
     .put(baseUrl + url)
     .send(body)
+    .set('Authorization', `Token ${window.localStorage.getItem('jwt')}`)
     .set('Content-type', 'application/json')
     .then(responseBody),
   post: (url, body) => superagent
     .post(baseUrl + url)
     .send(body)
+    .set('Authorization', `Token ${window.localStorage.getItem('jwt')}`)
     .set('Content-type', 'application/json')
     .then(responseBody),
 }
 
 const auth = {
-  current: () => api.get(''),
-  login: (email, password, rememberMe) => api.post('/Account/Login', { email, password, rememberMe }),
-  register: (user) => api.post('/Account/Register', user),
+  current: () => api.get('/user'),
+  login: (user) => api.post('/users/login', user),
+  register: (user) => api.post('/users', user),
   logout: () => api.post('/Account/LogOff'),
-  update: (user) => api.post('/Users/Edit', user),
+  update: (user) => api.post('/user', user),
 }
 const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`
 

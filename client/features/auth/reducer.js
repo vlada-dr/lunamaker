@@ -20,9 +20,9 @@ export const authReducer = (state = { error: {} }, action) => {
       return {
         ...state,
         loading: false,
-        isAuth: !(action.error),
+        user: action.payload,
         error: action.error,
-      }
+      };
     case REGISTER:
       return {
         ...state,

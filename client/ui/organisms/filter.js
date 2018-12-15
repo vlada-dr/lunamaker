@@ -171,15 +171,18 @@ const Form = styled.div`
 `
 
 const Wrapper = styled.div`
-    background-image: url(${img});
     background-size: cover;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
     margin-bottom: 3vh;
     position: relative;
     top: 0;
     z-index: 1;
     left:0;
-    @media (max-width: 576px) {
+
+     ${(p) => p.isFilter && css`
+        position: sticky;
+        left:0;
+        top: 0;
+            @media (max-width: 576px) {
         height: 40vh;
         background-size: 250%;
         background-position: center top;
@@ -195,10 +198,6 @@ const Wrapper = styled.div`
     @media (min-width: 1200px)  {
         height: 45vh;
     }
-     ${(p) => p.isFilter && css`
-        position: sticky;
-        left:0;
-        top: 0;
     `}
 `
 

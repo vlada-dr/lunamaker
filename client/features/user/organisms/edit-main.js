@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { Field, Calendar, GenderDouble } from 'ui/molecules'
 import { Flex } from 'ui/atoms'
 import { CheckIcon } from 'ui/icons'
-import { auth } from 'features/firebase'
 import { PhotoUnload } from '../atoms'
 
 
@@ -50,7 +49,7 @@ export const Account = ({
       error={errors.photoURL}
       label='Фото'
     />
-    <CheckIcon onClick={auth.updateCurrentUser} />
+    <CheckIcon />
   </Flex>
 )
 

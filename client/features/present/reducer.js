@@ -35,24 +35,23 @@ export const presentReducer = (state = initialState, action) => {
     case ASYNC_START:
       return {
         ...state, loading: true,
-      }
+      };
     case ASYNC_END:
       return {
         ...state, loading: false,
-      }
+      };
     case DELETE_PRESENT:
-      return state
+      return state;
     case EDIT_PRESENT:
       return {
         ...state,
         presentById: action.payload,
-      }
+      };
     case ADD_PRESENT:
       return {
         ...state,
         presentById: action.payload,
-
-      }
+      };
     case CHANGE_FIELD:
       return {
         ...state,
@@ -60,7 +59,7 @@ export const presentReducer = (state = initialState, action) => {
           ...state.edit,
           [action.key]: action.value,
         },
-      }
+      };
     case BLUR_FIELD:
       return {
         ...state,
@@ -75,30 +74,30 @@ export const presentReducer = (state = initialState, action) => {
             [action.key]: true,
           },
         },
-      }
+      };
     case GET_PRESENT_FROM_API:
       return {
         ...state,
         presentById: action.payload,
-      }
+      };
     case GET_PRESENT_FROM_STORE:
       return {
         ...state,
         presentById: state.presents.find((present) => present.id === action.id),
-      }
+      };
     case LOAD_PRESENTS:
       return {
         ...state,
-        presents: action.payload,
-        presentsCount: action.payload.length,
+        presents: action.payload.presents,
+        presentsCount: action.payload.presentsCount,
         currentPage: 0,
-      }
+      };
     case HOME_PAGE_LOADED:
       return {
         ...state,
         isFilter: false,
         search: {},
-      }
+      };
     case FILTER_VISIBILITY:
       return {
         ...state,
@@ -107,7 +106,7 @@ export const presentReducer = (state = initialState, action) => {
           ...state.search,
           tags: [],
         },
-      }
+      };
     case CHANGE_SEARCH_PRESENT:
       return {
         ...state,
@@ -115,7 +114,7 @@ export const presentReducer = (state = initialState, action) => {
           ...state.search,
           [action.key]: action.value,
         },
-      }
+      };
     case ADD_PRESENT_FORM_LOAD:
       return {
         ...state,
@@ -124,7 +123,7 @@ export const presentReducer = (state = initialState, action) => {
           touched: {},
           tags: [],
         },
-      }
+      };
     case EDIT_PRESENT_FORM_LOAD:
       return {
         ...state,
@@ -132,7 +131,7 @@ export const presentReducer = (state = initialState, action) => {
           ...state.presentById,
           errors: {},
         },
-      }
+      };
     default:
       return state
   }

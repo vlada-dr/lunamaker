@@ -2,7 +2,6 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
-import { firebaseConnect } from 'react-redux-firebase'
 import { compose, withStateHandlers, withHandlers } from 'recompose'
 import { Field, Form, Slider, GenderTriple, FieldArea } from 'ui/molecules'
 import { Autocomplete } from 'ui/organisms'
@@ -11,11 +10,11 @@ import { validate } from 'features/validations'
 
 
 const enhance = compose(
-  firebaseConnect(['tags']),
-  connect(({ firebase }) => ({
-    likes: firebase.data.tags,
-    celebrations: firebase.data.tags,
-  })),
+ // firebaseConnect(['tags']),
+//  connect(({ firebase }) => ({
+//    likes: firebase.data.tags,
+ //   celebrations: firebase.data.tags,
+ // })),
   withStateHandlers(
     ({ errors, touched, present }) => ({ errors, touched, present: { } }),
     {

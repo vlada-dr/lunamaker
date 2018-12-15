@@ -8,6 +8,7 @@
   DELETE_PRESENT,
   EDIT_PRESENT,
   ADD_PRESENT,
+  LOAD_USER,
 } from 'types'
 
 
@@ -18,23 +19,26 @@ export const commonReducer = (state = { userLikes: [] }, action) => {
         ...state,
         appLoaded: true,
       }
-
     case REDIRECT:
       return { ...state, redirectTo: null }
+    case LOAD_USER:
+      return {
+        ...state,
+        user: action.payload.user,
+      }
     case LOGOUT:
-      return { ...state, currentUser: null }
+      return { ...state, user: null }
     case LOGIN:
       return {
         ...state,
-        redirectTo: action.error ? null : `/user/${action.payload.uid}`,
-        currentUser: action.error ? null : action.payload,
+        redirectTo: action.error ? null : `/user/${action.payload.username}`,
+        user: action.payload.user,
       }
     case REGISTER:
       return {
         ...state,
-        redirectTo: action.error ? null : `/id${action.payload.uid}`,
-        currentUser: action.error ? null : action.payload,
-        user: action.payload,
+        redirectTo: action.error ? null : `/user/${action.payload.username}`,
+        user: action.payload.user,
       }
     case DELETE_PRESENT:
       return { ...state, redirectTo: '/' }

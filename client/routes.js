@@ -13,7 +13,6 @@ const routes = [
   ...userRoutes(),
   {
     path: '/',
-    exact: true,
     component: Home,
   },
   { component: NotFound },
@@ -30,4 +29,4 @@ export const redirectFrom = (from, to) => ({
   path: from,
   exact: true,
   component: redirectTo(to),
-})
+});

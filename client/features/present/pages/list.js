@@ -2,50 +2,65 @@
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase'
 import { compose } from 'redux'
 import { Spinner } from 'ui/atoms'
 import { PresentCard } from '../organisms'
+import { all } from '../actions'
 
 
-const enhance = compose(
-  firebaseConnect(['presents']),
-  connect(({ firebase }) => ({
-    presents: firebase.data.presents,
-  })),
-)
+const mapStateToProps = (state) => ({
+  presents: state.present.presents,
+})
 
-const ListView = ({ presents }) => (
-  <div>
-    <List>
-      {
-        /* eslint-disable no-nested-ternary */
-        !isLoaded(presents)
-        ? <Spin><Spinner /> </Spin>
-        : isEmpty(presents)
-          ? 'Present list is empty'
-          : presents.map((present) => (
-            <PresentCard
-              key={present}
-              present={present}
-              id={present.id}
-              isLiked={false}
-              onLike={() => console.log('gift is liked/unliked')}
-            />
-          ))
-      }
-    </List>
-  </div>
-)
+const mapDispatchToProps = (dispatch) => ({
+  onLoad: () => dispatch(all()),
+})
 
-ListView.propTypes = {
-  presents: PropTypes.objectOf(PropTypes.any).isRequired,
+class ListView extends React.Component {
+  componentDidMount() {
+    this.props.onLoad();
+  }
+
+
+
+  render () {
+    const { presents } = this.props;
+
+    return (
+      <div>
+        <List>
+          {
+            /* eslint-disable no-nested-ternary */
+            !presents
+              ? <Spin><Spinner /> </Spin>
+              : presents.map((present) => (
+                <PresentCard
+                  key={present}
+                  present={present}
+                  id={present.id}
+                  isLiked={false}
+                  onLike={() => console.log('gift is liked/unliked')}
+                />
+              ))
+          }
+        </List>
+      </div>
+    )
+  }
+
+
+
 }
-export const PresentsList = enhance(ListView)
+ListView.propTypes = {
+  presents: PropTypes.array,
+}
+
+export const PresentsList = connect(mapStateToProps, mapDispatchToProps)(ListView)
 
 const List = styled.div`
-    width: 97vw;
+    width: 100%;
     margin: auto;
+    max-width: 1000px;
     overflow-x: hidden;
     display: flex;
     flex-wrap: wrap;

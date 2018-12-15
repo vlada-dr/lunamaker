@@ -15,14 +15,14 @@ export const userRoutes = () => [
     component: AuthHOC(EditUser),
   },
   {
-    path: '/id:id/offers',
+    path: '/user/:id/offers',
     exact: true,
     component: Offers,
   },
   {
     path: '/user/:id',
     exact: true,
-    component: AuthHOC(Profile),
+    component: Profile,
   },
   {
     path: '/user/:id/likes',

@@ -2,7 +2,7 @@
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose, withStateHandlers, withHandlers } from 'recompose'
-import { auth } from 'features/firebase'
+import { auth } from 'api'
 import { RegisterField, GenderDouble } from 'ui/molecules'
 import { Button, Layout } from 'ui/atoms'
 import { validate } from 'features/validations'
@@ -20,44 +20,27 @@ const enhance = compose(
         user: { ...user, [name]: value },
         touched: { ...touched, [name]: true },
       }),
-      setError: ({ errors }) => (name, value) => ({
-        errors: { ...errors, [name]: validate(name, value) },
-      }),
     },
   ),
   withHandlers({
-    onChange: ({ errors, updateField, setError }) => ({ target: { name, value } }) => {
+    onChange: ({ errors, updateField }) => ({ target: { name, value } }) => {
       updateField(name, value)
-      if (errors[name]) setError(name, value)
     },
-
-    compare: ({ user: { password }, setError }) => ({ target }) => (
-      setError(target.name, [target.value, password])
-    ),
-
-    valid: ({ setError }) => ({ target: { name, value } }) => setError(name, value),
-
     onSubmit: ({ user, touched, errors, onRegister }) => (e) => {
       e.preventDefault()
-      const all = Object.keys(touched).length === 5
-      const withoutErrors = Object.values(errors).map((k) => k.length === 0)
-
-      if (all && withoutErrors) {
-        auth.doCreateUserWithEmailAndPassword(user.email, user.password)
-          .then((res) => onRegister({ uid: res.user.uid, ...user }))
-      }
+      auth.register({ user });
     },
   }),
 )
 
 const RegisterView = ({ valid, errors, onSubmit, onChange, updateField, compare, user }) => {
-  const { name, email, gender, password, password2 } = user
+  const { username, email, gender, password, password2 } = user
 
   return (
     <Layout onSubmit={onSubmit} flow="column" align='center' width='100%' gap={1.6} padding={2}>
       <RegisterField
-        name='name'
-        value={name}
+        name='username'
+        value={username}
         onChange={onChange}
         onBlur={valid}
         error={errors.name}
@@ -81,15 +64,6 @@ const RegisterView = ({ valid, errors, onSubmit, onChange, updateField, compare,
         error={errors.password}
         icon='Password'
         label='Пароль'
-      />
-      <RegisterField
-        name='password2'
-        value={password2}
-        onChange={onChange}
-        onBlur={compare}
-        error={errors.password2}
-        icon='Password'
-        label='Повторіть пароль'
       />
       <GenderDouble
         value={gender}

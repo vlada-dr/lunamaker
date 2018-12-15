@@ -2,7 +2,6 @@
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose, withHandlers, withState } from 'recompose'
-import { auth } from 'features/firebase'
 import { LoginField, Checkbox } from 'ui/molecules'
 import { Button, Layout, Icon, Error, Spinner } from 'ui/atoms'
 import { login } from '../actions'
@@ -16,7 +15,7 @@ const Social = () => (
   </Layout>
 )
 
-const mapDispatchToProps = (dispatch) => ({ onLogin: (id) => dispatch(login(id)) })
+const mapDispatchToProps = (dispatch) => ({ onLogin: (user) => dispatch(login(user)) })
 
 const enhance = compose(
   connect(null, mapDispatchToProps),
@@ -34,10 +33,13 @@ const enhance = compose(
       changeRemember(newValue)
     },
     submitForm: ({ email, password, onLogin, remember, setError }) => (e) => {
-      e.preventDefault()
-      auth.doSignInWithEmailAndPassword(email, password)
-        .then((res) => onLogin(res.user.uid))
-        .catch((error) => setError(error))
+      e.preventDefault();
+      onLogin({
+        user: {
+          email,
+          password,
+        },
+      });
     },
   }),
 )
