@@ -50,4 +50,4 @@ export const commonReducer = (state = { userLikes: [] }, action) => {
     default:
       return state
   }
-}
+};
