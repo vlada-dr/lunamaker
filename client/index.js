@@ -1,34 +1,33 @@
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
-import { BrowserRouter } from 'react-router-dom'
-import { Provider } from 'react-redux'
-import { AppContainer } from 'react-hot-loader'
+import React from "react"
+import ReactDom from "react-dom"
+import { Provider } from "react-redux"
+import { ConnectedRouter } from "connected-react-router"
+import { createBrowserHistory } from "history"
 import { injectGlobal } from 'styled-components'
-import { ConnectedRouter } from 'connected-react-router'
-import { createBrowserHistory } from 'history'
-
 import { globalStyles } from 'ui/theme'
-import { configureStore } from 'configure-store'
-import { Root } from 'routes'
-import App from 'ui/layout'
-const history = createBrowserHistory()
-const store = configureStore({ history })
+
+import { App } from "./app";
+import { configureStore } from "./configure-store";
+
+const root = document.getElementById("root");
+const history = createBrowserHistory();
+const store = configureStore({ history });
 
 injectGlobal`${globalStyles}`
 
-function renderApp() {
-  ReactDOM.render(
+const render = () => {
+  ReactDom.render(
     <Provider store={store}>
       <ConnectedRouter history={history}>
         <App />
       </ConnectedRouter>
     </Provider>,
-    document.getElementById('root'),
+    root,
   )
-}
-
-renderApp()
+};
 
 if (module.hot) {
-  module.hot.accept('ui/layout', renderApp)
+  module.hot.accept("./app", render);
 }
+
+render();

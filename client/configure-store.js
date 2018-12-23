@@ -5,26 +5,35 @@ import { connectRouter, routerMiddleware } from 'connected-react-router'
 import { reducer } from './reducer'
 import { promiseMiddleware, localStorageMiddleware } from './middleware'
 
-export function configureStore({ history, initialState = {} }) {
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const loggerOptions = {
+  predicate: (getState, action) => !action.type.startsWith("@@router/"),
+  collapsed: true,
+};
+
+export function configureStore(
+  { history, initialState = {} } = required("configureStoreOptions"),
+) {
   const connectedRouter = connectRouter(history)
   const middlewares = [
     routerMiddleware(history),
-    createLogger(),
+    createLogger(loggerOptions),
     thunk,
     promiseMiddleware,
     localStorageMiddleware,
-  ]
+  ];
 
   const store = createStore(
     connectedRouter(reducer),
     initialState,
-    applyMiddleware(...middlewares),
-  )
+    composeEnhancers(applyMiddleware(...middlewares)),
+  );
 
   if (module.hot) {
     module.hot.accept('./reducer', () => {
       // eslint-disable-next-line global-require
-      const next = require('./reducer')
+      const next = require('./reducer');
 
       store.replaceReducer(connectedRouter(next.reducer))
     })

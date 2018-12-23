@@ -12,4 +12,4 @@ export const reducer = combineReducers({
   present,
   tag,
   user,
-})
+});
