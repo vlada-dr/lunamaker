@@ -1,11 +1,12 @@
-import { compose, withPropsOnChange } from "recompose"
-import { connect } from "react-redux"
+import { compose, withPropsOnChange } from 'recompose'
+import { connect } from 'react-redux'
 
 import { LOAD_USER } from '../../types';
 import { auth } from '../../api';
 
+
 const mapDispatchToProps = (dispatch) => ({
-  onFetch: () =>dispatch({ type: LOAD_USER, payload: auth.current() }),
+  onFetch: () => dispatch({ type: LOAD_USER, payload: auth.current() }),
 });
 
 const mapStateToProps = (state) => ({

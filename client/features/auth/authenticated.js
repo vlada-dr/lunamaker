@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+
 class WithAuthentication extends React.Component {
   render() {
     const { user } = this.props;

@@ -1,17 +1,17 @@
-﻿import React from 'react'
+import React from 'react'
 import styled, { css, keyframes } from 'styled-components';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose } from 'recompose';
+import { Flex, NavLink, Card, Button, Layout } from 'ui/atoms'
+import { withRouter, Link } from 'react-router-dom';
 import { color } from '../../../ui/theme'
 import { Like } from '../../../ui/molecules'
 import { ProfileTemplate } from '../../../ui/templates'
-import { DailyWrapper} from '../../../ui/pages/home';
-import { Flex, NavLink, Card, Button, Layout } from 'ui/atoms'
+import { DailyWrapper } from '../../../ui/pages/home';
 import { presentById, storeById } from '../actions'
-import { chunk } from './list'
 import { Authenticated } from '../../auth';
-import { withRouter, Link } from 'react-router-dom';
+import { chunk } from './list'
 
 
 const mapStateToProps = (state, ownProps) => ({
@@ -119,7 +119,7 @@ class PresentPageView extends React.Component {
           <div>
             <MainImage src={images[0]} />
             <Column>
-              {images.map(i => <Img><img key={i} src={i} /></Img>)}
+              {images.map((i) => <Img><img key={i} src={i} /></Img>)}
             </Column>
           </div>
           <Content>
@@ -135,14 +135,14 @@ class PresentPageView extends React.Component {
               </Button>
               <Authenticated>
                 <Link to={`${location.pathname}/edit`}>
-                <Button>
+                  <Button>
                   Редагувати
-                </Button>
+                  </Button>
                 </Link>
               </Authenticated>
             </Layout>
             <div>
-              {present.body.split('\n').map(d => <p>{d}</p>)}
+              {present.body.split('\n').map((d) => <p>{d}</p>)}
             </div>
             <h3>
               Коментарi

@@ -1,8 +1,9 @@
-﻿import styled from 'styled-components'
+import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import Fade from 'react-reveal/Fade'
 import React from 'react'
 import { color } from '../theme'
+
 
 const Title = styled.span`
     display: inline-block;

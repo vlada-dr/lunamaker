@@ -1,14 +1,15 @@
-﻿import * as React from 'react'
+import * as React from 'react'
 import styled, { css } from 'styled-components'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { compose } from 'redux'
 import { Spinner } from 'ui/atoms'
 import { Card, Icon, Flex, Header, AspectRatio } from 'ui/atoms'
-import { all } from '../actions'
-import { redirectTo} from 'routes';
+import { redirectTo } from 'routes';
 
 import { Link, withRouter } from 'react-router-dom'
+import { all } from '../actions'
+
 
 const mapStateToProps = (state) => ({
   presents: state.present.presents,
@@ -50,11 +51,11 @@ const Half = styled.div`
   flex: 1 1 50%;
   display: flex;
   
-  ${p => p.second && css`
+  ${(p) => p.second && css`
     order: 2;
   `}
   
-   ${p => p.main && css`
+   ${(p) => p.main && css`
       div {
         width:100%;
       }
@@ -120,7 +121,7 @@ class ListView extends React.Component {
                 />
               </Half>
               <Half>
-                {chunk(row.slice(1), 2).map(column => (
+                {chunk(row.slice(1), 2).map((column) => (
                   <Column key={column[0].title}>
                     {
                       column.map(({ images, slug }) => (

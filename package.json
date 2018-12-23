@@ -6,7 +6,8 @@
     "clean": "rimraf dist/*",
     "build:prod": "cross-env NODE_ENV=production run-s clean build",
     "build": "webpack",
-    "test:lint": "eslint .",
+    "lint": "eslint ./client --fix",
+    "test:lint": "eslint ./client",
     "test": "npm run test:lint"
   },
   "repository": {

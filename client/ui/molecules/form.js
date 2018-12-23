@@ -1,4 +1,4 @@
-﻿import React from 'react'
+import React from 'react'
 import styled, { css } from 'styled-components'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
@@ -17,19 +17,21 @@ const Title = styled.div`
     text-align: center;
     color: #888898;
 `
+
 @withRouter
 export class Form extends React.Component {
     back = () => this.props.history.goBack();
 
     render() {
-        const { children, header, submit } = this.props;
-        return <Cloud>
-            <Title> 
-                {header}
-            </Title>
-            {children}
-            <Icon css={Check} name='Check' color='#1F215F' onClick={submit} />
-        </Cloud>;
+      const { children, header, submit } = this.props;
+
+      return (<Cloud>
+        <Title>
+          {header}
+        </Title>
+        {children}
+        <Icon css={Check} name='Check' color='#1F215F' onClick={submit} />
+      </Cloud>);
     }
 }
 
@@ -42,10 +44,10 @@ const Check = `
 `
 
 Form.propTypes = {
-    children: PropTypes.node.isRequired,
-    header: PropTypes.string,
+  children: PropTypes.node.isRequired,
+  header: PropTypes.string,
 }
 
 Form.defaultProps = {
-    header: 'Редагувати',
+  header: 'Редагувати',
 }

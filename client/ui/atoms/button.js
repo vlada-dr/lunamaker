@@ -1,5 +1,6 @@
-﻿import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
+
 
 export const Button = styled.button`
   padding: 12px 16px;
@@ -21,7 +22,7 @@ export const Button = styled.button`
     background: ${_color.darkBlue};
   }
  
-  ${p => p.secondary && css`
+  ${(p) => p.secondary && css`
     background: white;
     color: ${_color.darkGray};
     border: 1px solid ${_color.blue};
@@ -32,11 +33,11 @@ export const Button = styled.button`
     }
   `}
   
-  ${p => p.uppercase && css`
+  ${(p) => p.uppercase && css`
     text-transform: uppercase;
   `}
   
-  ${p => p.fluid && css`
+  ${(p) => p.fluid && css`
     width: 100%;
     justify-content: center;
     margin: 16px auto;

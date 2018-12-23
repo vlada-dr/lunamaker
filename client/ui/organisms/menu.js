@@ -52,20 +52,22 @@ class MenuView extends Component {
       <MenuWrapper>
         <div>
 
-       <MenuLink to={''}>
+          <MenuLink to="">
           Про нас
-        </MenuLink>
-        <MenuLink to={'/presents/new'}>
+          </MenuLink>
+          <MenuLink to="/presents/new">
           Запропонуйте подарунок
-        </MenuLink> </div>
+          </MenuLink>
+        </div>
         <Logo />
         <div>
-        <MenuLink to={''}>
+          <MenuLink to="">
           Пошук
-        </MenuLink>
-        <MenuLink to={''}>
+          </MenuLink>
+          <MenuLink to="">
           Улюбленi
-        </MenuLink> </div>
+          </MenuLink>
+        </div>
       </MenuWrapper>
     )
   }

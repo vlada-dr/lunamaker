@@ -6,6 +6,7 @@ import { userRoutes } from 'features/user/routes';
 import { Route, Switch } from 'react-router';
 import { Home, NotFound } from './ui/pages';
 
+
 const routes = [
   ...presentsRoutes(),
   ...authRoutes(),
@@ -22,7 +23,7 @@ export const rootRoutes = () => (
   <React.Fragment>
     <Switch>
       {
-        routes.map(route => <Route {...route} />)
+        routes.map((route) => <Route {...route} />)
       }
     </Switch>
   </React.Fragment>

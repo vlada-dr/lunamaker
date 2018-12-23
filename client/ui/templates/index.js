@@ -1,3 +1,2 @@
-﻿export { LoginTemplate } from './login'
-export { CommonTemplate } from './common'
+export { LoginTemplate } from './login'
 export { ProfileTemplate } from './profile'

@@ -1,8 +1,8 @@
-﻿export {
-    PresentPage,
-    PresentsList,
-    NewPresent,
-    EditPresent
-} from './pages'
+export {
+  PresentPage,
+  PresentsList,
+  NewPresent,
+  EditPresent,
+} from './pages';
 
-export { PresentCard } from './organisms'
+export { PresentCard } from './organisms';

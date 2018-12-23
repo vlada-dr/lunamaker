@@ -1,15 +1,16 @@
-import React from "react"
-import ReactDom from "react-dom"
-import { Provider } from "react-redux"
-import { ConnectedRouter } from "connected-react-router"
-import { createBrowserHistory } from "history"
+import React from 'react'
+import ReactDom from 'react-dom'
+import { Provider } from 'react-redux'
+import { ConnectedRouter } from 'connected-react-router'
+import { createBrowserHistory } from 'history'
 import { injectGlobal } from 'styled-components'
 import { globalStyles } from 'ui/theme'
 
-import { App } from "./app";
-import { configureStore } from "./configure-store";
+import { App } from './app';
+import { configureStore } from './configure-store';
 
-const root = document.getElementById("root");
+
+const root = document.getElementById('root');
 const history = createBrowserHistory();
 const store = configureStore({ history });
 
@@ -27,7 +28,7 @@ const render = () => {
 };
 
 if (module.hot) {
-  module.hot.accept("./app", render);
+  module.hot.accept('./app', render);
 }
 
 render();

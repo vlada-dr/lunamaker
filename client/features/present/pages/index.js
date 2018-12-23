@@ -1,4 +1,4 @@
-﻿export { PresentsList } from './list'
+export { PresentsList } from './list'
 export { PresentPage } from './page'
 export { EditPresent } from './edit-present'
 export { NewPresent } from './add-present'

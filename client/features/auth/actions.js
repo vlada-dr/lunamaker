@@ -1,4 +1,4 @@
-﻿import {
+import {
   LOGIN,
   LOGIN_PAGE_UNLOADED,
   REGISTER,
@@ -9,6 +9,7 @@
 import {
   auth,
 } from 'api';
+
 
 export const login = (user) => ({
   type: LOGIN,

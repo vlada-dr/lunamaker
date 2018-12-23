@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import styled, { keyframes } from 'styled-components';
 import { REMOVE_NOTIFICATION } from 'types';
 
+
 const Header = styled.div`
   padding-bottom: ${_size.s};
   text-transform: uppercase;
-  color: ${p => p.color};
+  color: ${(p) => p.color};
 `;
 
 const Message = styled.div`

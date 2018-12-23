@@ -1,6 +1,7 @@
-﻿import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components'
 import PropTypes from 'prop-types'
 import { color } from '../theme'
+
 
 export const Input = styled.input`
   display: flex;

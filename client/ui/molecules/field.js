@@ -1,4 +1,4 @@
-﻿import React from 'react'
+import React from 'react'
 import styled, { css } from 'styled-components'
 import PropTypes from 'prop-types'
 
@@ -83,21 +83,21 @@ export const Field = ({ error, onChange, onBlur, value, label, type, required, m
     <FieldWrapper>
       <FieldLabel>{label}</FieldLabel>
       <Input
-          value={value}
-          onChange={onChange}
-          onBlur={onBlur}
-          type={type}
-          name={name}
-          required={required}
-          aria-describedby={label}
-          aria-label={label}
-          aria-required={required}
-          maxLength={maxLength}
-          autoCapitalize="false"
-          autoCorrect="false"
-          rounded
-          back={color.backgroundWhite}
-        />
+        value={value}
+        onChange={onChange}
+        onBlur={onBlur}
+        type={type}
+        name={name}
+        required={required}
+        aria-describedby={label}
+        aria-label={label}
+        aria-required={required}
+        maxLength={maxLength}
+        autoCapitalize="false"
+        autoCorrect="false"
+        rounded
+        back={color.backgroundWhite}
+      />
     </FieldWrapper>
     <Error error={error} active={!!((error && (error.length > 0)))} />
     {IconValid(error)}
@@ -109,10 +109,10 @@ export const Calendar = ({ error, onChange, onBlur, value, label, name }) => (
     <FieldWrapper calendar>
       <FieldLabel>{label}</FieldLabel>
       <DayPickerInput
-          value={value}
-          name={name}
-          onDayChange={(e) => onChange(name, e)}
-        />
+        value={value}
+        name={name}
+        onDayChange={(e) => onChange(name, e)}
+      />
     </FieldWrapper>
     <Error error={error} active={!!((error && (error.length > 0)))} />
     {IconValid(error)}
@@ -134,22 +134,22 @@ export const FieldArea = ({ error, onChange, onBlur, value, label, type, require
     <FieldWrapper area >
       <FieldLabel>{label}</FieldLabel>
       <Textarea
-          value={value}
-          onChange={onChange}
-          onBlur={onBlur}
-          type={type}
-          name={name}
-          required={required}
-          aria-describedby={label}
-          aria-label={label}
-          aria-required={required}
-          maxLength={maxLength}
-          autoCapitalize="false"
-          autoCorrect="false"
-          bordered
-          back={color.backgroundWhite}
-          height='12rem'
-        />
+        value={value}
+        onChange={onChange}
+        onBlur={onBlur}
+        type={type}
+        name={name}
+        required={required}
+        aria-describedby={label}
+        aria-label={label}
+        aria-required={required}
+        maxLength={maxLength}
+        autoCapitalize="false"
+        autoCorrect="false"
+        bordered
+        back={color.backgroundWhite}
+        height='12rem'
+      />
     </FieldWrapper>
     <Error error={error} active={!!((error && (error.length > 0)))} />
     {IconValid(error)}

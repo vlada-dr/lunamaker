@@ -1,8 +1,8 @@
-﻿import React from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { compose, lifecycle } from 'recompose';;
+import { compose, lifecycle } from 'recompose';
 import { PresentForm } from '../organisms';
 import { getTags } from '../../tag/actions';
 import { add, presentById, edit } from '../actions';
@@ -17,8 +17,8 @@ const enhance = compose(
     }),
     (dispatch) => ({
       getTags: () => dispatch(getTags()),
-      update: present => dispatch(edit(present)),
-      getPresent: id => dispatch(presentById(id)),
+      update: (present) => dispatch(edit(present)),
+      getPresent: (id) => dispatch(presentById(id)),
     }),
   ),
   lifecycle({

@@ -1,18 +1,17 @@
-﻿import React from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
-import { compose, withStateHandlers, withHandlers , withProps} from 'recompose'
+import { compose, withStateHandlers, withHandlers, withProps } from 'recompose'
 import { Field, Form, Slider, GenderTriple, FieldArea } from 'ui/molecules'
 import { Select } from 'ui/organisms'
-import {Button, Input,Textarea, Layout } from 'ui/atoms'
+import { Button, Input, Textarea, Layout } from 'ui/atoms'
 import { ProfileTemplate } from 'ui/templates'
 import { validate } from 'features/validations'
 
-function capitalizeFirstLetters(str){
-  return str.toLowerCase().replace(/^\w|\s\w/g, function (letter) {
-    return letter.toUpperCase();
-  })
+
+function capitalizeFirstLetters(str) {
+  return str.toLowerCase().replace(/^\w|\s\w/g, (letter) => letter.toUpperCase())
 }
 
 
@@ -78,78 +77,77 @@ const FormView = ({
   tags,
   onPriceChange,
 }) => (
-  <>
-    <Layout flow='row' gap={24}>
-      <Layout flow='column' submit={onSubmit} gap={24}>
-        <h3>
+  <>'   '<Layout flow='row' gap={24}>
+    <Layout flow='column' submit={onSubmit} gap={24}>
+      <h3>
           Основна iнформацiя
-        </h3>
-        <Layout flow='row' gap={24}>
-          <Input
-            name='title'
-            value={present.title}
-            onChange={onChange}
-            onBlur={valid}
-            error={errors.title}
-            placeholder='Назва'
-          />
-          <Input
-            name='price'
-            value={present.price}
-            onChange={onPriceChange}
-            onBlur={valid}
-            error={errors.price}
-            placeholder='Цiна'
-          />
-        </Layout>
+      </h3>
+      <Layout flow='row' gap={24}>
         <Input
-          name='description'
-          value={present.description}
+          name='title'
+          value={present.title}
           onChange={onChange}
           onBlur={valid}
-          error={errors.description}
-          placeholder={`Прев'ю`}
+          error={errors.title}
+          placeholder='Назва'
         />
-        <Textarea
-          name='body'
-          value={present.body}
-          onChange={onChange}
+        <Input
+          name='price'
+          value={present.price}
+          onChange={onPriceChange}
           onBlur={valid}
-          error={errors.body}
-          placeholder='Опис'
+          error={errors.price}
+          placeholder='Цiна'
         />
-        <Textarea
-          name='images'
-          value={present.images}
-          onChange={onChange}
-          onBlur={valid}
-          error={errors.images}
-          placeholder='Фото'
-        />
-
       </Layout>
-      <Layout flow='column' submit={onSubmit} gap={24}>
+      <Input
+        name='description'
+        value={present.description}
+        onChange={onChange}
+        onBlur={valid}
+        error={errors.description}
+        placeholder={'Прев\'ю'}
+      />
+      <Textarea
+        name='body'
+        value={present.body}
+        onChange={onChange}
+        onBlur={valid}
+        error={errors.body}
+        placeholder='Опис'
+      />
+      <Textarea
+        name='images'
+        value={present.images}
+        onChange={onChange}
+        onBlur={valid}
+        error={errors.images}
+        placeholder='Фото'
+      />
+
+    </Layout>
+    <Layout flow='column' submit={onSubmit} gap={24}>
       <h3>
           Теги
-        </h3>
-        <GenderTriple
-          value={present.gender}
-          onChange={updateField}
-        />
-        <Slider
-          start={present.startAge}
-          end={present.endAge}
-          onChange={onRangeChange}
-        />
-        <Input
-          name='tagInput'
-          value={present.tagInput}
-          onChange={onChange}
-          placeholder={`Роздiлiть теги комами`}
-        />
-        <Tags>
-          {
-            tags.map(t => (
+      </h3>
+      <GenderTriple
+        value={present.gender}
+        onChange={updateField}
+      />
+      <Slider
+        start={present.startAge}
+        end={present.endAge}
+        onChange={onRangeChange}
+      />
+      <Input
+        name='tagInput'
+        value={present.tagInput}
+        onChange={onChange}
+        placeholder="Роздiлiть теги комами"
+      />
+      <Tags>
+        {
+            tags.map((t) => (
               <Button
                 secondary={!present.tagList || !present.tagList.includes(t)}
                 key={t}
@@ -159,25 +157,23 @@ const FormView = ({
               </Button>
             ))
           }
-        </Tags>
-    <h3>
+      </Tags>
+      <h3>
       Контакти
-    </h3>
-    <Textarea
-      name='contacts'
-      value={present.contacts}
-      onChange={onChange}
-      error={errors.contacts}
-      placeholder='Контакти'
-      style={{ width: '100%'}}
-    />
+      </h3>
+      <Textarea
+        name='contacts'
+        value={present.contacts}
+        onChange={onChange}
+        error={errors.contacts}
+        placeholder='Контакти'
+        style={{ width: '100%' }}
+      />
 
-      </Layout>
     </Layout>
-    <Button onClick={onSubmit} fluid uppercase>
+  </Layout>'   '<Button onClick={onSubmit} fluid uppercase>
       Запропонувати
-    </Button>
-  </>
+                       </Button>' '</>
 );
 
 FormView.propTypes = {

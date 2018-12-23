@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { Button, Layout, Logo, Link } from '../atoms';
 import { FacebookIcon, InstagramIcon } from '../icons';
 
+
 export const Footer = () => (
   <Wrapper>
     <Layout flow='row' width='50vw' align='center'>

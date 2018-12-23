@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import Fade from 'react-reveal/Fade'
 import { Card } from './'
 
+
 const Icon = styled.div`
   width: 42px;
   height: 42px;
@@ -15,7 +16,7 @@ const Icon = styled.div`
 `;
 
 export const AspectRatio = styled.div`
-  width: calc(${p => p.width} - 32px);
+  width: calc(${(p) => p.width} - 32px);
   position: relative;
   display: inline-block;
   

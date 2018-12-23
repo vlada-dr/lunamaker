@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+
 export const Header = styled.h2`
   font-family: ${_font.playfair};
   font-size: 36px;

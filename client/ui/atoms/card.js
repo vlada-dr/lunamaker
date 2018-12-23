@@ -1,9 +1,9 @@
-﻿import React from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import Fade from 'react-reveal/Fade'
-import { Image } from './'
 import { Link } from 'react-router-dom';
+import { Image } from './'
 
 
 export const CardWrapper = ({ photo, name, children, size, background }) => {
@@ -39,7 +39,7 @@ export const Card = styled(Link)`
   cursor: pointer;
   display: block;
   transition: all .3s ease-in-out;
-  background: url('${p => p.background ? p.background : p.photo}') no-repeat center center / cover;
+  background: url('${(p) => p.background ? p.background : p.photo}') no-repeat center center / cover;
   
   &:hover {
     box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.1);
@@ -49,6 +49,6 @@ export const Card = styled(Link)`
 Card.defaultProps = {
   size: 300,
   unit: 'px',
-  to: ''
+  to: '',
 };
 
