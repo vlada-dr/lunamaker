@@ -8,7 +8,7 @@ export const Layout = styled.div`
   display: flex;
   flex-direction: ${(p) => p.flow};
   flex-wrap: ${(p) => p.wrap};
-  padding: ${(p) => `${p.padding}rem`};
+  padding: ${(p) => `${p.padding}px`};
   ${(p) => p.width && css`
     width: ${p.width}
   `};
@@ -20,7 +20,7 @@ export const Layout = styled.div`
   `};
   ${(p) => p.gap && css`
     & > * + * {
-      margin-${marginDir}: ${p.gap}rem;
+      margin-${marginDir}: ${p.gap}px;
     }
   `}
 `
@@ -39,7 +39,7 @@ Layout.defaultProps = {
   wrap: 'nowrap',
   padding: 0,
   gap: 0,
-  justify: undefined,
-  align: undefined,
-  width: '0rem',
-}
+  justify: null,
+  align: null,
+  width: 'auto',
+};

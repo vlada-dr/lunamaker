@@ -1,6 +1,7 @@
 ﻿import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import { Menu, Filter } from '../organisms'
 
 import { Container } from '../atoms'
 
@@ -21,13 +22,13 @@ const PageContainer = styled.main`
     //< Header > { header }</Header>    <Footer />
 export const CommonTemplate = ({ children, header }) => (
     <RootContainer>
-       
+
         <PageContainer>
             <Container>
                 {children}
             </Container>
         </PageContainer>
-    
+
     </RootContainer>
 )
 

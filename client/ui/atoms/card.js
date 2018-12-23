@@ -3,57 +3,52 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import Fade from 'react-reveal/Fade'
 import { Image } from './'
+import { Link } from 'react-router-dom';
 
 
-export const Card = ({ photo, name, children }) => (
-  <Fade bottom >
-    <CardWrapper >
-      <Header>
-      <Img size='20vh' src={photo} />
-      </Header>
-      <Body>
-      <Title>{name}</Title>
-      {children}
-      </Body>
-    </CardWrapper>
-  </Fade>
-)
+export const CardWrapper = ({ photo, name, children, size, background }) => {
+  const transformed = typeof size === 'number' ? `${size}px` : size;
 
-const Img = Image.extend`
-  display: block;
-  position: relative;
-  width: 140px;
-  height: 140px;
-  max-width: 100%;
-  margin: 16px auto;
-  z-index: 4;
-`
+  return (
+    <Card
+      background={photo || background}
+      size={transformed}
+    >
+      <Icon />
+    </Card>
+  );
+};
 
-const Title = styled.div`
-  font-size: 1.3em;
-  letter-spacing: .05em;
-`
+const Icon = styled.div`
+  width: 42px;
+  height: 42px;
+  position: absolute;
+  background: white;
+  border: 2px solid ${_color.darkGray};
+  top: -${_size.s};
+  left: -${_size.s};
+`;
 
-const CardWrapper = styled.div`
-  margin: 16px;
+export const Card = styled(Link)`
+  position: absolute;
+  top: 0; 
+  left: 0;
+  bottom: 0;
+  right: 0;
   text-align: center;
-  position: relative;
-  width: 300px;
-  height: 320px;
-  display: flex;
-  flex-direction: column;
-  font-size: .9em;
-  line-height: 1.5em;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 1);
-    overflow: hidden;
-`
+  cursor: pointer;
+  display: block;
+  transition: all .3s ease-in-out;
+  background: url('${p => p.background ? p.background : p.photo}') no-repeat center center / cover;
+  
+  &:hover {
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.1);
+  }
+`;
 
-const Header = styled.div` 
-   position: relative;
-padding: 8px;
-`
+Card.defaultProps = {
+  size: 300,
+  unit: 'px',
+  to: ''
+};
 
-const Body = styled.div`
- padding: 0 16px 16px;
- `;

@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 
 import { changeSearchInput, filterOn, searchPresent } from 'features/present/actions'
 import { logout } from 'features/auth/actions'
-import { IconLink, Name, Flex } from 'ui/atoms'
+import { Logo } from 'ui/atoms'
 import { Avatar } from 'ui/molecules'
 import { Search } from 'ui/organisms'
 
@@ -16,26 +16,25 @@ const mapStateToProps = (state) => ({
   id: state.common.user ? state.common.user.username : null,
   isAuth: state.common.user !== null,
   isFilter: state.isFilter,
-  ...state.common.user,
-})
-
+  user: state.common.user,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onChange: (value) => dispatch(changeSearchInput(value)),
   filterOn: () => dispatch(filterOn()),
   logout: () => dispatch(logout()),
   onSearch: (present) => dispatch(searchPresent(present)),
-})
+});
 
+const MenuLink = styled(Link)`
+  font-family: ${_font.lato};
+  margin: 0 24px;
+`;
 
 class MenuView extends Component {
   state = {
     windowPosition: window.pageYOffset,
-  }
-
-  componentDidMount = () => window.addEventListener('scroll', this.handleScroll)
-
-  componentWillUnmount = () => window.removeEventListener('scroll', this.handleScroll)
+  };
 
   onChange = (e) => this.props.onChange(e.target.value)
 
@@ -45,38 +44,28 @@ class MenuView extends Component {
 
   logout = () => this.props.logout()
 
-  handleScroll = () => this.setState({ windowPosition: window.pageYOffset })
-
   render() {
-    const { isAuth, gender, photo, id, search, isFilter, match } = this.props
+    const { isAuth, user, gender, photo, id, search, isFilter, match } = this.props
     const scroll = this.state.windowPosition > 0 && !isFilter
 
     return (
-      <MenuWrapper scroll={scroll}>
-        <Flex width='75%' >
-          <Link to="/"><Name size='1.8rem' /></Link>
-          {
-            match.path === '/' && (
-              <Search
-                isFilter={isFilter}
-                onChange={this.onChange}
-                openSearch={this.filterOn}
-                onSearch={this.onSearch}
-                value={search}
-              />
-            )
-          }
-        </Flex>
-        {
-          isAuth ? (
-            <Flex w='25%' child='1rem'>
-              <Link to={`/user/${id}`}>
-                <Avatar src={photo} size='4vh' gender={gender} />
-              </Link>
-              <IconLink onClick={this.logout} to='/login' name='Exit' />
-            </Flex>
-          ) : <IconLink to='/login' name='Enter' />
-        }
+      <MenuWrapper>
+        <div>
+
+       <MenuLink to={''}>
+          Про нас
+        </MenuLink>
+        <MenuLink to={'/presents/new'}>
+          Запропонуйте подарунок
+        </MenuLink> </div>
+        <Logo />
+        <div>
+        <MenuLink to={''}>
+          Пошук
+        </MenuLink>
+        <MenuLink to={''}>
+          Улюбленi
+        </MenuLink> </div>
       </MenuWrapper>
     )
   }
@@ -85,27 +74,32 @@ class MenuView extends Component {
 export const Menu = compose(
   withRouter,
   connect(mapStateToProps, mapDispatchToProps),
-)(MenuView)
+)(MenuView);
 
 const MenuWrapper = styled.div`
+   box-shadow: 0 1px 0 0 rgba(0,0,0,0.1);
+  
+  & > div {
+    display: flex;
+    width: calc(50% - 100px);
+    
+    &:last-child {
+      justify-content: flex-end;
+    }
+  }
+  
+  height: 78px;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   position: fixed;
   top: 0;
   left: 0;
-  transition: all 0.25s ease;
   width: 100%;
-  height: 10vh;
-  padding: 0 5vw;
-  z-index: 2;
-  ${(p) => p.scroll && css`
-    background: white;
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    z-index: 100;
-  `}
-`
-
+  z-index: 100;
+  background: white;
+  padding: 0 64px;
+`;
 
 MenuView.propTypes = {
   filterOn: PropTypes.func,
@@ -118,7 +112,7 @@ MenuView.propTypes = {
   onSearch: PropTypes.func,
   photo: PropTypes.string,
   search: PropTypes.string,
-}
+};
 
 MenuView.defaultProps = {
   filterOn: null,

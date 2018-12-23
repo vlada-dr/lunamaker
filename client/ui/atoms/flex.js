@@ -6,8 +6,11 @@ import PropTypes from 'prop-types'
 export const Flex = styled.div`
   display: flex;
   ${p => p.column && css`
-        flex-direction: column;
+        flex-direction: column${p.reverse ? '-reverse' : ''};
     `}
+     
+    flex-direction: ${p => `${p.direction}${p.reverse ? '-reverse' : ''}`};
+    
  ${p => p.width && css`
         width: ${p => p.width};
     `}
@@ -20,6 +23,7 @@ export const Flex = styled.div`
  ${p => p.m && css`
         margin:  ${p => p.m};
     `}
+    
  & > *  {
      ${p => p.child && css`
          margin: ${ p => p.child };
@@ -34,6 +38,8 @@ export const Flex = styled.div`
  ${(p) => p.align && css`
     align-items: ${p.align}
  `};
+ 
+ 
 `
 
 
@@ -60,4 +66,6 @@ Flex.defaultProps = {
     column: false,
     justify: 'flex-start',
     wrap: false,
+  reverse: false,
+  direction: 'row',
 }

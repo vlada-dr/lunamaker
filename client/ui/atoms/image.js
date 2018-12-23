@@ -6,7 +6,6 @@ import PropTypes from 'prop-types'
 export const Img = styled.div`
   width: ${(p) => p.size};
   height: ${(p) => p.size};
-  border-radius: 50%;
   overflow:hidden;
   background-size:cover;
   display: inline-block;
@@ -15,7 +14,7 @@ export const Img = styled.div`
   `}
 `
 export const Image = Img.extend`
-  background-image:  url(${(p) => p.src});
+  background-image: url(${(p) => p.src});
 `
 
 const Inner = styled.div`

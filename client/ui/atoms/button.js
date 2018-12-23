@@ -1,67 +1,63 @@
-﻿import styled, { css } from 'styled-components'
-import PropTypes from 'prop-types'
-import { color } from '../theme'
-
+﻿import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
 
 export const Button = styled.button`
-    letter-spacing: 0.1em;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    font-size: 1.4rem;
-    padding: 0.56rem 2rem;
-    cursor: pointer;
-    text-transform: uppercase;
-    border: none;
-    border-radius: 2px;
-    -webkit-appearance: none;
-    outline: none !important;
-    position: relative;
-    overflow: hidden;
-    background: transparent;
-    transition: all 0.2s;
+  padding: 12px 16px;
+  font-size: ${_size.m};
+  cursor: pointer;
+  -webkit-appearance: none;
+  outline: none !important;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  border-color: transparent;
+  
+  background: ${_color.blue};
+  color: white;
     
-    ${p => p.darkblue && css`
-        color: white;
-        background: linear-gradient(135deg, #1C1C59, #425598);
-        height: 3.5rem;  
-    `}
-    ${p => p.shine && css`
-        &::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -200%;
-            width: 200%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transform: skewX(-20deg);
-            overflow: hidden;
-            border-radius: 2vh;
-        }
-        &:hover {
-            &::after {
-                animation: shine 1.6s ease;
-            }
-        }
-        @keyframes shine {
-            100% {
-                left: 200%
-            }
-        }
-    `}
-    ${p => p.light && css`
-        color: white;
-        border: 1px solid  white;
-    `}
-`
+  &:hover {
+    background: ${_color.darkBlue};
+  }
+ 
+  ${p => p.secondary && css`
+    background: white;
+    color: ${_color.darkGray};
+    border: 1px solid ${_color.blue};
+    
+    &:hover {
+      background: ${_color.blue};
+      color: white;
+    }
+  `}
+  
+  ${p => p.uppercase && css`
+    text-transform: uppercase;
+  `}
+  
+  ${p => p.fluid && css`
+    width: 100%;
+    justify-content: center;
+    margin: 16px auto;
+  `}
+  
+  svg {
+    width: ${_size.m};
+    height: ${_size.m};
+    margin-right: ${_size.m};
+    fill: ${_color.darkGray};
+  }
+`;
 
 Button.propTypes = {
-    darkblue: PropTypes.bool,
-    light: PropTypes.bool,
-    shine: PropTypes.bool
-}
+  fluid: PropTypes.bool,
+  secondary: PropTypes.bool,
+  uppercase: PropTypes.bool,
+};
 
 Button.defaultProps = {
-    darkblue: false,
-    light: false,
-    shine: false
-}
+  fluid: false,
+  secondary: false,
+  uppercase: false,
+};

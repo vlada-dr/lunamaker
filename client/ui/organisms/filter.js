@@ -172,7 +172,6 @@ const Form = styled.div`
 
 const Wrapper = styled.div`
     background-size: cover;
-    margin-bottom: 3vh;
     position: relative;
     top: 0;
     z-index: 1;

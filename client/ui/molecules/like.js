@@ -15,6 +15,7 @@ const LikeWrapper = styled.div`
   `}
 `
 
+
 export const Like = ({ liked, onClick }) => (
   <LikeWrapper liked={liked}>
     <Icon

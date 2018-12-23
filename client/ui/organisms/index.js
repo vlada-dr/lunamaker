@@ -2,4 +2,5 @@
 export { Menu } from './menu'
 export { default as Autocomplete } from './autocomplete'
 export { Search } from './search'
+export { Footer } from './footer'
 
