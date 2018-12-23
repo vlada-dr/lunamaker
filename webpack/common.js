@@ -4,8 +4,8 @@ const { cpus } = require('os')
 const { resolve } = require('path')
 const {
   optimize: { CommonsChunkPlugin },
-  // NoEmitOnErrorsPlugin,
   EnvironmentPlugin,
+  ProvidePlugin,
 } = require('webpack')
 const HappyPack = require('happypack')
 const HtmlPlugin = require('html-webpack-plugin')
@@ -52,6 +52,7 @@ const config = {
       },
       {
         test: /\.svg$/,
+        exclude: /node_modules/,
         use: 'react-svg-loader',
       },
       {
@@ -63,7 +64,12 @@ const config = {
   },
 
   plugins: [
-    // new NoEmitOnErrorsPlugin(),
+    new ProvidePlugin({
+      _color: ['ui/theme', 'color'],
+      _size: ['ui/theme', 'size'],
+      _font: ['ui/theme', 'font'],
+      media: ['ui/media', 'default'],
+    }),
     new HappyPack({
       threads: cpus().length,
       loaders: ['babel-loader'],
@@ -80,12 +86,8 @@ const config = {
       children: true,
       minChunks: 2,
     }),
-    // new CommonsChunkPlugin({
-    //   name: 'manifest',
-    //   minChunks: Infinity,
-    // }),
     new HtmlPlugin({
-      title: 'SurpriseU',
+      title: 'lunamak☾r',
       template: 'index.tpl.html',
     }),
     new EnvironmentPlugin({
@@ -97,7 +99,7 @@ const config = {
     colors: true,
     children: false,
   },
-}
+};
 
 module.exports = {
   config,
@@ -108,4 +110,4 @@ module.exports = {
 
   DIST,
   SRC,
-}
+};

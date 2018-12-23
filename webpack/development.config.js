@@ -1,11 +1,11 @@
-const { resolve } = require('path')
+const { resolve } = require('path');
 const {
   LoaderOptionsPlugin,
   HotModuleReplacementPlugin,
-} = require('webpack')
-const merge = require('webpack-merge')
+} = require('webpack');
+const merge = require('webpack-merge');
 
-const { config, DIST } = require('./common')
+const { config, DIST } = require('./common');
 
 
 module.exports = merge(config, {
@@ -53,5 +53,4 @@ module.exports = merge(config, {
     },
     host: 'localhost',
   },
-})
-
+});

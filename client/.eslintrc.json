@@ -5,6 +5,7 @@
   },
   "rules": {
     "jsx-a11y/anchor-is-valid": "off",
-    "linebreak-style":  "off"
+    "linebreak-style":  "off",
+    "semi": "off"
   }
 }
