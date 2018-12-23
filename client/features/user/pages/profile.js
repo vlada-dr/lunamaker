@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 import { ProfileTemplate } from 'ui/templates'
 import { Avatar, Tag } from 'ui/molecules'
-import { Cloud, Icon, IconLink, Flex } from 'ui/atoms'
+import { Cloud, Flex } from 'ui/atoms'
 import { FemaleAvatar, MaleAvatar } from 'ui/icons'
 import { onLoad } from '../actions'
 import { Cloudlet } from '../atoms'
@@ -30,10 +30,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const ProfileView = ({ user: { tags, image, name, email, uid, age, gender } }) => (
   <ProfileTemplate>
-    <Cloud
-      leftIcon={<Icon name='Search' color='#888898' size='2.5vh' />}
-      rightIcon={<IconLink to="/edit/account" color='#888898' name='Edit' size='2.5vh' />}
-    >
+    <Cloud>
       <Main>
         <Flex column align='center'>
           <Avatar src={image} size='15vh' gender={gender} />
@@ -51,14 +48,17 @@ const ProfileView = ({ user: { tags, image, name, email, uid, age, gender } }) =
       <Cloudlet presents={presents} title='Вподобані подарунки' to={`/user/${uid}/likes`} />
       <Cloudlet presents={presents} title='Запропоновані подарунки' isAdd to={`/user/${uid}/offers`} />
       <Flex width='100%' justify='space-around' p='0 20%'>
-        <Icon name="Twitter3D" />
-        <Icon name="Google3D" />
-        <Icon name="Facebook3D" />
+
       </Flex>
     </Cloud>
   </ProfileTemplate>
 )
 
+/*
+<Icon name="Twitter3D" />
+        <Icon name="Google3D" />
+        <Icon name="Facebook3D" />
+ */
 export const Profile = connect(mapStateToProps, mapDispatchToProps)(ProfileView)
 
 ProfileView.propTypes = {

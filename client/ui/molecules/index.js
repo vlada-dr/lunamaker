@@ -1,10 +1,6 @@
-﻿export { IconLabel } from './icon-label'
-export { Field, FieldArea, Calendar } from './field'
-export { LoginField, RegisterField } from './login-field'
-export { Form } from './form'
-export { Slider } from './slider'
-export { Select, GenderDouble, GenderTriple } from './select'
-export { Avatar } from './avatar'
-export { Tag } from './tag'
-export { Like } from './like'
-export { Checkbox } from './checkbox'
+﻿export { LoginField, RegisterField } from './login-field';
+export { Slider } from './slider';
+export { Avatar } from './avatar';
+export { Tag } from './tag';
+export { Like } from './like';
+export { Checkbox } from './checkbox';

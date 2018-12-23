@@ -1,8 +1,7 @@
-import * as React from 'react'
+import * as React from 'react';
 import { Link as BaseLink } from 'react-router-dom';
 import styled from 'styled-components';
-import { Icon } from './icon';
-
+import { ArrowRightIcon } from 'ui/icons';
 
 const Wrapper = styled(BaseLink)`
   display: inline-flex;
@@ -31,7 +30,7 @@ export const Link = styled.div`
 
 export const NavLink = ({ to, children }) => (
   <Wrapper to={to}>
-    <Icon name='Back' />
+    <ArrowRightIcon />
     <Link>
       {children}
     </Link>

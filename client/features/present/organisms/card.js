@@ -1,7 +1,7 @@
 ﻿import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import { Card, Image, Icon } from 'ui/atoms'
+import { Card } from 'ui/atoms'
 import { Like } from 'ui/molecules'
 import { Link } from 'react-router-dom'
 import { push } from 'connected-react-router'
@@ -22,7 +22,6 @@ export const PresentCard = ({ id, isLiked, onLike, present }) => {
         <Link to={`/present/${id}`}>
           <ReadMore>
             Читати далі
-            <Icon name='RightArrow' size='1.5vh' />
           </ReadMore>
         </Link>
         <Likes >

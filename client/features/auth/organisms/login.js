@@ -3,15 +3,17 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose, withHandlers, withState } from 'recompose'
 import { LoginField, Checkbox } from 'ui/molecules'
-import { Button, Layout, Icon, Error, Spinner } from 'ui/atoms'
+import { Button, Layout, Error, Spinner } from 'ui/atoms'
 import { login } from '../actions'
-
+/*
+   <Icon size='5vh' name="Twitter3D" />
+    <Icon size='5vh' name="Google3D" />
+    <Icon size='5vh'name="Facebook3D" />
+ */
 
 const Social = () => (
   <Layout flow='row' justify='space-around' width='100%' padding={2}>
-    <Icon size='5vh' name="Twitter3D" />
-    <Icon size='5vh' name="Google3D" />
-    <Icon size='5vh'name="Facebook3D" />
+
   </Layout>
 )
 

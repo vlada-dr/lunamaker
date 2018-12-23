@@ -1,10 +1,13 @@
-import * as React from 'react'
-import { Link as BaseLink } from 'react-router-dom';
+import * as React from 'react';
 import styled from 'styled-components';
-import { Icon } from './icon';
+import { Button } from './button';
 
-
-export const Tag = styled.div`
-  display: inline=flex;
-  
+const Wrapper = styled(Button)`
+  margin: ${_size.s};
 `;
+
+export const Tag = ({ children, ...props }) => (
+  <Wrapper {...props}>
+    #{children}
+  </Wrapper>
+);

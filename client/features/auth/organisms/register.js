@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose, withStateHandlers, withHandlers } from 'recompose'
 import { auth } from 'api'
-import { RegisterField, GenderDouble } from 'ui/molecules'
 import { Button, Layout } from 'ui/atoms'
 import { validate } from 'features/validations'
 import { register } from '../actions'
@@ -64,10 +63,6 @@ const RegisterView = ({ valid, errors, onSubmit, onChange, updateField, compare,
         error={errors.password}
         icon='Password'
         label='Пароль'
-      />
-      <GenderDouble
-        value={gender}
-        onChange={updateField}
       />
       <Button shine darkblue onClick={onSubmit}>Зареєструватися</Button>
     </Layout>

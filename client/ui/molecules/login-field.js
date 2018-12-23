@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { Input, Error } from '../atoms'
 import { color, font, variables } from '../theme'
-import { IconLabel } from './icon-label'
 
 
 const height = 2.4
@@ -42,13 +41,6 @@ const FieldWrapper = styled.div`
 export const LoginField = ({ error, label, name, icon, children, ...rest }) => (
   <FieldContainer>
     <FieldWrapper>
-      <IconLabel
-        name={icon}
-        propHeight={variables.inputHeight}
-        height={height / left}
-        unit={variables.inputUnit}
-        position='left'
-      />
       <Input
         {...rest}
         type={name.includes('pass') ? 'password' : 'text'}
@@ -69,14 +61,7 @@ export const LoginField = ({ error, label, name, icon, children, ...rest }) => (
 
 export const RegisterField = ({ error, ...props }) => {
   const isValid = error !== null ? (
-    <IconLabel
-      name={error.length === 0 ? 'Check' : 'X'}
-      propHeight={variables.inputHeight}
-      unit={variables.fieldUnit}
-      height={height / right}
-      position='right'
-      color={error.length === 0 ? color.success : color.danger}
-    />
+    'error'
   ) : null
 
   return (

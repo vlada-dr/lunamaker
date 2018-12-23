@@ -1,8 +1,6 @@
-﻿import React from 'react'
-import styled, { css, keyframes } from 'styled-components'
-import PropTypes from 'prop-types'
-import { Icon } from '../atoms'
-
+﻿import React from 'react';
+import styled, { css, keyframes } from 'styled-components';
+import PropTypes from 'prop-types';
 
 const opacity = keyframes`
     0% { opacity: 0; }
@@ -15,14 +13,16 @@ const LikeWrapper = styled.div`
   `}
 `
 
-
-export const Like = ({ liked, onClick }) => (
-  <LikeWrapper liked={liked}>
-    <Icon
+/*
+  <Icon
       name='HeartOutline'
       color={liked ? '#7496DB' : '#DBDBE3'}
       onClick={onClick}
     />
+ */
+export const Like = ({ liked, onClick }) => (
+  <LikeWrapper liked={liked}>
+
   </LikeWrapper>
 )
 

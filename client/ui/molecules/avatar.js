@@ -1,9 +1,7 @@
 ﻿import React from 'react'
 import styled, { css } from 'styled-components'
 import PropTypes from 'prop-types'
-import { Icon } from '../atoms'
-
-import { MaleAvatar, FemaleAvatar } from '../icons'
+import { MaleAvatar, FemaleAvatar } from 'ui/icons'
 
 
 const Image = styled.div`

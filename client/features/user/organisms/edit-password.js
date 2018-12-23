@@ -1,6 +1,5 @@
 ﻿import * as React from 'react'
-import { Field } from 'ui/molecules'
-import { Flex } from 'ui/atoms'
+import { Flex, Input } from 'ui/atoms'
 import { withState, withHandlers, compose } from 'recompose'
 import { validate } from 'features/validations'
 
@@ -41,14 +40,14 @@ export const Password = enhance(({
   errors, check,
 }) => (
   <Flex column width='100%' child='0.5rem 0'>
-    <Field
+    <Input
       name='old'
       value={old}
       onChange={({ target: { value } }) => update('old', value)}
       label='Старий пароль'
       type='password'
     />
-    <Field
+    <Input
       name='created'
       value={created}
       onChange={({ target: { value } }) => update('created', value)}
@@ -57,7 +56,7 @@ export const Password = enhance(({
       label='Новий пароль'
       type='password'
     />
-    <Field
+    <Input
       name='repeat'
       value={repeat}
       onChange={({ target: { value } }) => update('repeat', value)}

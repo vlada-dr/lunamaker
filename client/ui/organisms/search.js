@@ -1,7 +1,7 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import PropTypes from 'prop-types'
-import { Icon, Input } from 'ui/atoms'
+import { Input } from 'ui/atoms'
 
 
 const NavIcon = styled.div`
@@ -63,19 +63,11 @@ export const Search = ({ isFilter, value, onChange, onSearch, openSearch }) => (
     {
       isFilter ? (
         <Right>
-          <Icon
-            name='ChevronRightLight'
-            size='2.5vh'
-            onClick={onSearch}
-          />
+
         </Right>
       ) : (
         <SearchIcon>
-          <Icon
-            name='Search'
-            size='2.5vh'
-            onClick={openSearch}
-          />
+
         </SearchIcon>
       )
     }

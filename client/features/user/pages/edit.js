@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Route } from 'react-router-dom'
 import { ProfileTemplate } from 'ui/templates'
 import { Avatar } from 'ui/molecules'
-import { CloudWrapper, Layout } from 'ui/atoms'
+import { Layout } from 'ui/atoms'
 import { TabLink } from '../atoms'
 import { Account, Password, Contacts } from '../organisms'
 import { mainEdit, update, blur } from '../actions'
@@ -20,16 +20,6 @@ const mapDispatchToProps = (dispatch) => ({
   onSubmit: (user) => dispatch(mainEdit(user)),
 })
 
-
-const Wrapper = CloudWrapper.extend`
-  justify-content: flex-start;
-  align-items: center;
-  & > *  {
-    margin: 1rem;
-  }
-`
-
-
 const EditView = ({
   user, edit: { touched, errors },
   updateField, check, onSubmit,
@@ -45,7 +35,7 @@ const EditView = ({
 
   return (
     <ProfileTemplate>
-      <Wrapper>
+      <div>
         <Layout flow='row' justify='space-around'>
           <TabLink to='/edit/account' title='Профіль' />
           <TabLink to='/edit/password' title='Пароль' />
@@ -72,7 +62,7 @@ const EditView = ({
           path="/edit/password"
           component={Password}
         />
-      </Wrapper>
+      </div>
     </ProfileTemplate>
   )
 }

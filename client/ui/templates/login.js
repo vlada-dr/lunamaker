@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom';
 
-import img from '../../styles/login-blue.jpg'
 import { Name, Layout, Button } from '../atoms'
 
 
@@ -13,7 +12,6 @@ const Image = styled.section`
     overflow: hidden;  
     z-index: 3;
     position: relative;
-    background-image: url(${img});
     @media (orientation: portrait) {
         width: 100%;
         height: 20vh;

@@ -1,7 +1,6 @@
 ﻿import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import img from '../../styles/404image.jpg'
 import { Menu } from '../organisms'
 
 const RootContainer = styled.section`

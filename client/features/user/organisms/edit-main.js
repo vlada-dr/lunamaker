@@ -1,7 +1,6 @@
 ﻿import * as React from 'react'
 import PropTypes from 'prop-types'
-import { Field, Calendar, GenderDouble } from 'ui/molecules'
-import { Flex } from 'ui/atoms'
+import { Flex, Input } from 'ui/atoms'
 import { CheckIcon } from 'ui/icons'
 import { PhotoUnload } from '../atoms'
 
@@ -14,11 +13,7 @@ export const Account = ({
   errors,
 }) => (
   <Flex column width='100%' child='0.5rem 0'>
-    <GenderDouble
-      value={user.gender}
-      onChange={onChange}
-    />
-    <Field
+    <Input
       name='displayName'
       value={user.displayName}
       onChange={onChange}
@@ -26,7 +21,7 @@ export const Account = ({
       error={errors.name}
       label="Ім'я"
     />
-    <Field
+    <Input
       name='email'
       value={user.email}
       onChange={onChange}
@@ -34,14 +29,14 @@ export const Account = ({
       error={errors.email}
       label="Ім'я користувача"
     />
-    <Calendar
+    <Input
       name='age'
       value={user.age}
       onChange={onAgeChange}
       label='День народження'
       error={errors.age}
     />
-    <Field
+    <Input
       name='photoURL'
       value={user.photoURL}
       onChange={onChange}

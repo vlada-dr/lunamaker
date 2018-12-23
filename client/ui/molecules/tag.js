@@ -2,15 +2,6 @@
 import styled, { css } from 'styled-components'
 import PropTypes from 'prop-types'
 
-import { Icon } from '../atoms'
-
-const Delete = styled.span`
-    position: relative;
-    right: -0.5rem;
-    width:0.5rem;
-    height: 0.5rem;
-`
-
 const TagWrapper = styled.div`
     font-family: 'Lobster';
     font-size: 1rem;
@@ -35,9 +26,6 @@ const TagWrapper = styled.div`
 
 export const Tag = props => <TagWrapper check={props.check} onClick={props.add} props={props} >
     #{props.name}
-    <Delete>
-        <Icon name='X' size='.5rem' onClick={props.delete} />
-    </Delete>
 </TagWrapper>;
 
 Tag.propTypes = {

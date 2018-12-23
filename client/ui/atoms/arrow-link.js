@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { ArrowRightIcon } from 'ui/icons';
 
-
 const Wrapper = styled(Link)`
   display: inline-flex;
   align-items: center;

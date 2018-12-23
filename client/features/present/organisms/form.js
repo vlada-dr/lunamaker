@@ -1,19 +1,10 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
-import { connect } from 'react-redux'
-import { compose, withStateHandlers, withHandlers, withProps } from 'recompose'
-import { Field, Form, Slider, GenderTriple, FieldArea } from 'ui/molecules'
-import { Select } from 'ui/organisms'
-import { Button, Input, Textarea, Layout } from 'ui/atoms'
-import { ProfileTemplate } from 'ui/templates'
-import { validate } from 'features/validations'
-
-
-function capitalizeFirstLetters(str) {
-  return str.toLowerCase().replace(/^\w|\s\w/g, (letter) => letter.toUpperCase())
-}
-
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { compose, withStateHandlers, withHandlers } from 'recompose';
+import { Slider } from 'ui/molecules';
+import { Button, Input, Textarea, Layout, Tag } from 'ui/atoms';
+import { validate } from 'features/validations';
 
 const enhance = compose(
   withStateHandlers(
@@ -34,8 +25,8 @@ const enhance = compose(
       if (errors[name]) setError(name, value)
     },
     onRangeChange: ({ updateField }) => ({ start, end }) => {
-      updateField('startAge', start)
-      updateField('endAge', end)
+      updateField('startAge', start);
+      updateField('endAge', end);
     },
     onPriceChange: ({ updateField }) => ({ target: { value } }) => {
       updateField('price', value.replace(/[^\d+]/, ''));
@@ -64,6 +55,30 @@ const enhance = compose(
   }),
 )
 
+const FormPart = styled(Layout)`
+  width: 50%;
+  display: inline-flex;
+  padding: ${_size.l};
+  
+  ${media.pho`
+    width: 100%;
+  `}
+`;
+
+const SubminButton = styled(Button);
+
+const Wrapper = styled.div`
+  padding: ${_size.m};
+  
+  ${SubminButton} {
+    display: flex;
+    
+    ${media.pho`
+      width: 100%;
+    `}
+  }
+`;
+
 const FormView = ({
   onChange,
   onRangeChange,
@@ -77,12 +92,12 @@ const FormView = ({
   tags,
   onPriceChange,
 }) => (
-  <>'   '<Layout flow='row' gap={24}>
-    <Layout flow='column' submit={onSubmit} gap={24}>
+  <Wrapper>
+    <FormPart flow='column' gap={24}>
       <h3>
           Основна iнформацiя
       </h3>
-      <Layout flow='row' gap={24}>
+      <Layout flow='row' gap={16}>
         <Input
           name='title'
           value={present.title}
@@ -124,16 +139,22 @@ const FormView = ({
         error={errors.images}
         placeholder='Фото'
       />
-
-    </Layout>
-    <Layout flow='column' submit={onSubmit} gap={24}>
+      <h3>
+        Контакти
+      </h3>
+      <Textarea
+        name='contacts'
+        value={present.contacts}
+        onChange={onChange}
+        error={errors.contacts}
+        placeholder='Контакти'
+        style={{ width: '100%' }}
+      />
+    </FormPart>
+    <FormPart flow='column' gap={24}>
       <h3>
           Теги
       </h3>
-      <GenderTriple
-        value={present.gender}
-        onChange={updateField}
-      />
       <Slider
         start={present.startAge}
         end={present.endAge}
@@ -145,35 +166,24 @@ const FormView = ({
         onChange={onChange}
         placeholder="Роздiлiть теги комами"
       />
-      <Tags>
+      <div>
         {
-            tags.map((t) => (
-              <Button
-                secondary={!present.tagList || !present.tagList.includes(t)}
-                key={t}
-                onClick={() => present.tagList.includes(t) ? onDeleteTag(t) : onAddTag(t)}
-              >
-                #{t}
-              </Button>
-            ))
-          }
-      </Tags>
-      <h3>
-      Контакти
-      </h3>
-      <Textarea
-        name='contacts'
-        value={present.contacts}
-        onChange={onChange}
-        error={errors.contacts}
-        placeholder='Контакти'
-        style={{ width: '100%' }}
-      />
-
-    </Layout>
-  </Layout>'   '<Button onClick={onSubmit} fluid uppercase>
+          tags.map((t) => (
+            <Tag
+              key={t}
+              secondary={!present.tagList || !present.tagList.includes(t)}
+              onClick={() => present.tagList.includes(t) ? onDeleteTag(t) : onAddTag(t)}
+            >
+              #{t}
+            </Tag>
+          ))
+        }
+      </div>
+    </FormPart>
+    <SubminButton onClick={onSubmit} uppercase>
       Запропонувати
-                       </Button>' '</>
+    </SubminButton>
+  </Wrapper>
 );
 
 FormView.propTypes = {
@@ -202,11 +212,6 @@ FormView.defaultProps = {
   },
   updateField: null,
   tags: [],
-}
-export const PresentForm = enhance(FormView)
+};
 
-const Tags = styled.div`
-    & > * {
-      margin: 4px;
-    }
-`
+export const PresentForm = enhance(FormView);

@@ -1,18 +1,17 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { compose, withHandlers, lifecycle } from 'recompose'
-import Suggest from 'ui/images/suggest.png';
-import { connect } from 'react-redux'
-import { getTags } from 'features/tag/actions'
-import { PresentForm } from '../organisms'
+import { compose, lifecycle } from 'recompose';
+import Suggest from 'ui/images/suggest-fluid.png';
+import { connect } from 'react-redux';
+import { getTags } from 'features/tag/actions';
+import { PresentForm } from '../organisms';
 import { add } from '../actions';
-import { Column, Row, MainImage } from './page';
-
+import { Row } from './page';
 
 const mapDispatchToProps = (dispatch) => ({
   getTags: () => dispatch(getTags()),
-  createPresent: (present) => dispatch(add(present)),
+  createPresent: present => dispatch(add(present)),
 });
 
 const mapStateToProps = ({ tag }) => ({
@@ -26,30 +25,56 @@ const enhance = compose(
       this.props.getTags();
     },
   }),
-  // withFirebase,
-  // withHandlers({
-  //  createPresent: ({ firebase }) => (present) => firebase.push('presents', present),
-  // }),
 );
 
-const Col = styled(Column)`
-padding: 0 32px;
-
-  &:last-of-type {
+const Image = styled(Row)`
+  height: 50vh;
+  width: 100vw;
+  justify-content: flex-end;
+  background: #e6e6e2;
   
-  padding: 0;}
+  img {
+    height: 100%;
+    width: auto;
+  }
+  
+  ${media.pho`
+    width: 100vw;
+    height: 100vw;
+    object-fit: cover;
+  `}
 `;
 
+const Header = styled.div`
+  padding: 24px 128px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 50vw;
+  
+  ${media.pho`
+    position: relative;
+    width: 100vw;
+    padding: 0 ${_size.m};
+  `}
+`;
 
 const CreatePresentView = ({ createPresent, tags }) => (
-  <Row>
-    <Col>
-      <PresentForm tags={tags} propsSubmit={createPresent} />
-    </Col>
-    <Col>
-      <MainImage src={Suggest} />
-    </Col>
-  </Row>
+  <>
+    <Image>
+      <img src={Suggest} />
+    </Image>
+    <Header>
+      <h1>
+        Запропонуйте свiй подарунок
+      </h1>
+      <div>
+        Будь ласка, перевірте каталог, перш ніж додавати пропозицію для подарунку.
+        Заповніть форму нижче та дочекайтеся, поки вона пройде перевiрку модеротора
+      </div>
+    </Header>
+    <PresentForm tags={tags} propsSubmit={createPresent} />
+  </>
 );
 
 CreatePresentView.propTypes = {
@@ -61,4 +86,3 @@ CreatePresentView.defaultProps = {
 };
 
 export const NewPresent = enhance(CreatePresentView);
-

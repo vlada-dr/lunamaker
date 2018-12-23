@@ -1,17 +1,16 @@
 ﻿import * as React from 'react'
-import { Field } from 'ui/molecules'
-import { Flex } from 'ui/atoms'
+import { Flex, Input } from 'ui/atoms'
 
 
 export const Password = ({ onChangePassword, isComplex, compare, onChange, errors, password }) => (<Flex column width='100%' child='0.5rem 0'>
-  <Field
+  <Input
 name='oldPassword'
           value={password.oldPassword}
           onChange={onChange}
           label="Старий пароль"
           type='password'
         />
-  <Field
+  <Input
 name='newPassword'
           value={password.newPassword}
           onChange={onChangePassword}
@@ -20,7 +19,7 @@ name='newPassword'
           label="Новий пароль"
           type='password'
         />
-  <Field
+  <Input
 name='repeatPassword'
           value={password.repeatPassword}
           onChange={onChangePassword}

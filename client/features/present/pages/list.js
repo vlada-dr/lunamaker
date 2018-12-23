@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { compose } from 'redux'
 import { Spinner } from 'ui/atoms'
-import { Card, Icon, Flex, Header, AspectRatio } from 'ui/atoms'
+import { Card, Flex, Header } from 'ui/atoms'
 import { redirectTo } from 'routes';
 
 import { Link, withRouter } from 'react-router-dom'
