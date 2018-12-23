@@ -1,23 +1,24 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { AUTH_USER_SET } from 'types'
 
 export const withAuthentication = (Component) => {
   class WithAuthentication extends React.Component {
-    componentDidMount() {
-      const { onSetAuthUser } = this.props
-    }
-
     render() {
+      const { user } = this.props;
+
+      if (!user) {
+        return null;
+      }
+
       return (
         <Component />
       )
     }
   }
 
-  const mapDispatchToProps = (dispatch) => ({
-    onSetAuthUser: (authUser) => dispatch({ type: AUTH_USER_SET, authUser }),
-  })
+  const mapStateToProps = (state) => ({
+    user: state.common.user,
+  });
 
-  return connect(null, mapDispatchToProps)(WithAuthentication)
-}
+  return connect(mapStateToProps)(WithAuthentication)
+};

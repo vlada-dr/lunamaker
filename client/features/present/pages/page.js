@@ -1,103 +1,160 @@
 ﻿import React from 'react'
-import styled, { keyframes } from 'styled-components'
+import styled, { css, keyframes } from 'styled-components';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-
+import { compose } from 'recompose';
 import { color } from '../../../ui/theme'
-import { Image, Icon, Cloud, Spinner, IconLink } from '../../../ui/atoms'
 import { Like } from '../../../ui/molecules'
 import { ProfileTemplate } from '../../../ui/templates'
-
+import { DailyWrapper} from '../../../ui/pages/home';
+import { Flex, NavLink, Card, Button, Layout } from 'ui/atoms'
 import { presentById, storeById } from '../actions'
+import { chunk } from './list'
+import { Authenticated } from '../../auth';
+import { withRouter, Link } from 'react-router-dom';
 
 
 const mapStateToProps = (state, ownProps) => ({
-  present: state.firebase.data.presents[ownProps.match.params.id],
+  present: state.present.presentById,
   historyId: ownProps.match.params.id,
-
-})
+});
 
 const mapDispatchToProps = (dispatch) => ({
-  onLoad: (id) => dispatch(storeById(id)),
-})
+  onLoad: (id) => dispatch(presentById(id)),
+});
 
+export const Row = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  margin-top: 78px;
+  
+   ${media.pho`
+    flex-wrap: wrap;
+  `}
+  
+  & > * {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    
+    ${media.pho`
+      width: 100%;
+    `}
+  }
+`;
 
-class PresentPage extends React.Component {
+export const MainImage = styled.img`
+  width: 50vw;
+  height: 50vw;
+  object-fit: cover;
+`;
+
+export const Column = styled.div`
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  padding: 48px 0 0 32px;
+`;
+
+const Img = styled.div`
+  width: calc(50% - 24px);
+  display: block; 
+  position: relative;
+  margin-bottom: 48px;
+  
+  &:nth-child(2n) {
+    padding-left: 48px;
+    
+    img {
+      top: 96px;
+    }
+  }
+    
+  &::after {
+    content: '';
+    display: block;
+    padding-bottom: 100%;
+  }
+
+  img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+`;
+
+const Content = styled.div`
+  padding: 0 64px;
+  align-items: baseline;
+`;
+
+const EditButton = styled(Button)`
+  position: absolute;
+  top: ${_size.m};
+  right: ${_size.m};
+`;
+
+class PresentPageView extends React.Component {
     state = { liked: false }
+
+    componentDidMount() {
+      this.props.onLoad(this.props.historyId);
+    }
 
     onLike = () => this.setState((prevState) => ({ liked: !prevState.liked }))
 
-
     onRemovePresent = () => true;
+
     render() {
-      const { present } = this.props
+      const { present, history, location } = this.props;
 
-      return (<ProfileTemplate><Cloud rightIcon={<Like liked={this.state.liked} onClick={this.onLike} />}>
-        {present === null ? <Spinner />
-                : <Wrapper>
-                  <Image size='30vh' round src={present.photo} />
-                  <Title>{present.title}</Title>
-                  <Item>
-                    <Item><Icon size='2vh' color='#7496DB' name='UserSimple' />
-                            ж, ч
-                      </Item>
-                    <Item> <Icon size='2vh' color='#7496DB' name='Clock' />
+      if (!present) {
+        return null;
+      }
 
-                        {present.startAge}-{present.endAge}
-                      </Item>
-                    <Item> <Icon size='2vh' color='#7496DB' name='HeartOutline' />
-                               12
-                      </Item>
-                  </Item>
-                  <Info>{present.content}</Info>
-                  </Wrapper>}
-        <Settings>
-            <IconLink color={color.darkGrey} to={`${this.props.match.url}/edit`} name='Pencil' />
-            <Icon color={color.darkGrey} onClick={this.onRemovePresent} name='Trash' />
-          </Settings>
-                               </Cloud>
-              </ProfileTemplate>)
+      const { images } = present;
+
+      return (
+        <Row>
+          <div>
+            <MainImage src={images[0]} />
+            <Column>
+              {images.map(i => <Img><img key={i} src={i} /></Img>)}
+            </Column>
+          </div>
+          <Content>
+            <NavLink to='/'>
+              Back to Accessories
+            </NavLink>
+            <h1>
+              {present.title}
+            </h1>
+            <Layout flow='row' gap={16}>
+              <Button secondary>
+                {present.price} грн
+              </Button>
+              <Authenticated>
+                <Link to={`${location.pathname}/edit`}>
+                <Button>
+                  Редагувати
+                </Button>
+                </Link>
+              </Authenticated>
+            </Layout>
+            <div>
+              {present.body.split('\n').map(d => <p>{d}</p>)}
+            </div>
+            <h3>
+              Коментарi
+            </h3>
+          </Content>
+        </Row>
+      )
     }
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(PresentPage)
-const Wrapper = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: space-around;
-align-items: center;
-padding: 2rem;
-
-`
-
-const Title = styled.div`
-    font-size: 1.6rem;
-    text-align: center;
-    padding: 1rem;
-`
-
-const Item = styled.div`
- display: flex;
-            align-items: center;
-            justify-content: space-around;
-            margin: 0 2rem;
-width: 60%;
-
-`
-
-const Info = styled.div`
- padding: 1vh 0;
-`
-
-const Settings = styled.div`
-
-position: absolute;
-bottom: 2rem;
-margin: auto;
-left: 0;
-right: 0;
-display: flex;
-width: 20%;
-justify-content: space-between;
-`
+export const PresentPage = compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withRouter,
+)(PresentPageView);

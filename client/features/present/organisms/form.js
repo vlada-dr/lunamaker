@@ -2,23 +2,25 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
-import { compose, withStateHandlers, withHandlers } from 'recompose'
+import { compose, withStateHandlers, withHandlers , withProps} from 'recompose'
 import { Field, Form, Slider, GenderTriple, FieldArea } from 'ui/molecules'
-import { Autocomplete } from 'ui/organisms'
+import { Select } from 'ui/organisms'
+import {Button, Input,Textarea, Layout } from 'ui/atoms'
 import { ProfileTemplate } from 'ui/templates'
 import { validate } from 'features/validations'
 
+function capitalizeFirstLetters(str){
+  return str.toLowerCase().replace(/^\w|\s\w/g, function (letter) {
+    return letter.toUpperCase();
+  })
+}
+
 
 const enhance = compose(
- // firebaseConnect(['tags']),
-//  connect(({ firebase }) => ({
-//    likes: firebase.data.tags,
- //   celebrations: firebase.data.tags,
- // })),
   withStateHandlers(
-    ({ errors, touched, present }) => ({ errors, touched, present: { } }),
+    ({ errors }) => ({ errors }),
     {
-      updateField: ({ present, touched }) => (name, value) => ({
+      updateField: ({ touched, present }) => (name, value) => ({
         present: { ...present, [name]: value },
         touched: { ...touched, [name]: true },
       }),
@@ -36,20 +38,28 @@ const enhance = compose(
       updateField('startAge', start)
       updateField('endAge', end)
     },
-    onAddTag: ({ present, updateField }) => (tag) => updateField('tags', present.tags.concat(tag)),
+    onPriceChange: ({ updateField }) => ({ target: { value } }) => {
+      updateField('price', value.replace(/[^\d+]/, ''));
+    },
+    onAddTag: ({ present, updateField }) => (tag) => updateField('tagList', present.tagList.concat(tag)),
     onDeleteTag: ({ present, updateField }) => (tag) => {
-      const newTags = present.tags.filter((t) => t.id !== tag.id)
+      const newTags = present.tagList.filter((t) => t !== tag);
 
-      updateField('tags', newTags)
+      updateField('tagList', newTags)
     },
     valid: ({ setError }) => ({ target: { name, value } }) => setError(name, value),
     onSubmit: ({ present, touched, errors, propsSubmit }) => (e) => {
-      e.preventDefault()
-      const all = Object.keys(touched).length === 4
-      const withoutErrors = Object.values(errors).map((k) => k.length === 0)
+      e.preventDefault();
+      const withoutErrors = Object.values(errors).map((k) => k.length === 0);
 
-      if (all && withoutErrors) {
-        propsSubmit(present)
+      if (withoutErrors) {
+        propsSubmit({
+          present: {
+            ...present,
+            images: present.images.split('\n'),
+            tagList: [...present.tags, ...present.tagInput.split(',')],
+          },
+        })
       }
     },
   }),
@@ -65,64 +75,110 @@ const FormView = ({
   errors,
   present,
   updateField,
-  title,
-  likes,
-  celebrations,
+  tags,
+  onPriceChange,
 }) => (
-  <ProfileTemplate>
-    <Form submit={onSubmit} header={title} >
-      <Field
-        name='title'
-        value={present.title}
-        onChange={onChange}
-        onBlur={valid}
-        error={errors.title}
-        label='Назва'
-      />
-      <FieldArea
-        name='content'
-        value={present.content}
-        onChange={onChange}
-        onBlur={valid}
-        error={errors.content}
-        label='Інформація'
-      />
-      <Field
-        name='photo'
-        value={present.photo}
-        onChange={onChange}
-        onBlur={valid}
-        error={errors.photo}
-        label='Фото'
-      />
-      <GenderTriple
-        value={present.gender}
-        onChange={updateField}
-      />
-      <Slider
-        start={present.startAge}
-        end={present.endAge}
-        onChange={onRangeChange}
-      />
-      <Tags>
-        <Autocomplete
-          width='47%'
-          suggestions={likes}
-          title='Подобається'
-          onAdd={onAddTag}
-          onDelete={onDeleteTag}
+  <>
+    <Layout flow='row' gap={24}>
+      <Layout flow='column' submit={onSubmit} gap={24}>
+        <h3>
+          Основна iнформацiя
+        </h3>
+        <Layout flow='row' gap={24}>
+          <Input
+            name='title'
+            value={present.title}
+            onChange={onChange}
+            onBlur={valid}
+            error={errors.title}
+            placeholder='Назва'
+          />
+          <Input
+            name='price'
+            value={present.price}
+            onChange={onPriceChange}
+            onBlur={valid}
+            error={errors.price}
+            placeholder='Цiна'
+          />
+        </Layout>
+        <Input
+          name='description'
+          value={present.description}
+          onChange={onChange}
+          onBlur={valid}
+          error={errors.description}
+          placeholder={`Прев'ю`}
         />
-        <Autocomplete
-          width='47%'
-          suggestions={celebrations}
-          title='Свята'
-          onAdd={onAddTag}
-          onDelete={onDeleteTag}
+        <Textarea
+          name='body'
+          value={present.body}
+          onChange={onChange}
+          onBlur={valid}
+          error={errors.body}
+          placeholder='Опис'
         />
-      </Tags>
-    </Form>
-  </ProfileTemplate>
-)
+        <Textarea
+          name='images'
+          value={present.images}
+          onChange={onChange}
+          onBlur={valid}
+          error={errors.images}
+          placeholder='Фото'
+        />
+
+      </Layout>
+      <Layout flow='column' submit={onSubmit} gap={24}>
+      <h3>
+          Теги
+        </h3>
+        <GenderTriple
+          value={present.gender}
+          onChange={updateField}
+        />
+        <Slider
+          start={present.startAge}
+          end={present.endAge}
+          onChange={onRangeChange}
+        />
+        <Input
+          name='tagInput'
+          value={present.tagInput}
+          onChange={onChange}
+          placeholder={`Роздiлiть теги комами`}
+        />
+        <Tags>
+          {
+            tags.map(t => (
+              <Button
+                secondary={!present.tagList || !present.tagList.includes(t)}
+                key={t}
+                onClick={() => present.tagList.includes(t) ? onDeleteTag(t) : onAddTag(t)}
+              >
+                #{t}
+              </Button>
+            ))
+          }
+        </Tags>
+    <h3>
+      Контакти
+    </h3>
+    <Textarea
+      name='contacts'
+      value={present.contacts}
+      onChange={onChange}
+      error={errors.contacts}
+      placeholder='Контакти'
+      style={{ width: '100%'}}
+    />
+
+      </Layout>
+    </Layout>
+    <Button onClick={onSubmit} fluid uppercase>
+      Запропонувати
+    </Button>
+  </>
+);
 
 FormView.propTypes = {
   onChange: PropTypes.func,
@@ -134,9 +190,7 @@ FormView.propTypes = {
   errors: PropTypes.objectOf(PropTypes.string),
   present: PropTypes.objectOf(PropTypes.any),
   updateField: PropTypes.func,
-  title: PropTypes.string.isRequired,
-  likes: PropTypes.arrayOf(PropTypes.object),
-  celebrations: PropTypes.arrayOf(PropTypes.object),
+  tags: PropTypes.arrayOf(PropTypes.string),
 }
 
 FormView.defaultProps = {
@@ -148,16 +202,15 @@ FormView.defaultProps = {
   onSubmit: null,
   errors: {},
   present: {
-    tags: [],
+    tagList: [],
   },
   updateField: null,
-  likes: null,
-  celebrations: null,
+  tags: [],
 }
 export const PresentForm = enhance(FormView)
 
 const Tags = styled.div`
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+    & > * {
+      margin: 4px;
+    }
 `

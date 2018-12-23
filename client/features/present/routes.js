@@ -9,7 +9,7 @@ export const presentsRoutes = () => [
   },
   {
     path: '/present/:id',
-    exact: false,
+    exact: true,
     component: PresentPage,
   },
   {
@@ -17,4 +17,4 @@ export const presentsRoutes = () => [
     exact: true,
     component: EditPresent,
   },
-]
+];

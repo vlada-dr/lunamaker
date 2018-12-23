@@ -28,7 +28,7 @@ const rules = {
 
     return error
   },
-  photo: (value) => {
+  images: (value) => {
     const regexp = (/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,63}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/i)
     const error = regexp.test(value) ? '' : 'Введіть дійсний URL'
 
@@ -63,13 +63,23 @@ const rules = {
 
     return error
   },
-  content: (value) => {
+  body: (value) => {
+    const error = (value.length <= 300 && value.length >= 3) ? '' : 'Введіть інформацію'
+
+    return error
+  },
+  description: (value) => {
     const error = (value.length <= 300 && value.length >= 3) ? '' : 'Введіть інформацію'
 
     return error
   },
   startAge: (value) => {
     const error = (value.length <= 30 && value.length >= 3 && value.search(/\d/) == -1) ? '' : 'Введіть назву'
+
+    return error
+  },
+  price: (value) => {
+    const error = value.search(/\d/) === -1 ? '' : 'Введіть назву'
 
     return error
   },

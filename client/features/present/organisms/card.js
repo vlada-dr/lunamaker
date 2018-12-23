@@ -4,13 +4,14 @@ import PropTypes from 'prop-types'
 import { Card, Image, Icon } from 'ui/atoms'
 import { Like } from 'ui/molecules'
 import { Link } from 'react-router-dom'
+import { push } from 'connected-react-router'
 
 
 export const PresentCard = ({ id, isLiked, onLike, present }) => {
-  const { photo, title, description, tags, likes, favoritesCount, author } = present
+  const { slug, photo, title, description, tags, images, favoritesCount, author } = present;
 
   return (
-    <Card photo={author.image} name={title}>
+    <Card photo={images[0]} name={title}>
       <Author>
         {author.username}
       </Author>

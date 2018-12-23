@@ -28,7 +28,7 @@ const initialState = {
     errors: {},
     touched: {},
   },
-}
+};
 
 export const presentReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -78,7 +78,7 @@ export const presentReducer = (state = initialState, action) => {
     case GET_PRESENT_FROM_API:
       return {
         ...state,
-        presentById: action.payload,
+        presentById: action.payload.present,
       };
     case GET_PRESENT_FROM_STORE:
       return {

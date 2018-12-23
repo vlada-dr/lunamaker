@@ -6,13 +6,12 @@
 
 
 
-export const tagReducer = (state = { error: {} }, action) => {
+export const tagReducer = (state = { error: {}, tags: [] }, action) => {
     switch (action.type) {
         case GET_TAGS:
             return {
                 ...state,
-                likes: action.payload.filter(tag => tag.type === 0),
-                holidays: action.payload.filter(tag => tag.type === 1)
+                tags: action.payload.tags,
             };
         default:
             return state;

@@ -35,7 +35,8 @@ export const blur = (key, value) => ({
   error: validate(key, value),
   key,
   value,
-})
+});
+
 export const presentById = (id) => ({
   type: GET_PRESENT_FROM_API,
   payload: presents.get(id),
@@ -50,15 +51,18 @@ export const storeById = (id) => ({
 export const deletePresent = (id) => ({
   type: DELETE_PRESENT,
   payload: presents.del(id),
-})
+});
+
 export const edit = (present) => ({
   type: EDIT_PRESENT,
   payload: presents.edit(present),
-})
+});
+
 export const add = (present) => ({
   type: ADD_PRESENT,
   payload: presents.add(present),
-})
+});
+
 export const changeSearchInput = (value) => ({
   type: CHANGE_SEARCH_PRESENT,
   key: 'title',
