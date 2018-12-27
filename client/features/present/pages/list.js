@@ -1,21 +1,19 @@
-import * as React from 'react'
-import styled, { css } from 'styled-components'
-import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
-import { compose } from 'redux'
-import { Spinner } from 'ui/atoms'
-import { Card, Flex, Header } from 'ui/atoms'
-import { redirectTo } from 'routes';
+import * as React from 'react';
+import styled, { css } from 'styled-components';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { compose } from 'redux';
+import { Header } from 'ui/atoms';
 
-import { Link, withRouter } from 'react-router-dom'
-import { all } from '../actions'
+import { Link, withRouter } from 'react-router-dom';
+import { all } from '../actions';
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   presents: state.present.presents,
-})
+});
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   onLoad: () => dispatch(all()),
 });
 
@@ -94,12 +92,6 @@ class ListView extends React.Component {
         <Header>
           Популярнi
         </Header>
-        <div>
-          Every Sunday we feature
-        </div>
-        <div>
-          the most interesting goods
-        </div>
         <Popular>
           {presents && presents.slice(0, 4).map(({ images, slug }) => (
             <Image
@@ -123,7 +115,7 @@ class ListView extends React.Component {
                 />
               </Half>
               <Half>
-                {chunk(row.slice(1), 2).map((column) => (
+                {chunk(row.slice(1), 2).map(column => (
                   <Column key={column[0].title}>
                     {
                       column.map(({ images, slug }) => (
@@ -141,7 +133,7 @@ class ListView extends React.Component {
           )) : null
         }
       </div>
-    )
+    );
   }
 }
 
@@ -149,8 +141,4 @@ ListView.propTypes = {
   presents: PropTypes.array,
 };
 
-export const PresentsList = compose(
-  withRouter,
-  connect(mapStateToProps, mapDispatchToProps),
-)(ListView);
-
+export const PresentsList = withRouter(connect(mapStateToProps, mapDispatchToProps)(ListView));

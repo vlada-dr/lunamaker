@@ -1,9 +1,9 @@
-import { createLogger } from 'redux-logger'
-import { createStore, applyMiddleware, compose } from 'redux'
-import thunk from 'redux-thunk'
-import { connectRouter, routerMiddleware } from 'connected-react-router'
-import { reducer } from './reducer'
-import { promiseMiddleware, localStorageMiddleware } from './middleware'
+import { createLogger } from 'redux-logger';
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
+import { connectRouter, routerMiddleware } from 'connected-react-router';
+import { reducer } from './reducer';
+import { promiseMiddleware, localStorageMiddleware } from './middleware';
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -13,8 +13,8 @@ const loggerOptions = {
   collapsed: true,
 };
 
-export function configureStore({ history, initialState = {} } = required('configureStoreOptions')) {
-  const connectedRouter = connectRouter(history)
+export function configureStore({ history, initialState = {} }) {
+  const connectedRouter = connectRouter(history);
   const middlewares = [
     routerMiddleware(history),
     createLogger(loggerOptions),
@@ -34,9 +34,9 @@ export function configureStore({ history, initialState = {} } = required('config
       // eslint-disable-next-line global-require
       const next = require('./reducer');
 
-      store.replaceReducer(connectedRouter(next.reducer))
-    })
+      store.replaceReducer(connectedRouter(next.reducer));
+    });
   }
 
-  return store
+  return store;
 }

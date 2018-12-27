@@ -14,3 +14,4 @@ export { NavLink, Link } from './link';
 export { Logo } from './logo';
 export { ArrowLink } from './arrow-link';
 export { Tag } from './tag';
+export { Category } from './category';

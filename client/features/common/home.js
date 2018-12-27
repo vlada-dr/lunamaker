@@ -1,12 +1,12 @@
-import React from 'react'
+import React from 'react';
 import styled, { css } from 'styled-components';
-import DailyItemImage from 'ui/images/daily-item.png';
 import DailyBackgroundImage from 'ui/images/daily-background.png';
-import { PresentsList } from '../../features'
-import { Header, ArrowLink, Layout } from '../atoms'
+import { PresentsList } from 'features';
+import { ArrowLink, Layout, Category } from 'ui/atoms';
+import { withRouter } from 'react-router-dom';
 
 
-const HomeView = () => (
+export const HomePage = withRouter(() => (
   <div>
     <DailyWrapper>
       <img src='https://beridari.ua/image/cache/data/products/China/vino/_MG_0065-600x600.jpg' />
@@ -27,11 +27,28 @@ const HomeView = () => (
         </div>
       </DailyItem>
     </DailyWrapper>
+    <Categories>
+      <Category
+        name='На новий рiк'
+        link='/'
+        image={DailyBackgroundImage}
+      /><Category
+        name='Для сестри'
+        link='/'
+        image={DailyBackgroundImage}
+      /><Category
+        name='На день народження'
+        link='/'
+        image={DailyBackgroundImage}
+      />
+    </Categories>
     <PresentsList />
   </div>
-)
+));
 
-export const Home = HomeView;
+const Categories = styled(Layout)`
+  padding: ${size.m};
+`;
 
 const Date = styled.div`
   font-family: ${font.playfair};
@@ -87,14 +104,4 @@ const Line = styled.div`
   background: ${color.yellow};
   top: 50%;
   bottom: 50%;
-`;
-
-const Text = styled.div`
-  font-size: 16px;
-  color: ${color.lightGray};
-  width: 400px;
-  margin: 16px auto;
-  line-height: 24px;
-  text-align: center;
-  letter-spacing: 0.33px;
 `;

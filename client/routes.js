@@ -4,7 +4,7 @@ import { presentsRoutes } from 'features/present/routes';
 import { authRoutes } from 'features/auth/routes';
 import { userRoutes } from 'features/user/routes';
 import { Route, Switch } from 'react-router';
-import { Home, NotFound } from './ui/pages';
+import { HomePage, NotFoundPage } from 'features/common';
 
 
 const routes = [
@@ -13,10 +13,10 @@ const routes = [
   ...userRoutes(),
   {
     path: '/',
-    component: Home,
+    component: HomePage,
     exact: true,
   },
-  { component: NotFound },
+  { component: NotFoundPage },
 ];
 
 export const rootRoutes = () => (
@@ -29,7 +29,7 @@ export const rootRoutes = () => (
   </React.Fragment>
 );
 
-export const redirectTo = (path, key) => () => <Redirect key={key} to={path} />
+export const redirectTo = (path, key) => () => <Redirect key={key} to={path} />;
 
 export const redirectFrom = (from, to) => ({
   path: from,

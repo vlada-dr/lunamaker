@@ -10,10 +10,10 @@ import { setToken } from 'api';
 
 
 function isPromise(v) {
-  return v && typeof v.then === 'function'
+  return v && typeof v.then === 'function';
 }
 
-const promiseMiddleware = (store) => (next) => (action) => {
+const promiseMiddleware = store => next => action => {
   if (isPromise(action.payload)) {
     store.dispatch({ type: ASYNC_START, subtype: action.type });
 
@@ -21,7 +21,7 @@ const promiseMiddleware = (store) => (next) => (action) => {
     const skipTracking = action.skipTracking;
 
     action.payload.then(
-      (res) => {
+      res => {
         const currentState = store.getState();
 
         if (!skipTracking && currentState.viewChangeCounter !== currentView) {
@@ -33,7 +33,7 @@ const promiseMiddleware = (store) => (next) => (action) => {
         store.dispatch({ type: ASYNC_END, promise: action.payload });
         store.dispatch(action);
       },
-      (error) => {
+      error => {
         const currentState = store.getState();
 
         if (!skipTracking && currentState.viewChangeCounter !== currentView) {
@@ -43,7 +43,7 @@ const promiseMiddleware = (store) => (next) => (action) => {
         action.error = error;
         action.payload = error.response.body;
         if (!action.skipTracking) {
-          store.dispatch({ type: ASYNC_END, promise: action.payload })
+          store.dispatch({ type: ASYNC_END, promise: action.payload });
         }
 
         if (action.payload.errors) {
@@ -55,33 +55,31 @@ const promiseMiddleware = (store) => (next) => (action) => {
           });
         }
 
-        store.dispatch(action)
+        store.dispatch(action);
       },
     );
 
     return;
   }
 
-  next(action)
-}
+  next(action);
+};
 
-const localStorageMiddleware = (store) => (next) => (action) => {
+const localStorageMiddleware = store => next => action => {
   if (action.type === REGISTER || action.type === LOGIN || action.type === LOAD_USER) {
     if (!action.error) {
       window.localStorage.setItem('jwt', action.payload.user.token);
       setToken(action.payload.user.token);
-    }
-    else {
+    } else {
       window.localStorage.setItem('jwt', '');
       setToken(null);
     }
-  }
-  else if (action.type === LOGOUT) {
+  } else if (action.type === LOGOUT) {
     window.localStorage.setItem('jwt', '');
     setToken(null);
   }
 
-  next(action)
+  next(action);
 };
 
-export { promiseMiddleware, localStorageMiddleware }
+export { promiseMiddleware, localStorageMiddleware };
