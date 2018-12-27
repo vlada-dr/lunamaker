@@ -12,6 +12,7 @@ import { compose, withHandlers, lifecycle } from 'recompose'
 const mapStateToProps = (state) => ({
   appLoaded: state.common.appLoaded,
   user: state.common.user,
+  state: state,
 });
 
 const mapDispatchToProps = (dispatch) => ({

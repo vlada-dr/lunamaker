@@ -131,7 +131,4 @@ $RECYCLE.BIN/
 package-lock.json
 dist
 yarn.lock
-.idea/
-.idea/php.xml
-.idea/surpriseu-frontend.iml
-.idea/vcs.xml
+./idea
