@@ -23,7 +23,7 @@ export const rootRoutes = () => (
   <React.Fragment>
     <Switch>
       {
-        routes.map((route) => <Route {...route} />)
+        routes.map(route => <Route key={route.key} {...route} />)
       }
     </Switch>
   </React.Fragment>

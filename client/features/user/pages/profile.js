@@ -1,4 +1,4 @@
-﻿import * as React from 'react'
+import * as React from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -47,9 +47,7 @@ const ProfileView = ({ user: { tags, image, name, email, uid, age, gender } }) =
       <Cloudlet presents={presents} title='Друзі' to={`/user/${uid}/friends`} />
       <Cloudlet presents={presents} title='Вподобані подарунки' to={`/user/${uid}/likes`} />
       <Cloudlet presents={presents} title='Запропоновані подарунки' isAdd to={`/user/${uid}/offers`} />
-      <Flex width='100%' justify='space-around' p='0 20%'>
-
-      </Flex>
+      <Flex width='100%' justify='space-around' p='0 20%' />
     </Cloud>
   </ProfileTemplate>
 )

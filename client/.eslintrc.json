@@ -6,6 +6,8 @@
   "rules": {
     "jsx-a11y/anchor-is-valid": "off",
     "linebreak-style":  "off",
-    "semi": "off"
+    "semi": "off",
+    "arrow-parens": ["error", "as-needed"],
+    "quotes": "off"
   }
 }

@@ -52,7 +52,7 @@ const Range = styled.input`
   border: 0;
   border-radius: 1px;
   outline: none;
-  background: linear-gradient(to right, ${((p) => `grey ${p.start}%, orchid  ${p.start}%, orchid ${p.end}%, grey ${p.end}%`)}) no-repeat center;
+  background: linear-gradient(to right, ${(p => `grey ${p.start}%, orchid  ${p.start}%, orchid ${p.end}%, grey ${p.end}%`)}) no-repeat center;
   background-size: 100% 2px;
   pointer-events: none;
   left: 10%;

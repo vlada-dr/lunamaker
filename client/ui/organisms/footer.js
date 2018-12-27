@@ -6,18 +6,18 @@ import { FacebookIcon, InstagramIcon } from '../icons';
 
 export const Footer = () => (
   <Wrapper>
-    <Layout flow='row' width='50vw' align='center'>
+    <LogoWrapper flow='row' align='center'>
       <Logo />
-    </Layout>
-    <Layout flow='column' width='50%' gap={16}>
+    </LogoWrapper>
+    <Layout flow='column' gap={16}>
       <div>
         Write us
       </div>
-      <Link>
+      <WriteUsLink>
         ashmooree1@gmail.com
-      </Link>
+      </WriteUsLink>
     </Layout>
-    <Layout flow='column' width='50%' gap={16}>
+    <Layout flow='column' gap={16}>
       <div>
         Follow us
       </div>
@@ -33,7 +33,11 @@ export const Footer = () => (
       </Layout>
     </Layout>
   </Wrapper>
-)
+);
+
+const WriteUsLink = styled(Link)`
+  width: fit-content;
+`;
 
 const Wrapper = styled.div`
   height: 140px;
@@ -43,12 +47,35 @@ const Wrapper = styled.div`
   border-top: 1px solid #e6e6e6; 
   position: static;
   bottom: 0;
-     
+  
   & > * {
-    padding-left: 64px;
+    padding: 0 0 0 64px;
+    width: 50%;
     
     &:last-child {
-      padding-right: 64px;
+      padding: 0 64px;
     }
   }
+  
+    
+  ${media.pho`
+    flex-direction: column;
+    height: auto;
+    
+    & > *:not(:first-child) {
+      width: 100%;
+      padding: ${size.m};
+    }
+  `}
+`;
+
+const LogoWrapper = styled(Layout)`
+  ${media.pho`
+    position: absolute;
+    padding: 0;
+    width: 100%;
+    bottom: 198px;
+    justify-content: center;
+    border-top: 1px solid #e6e6e6;
+  `}
 `;

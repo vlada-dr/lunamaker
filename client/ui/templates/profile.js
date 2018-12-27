@@ -1,10 +1,11 @@
-﻿import React from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import { Container } from '../atoms'
 import { Menu } from '../organisms'
 
+``
 const RootContainer = styled.section`
     display: flex;
     min-height: 100vh;
@@ -16,19 +17,19 @@ const RootContainer = styled.section`
     background-size: cover;
 `
 
-//< Header > { header }</Header>    <Footer />
+// < Header > { header }</Header>    <Footer />
 export const ProfileTemplate = ({ children, header }) => (
-    <RootContainer>
-        <Menu />
-        {children}
-    </RootContainer>
+  <RootContainer>
+    <Menu />
+    {children}
+  </RootContainer>
 )
 
 ProfileTemplate.propTypes = {
-    children: PropTypes.node.isRequired,
-    header: PropTypes.node,
+  children: PropTypes.node.isRequired,
+  header: PropTypes.node,
 }
 
 ProfileTemplate.defaultProps = {
-    header: null,
+  header: null,
 }

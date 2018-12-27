@@ -26,7 +26,7 @@ export const chunk = (arr, size) => Array.from({
 const Row = styled.div`
   display: flex;
   flex-flow: row wrap;
-  padding: 0 ${_size.m};
+  padding: 0 ${size.m};
 `;
 
 const Popular = styled(Row)`
@@ -38,12 +38,14 @@ const Popular = styled(Row)`
 `;
 
 const Item = styled(Link)`
-  padding: ${_size.m};
+  padding: ${size.m};
   display: block;
+  width: 100%;
 
   img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
   }
 `;
 
@@ -51,11 +53,11 @@ const Half = styled.div`
   flex: 1 1 50%;
   display: flex;
   
-  ${(p) => p.second && css`
+  ${p => p.second && css`
     order: 2;
   `}
   
-   ${(p) => p.main && css`
+   ${p => p.main && css`
       div {
         width:100%;
       }

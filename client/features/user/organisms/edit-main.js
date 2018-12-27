@@ -1,4 +1,4 @@
-﻿import * as React from 'react'
+import * as React from 'react'
 import PropTypes from 'prop-types'
 import { Flex, Input } from 'ui/atoms'
 import { CheckIcon } from 'ui/icons'

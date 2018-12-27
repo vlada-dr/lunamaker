@@ -1,9 +1,9 @@
 
-const Promise = global.Promise = require('promise')
-const superagent = require('superagent-promise')(require('superagent'), Promise)
+const Promise = global.Promise = require('promise');
+const superagent = require('superagent-promise')(require('superagent'), Promise);
 
 
-const responseBody = (res) => res.body;
+const responseBody = res => res.body;
 
 let token = null;
 
@@ -20,11 +20,11 @@ const withToken = (req) => {
 const baseUrl = '/api';
 
 const api = {
-  del: (url) => superagent
+  del: url => superagent
     .del(baseUrl + url)
     .use(withToken)
     .then(responseBody),
-  get: (url) => superagent
+  get: url => superagent
     .get(baseUrl + url)
     .use(withToken)
     .then(responseBody),
@@ -42,31 +42,31 @@ const api = {
 
 const auth = {
   current: () => api.get('/user'),
-  login: (user) => api.post('/users/login', user),
-  register: (user) => api.post('/users', user),
+  login: user => api.post('/users/login', user),
+  register: user => api.post('/users', user),
   logout: () => api.post('/Account/LogOff'),
-  update: (user) => api.post('/user', user),
-}
+  update: user => api.post('/user', user),
+};
 
-const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`
+const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
 
 const presents = {
   all: () => api.get('/presents?limit=20&offset=0'),
-  get: (id) => api.get(`/presents/${id}`),
-  add: (present) => api.post('/presents', present),
-  del: (id) => api.del(`/presents/${id}`),
-  edit: (present) => api.put(`/presents/${present.id}`, present),
-  search: (present) => api.get(`/presents?${present}`),
-}
+  get: id => api.get(`/presents/${id}`),
+  add: present => api.post('/presents', present),
+  del: id => api.del(`/presents/${id}`),
+  edit: (id, present) => api.put(`/presents/${id}`, present),
+  search: present => api.get(`/presents?${present}`),
+};
 
 const tag = {
   all: () => api.get('/tags'),
-  get: (tg) => api.get(`/tags/${tg.id}`),
-  add: (tg) => api.post('/tags', tg),
-  del: (id) => api.del(`/tags/${id}`),
-  edit: (tg) => api.put(`/tags/${tg.id}`, tg),
+  get: tg => api.get(`/tags/${tg.id}`),
+  add: tg => api.post('/tags', tg),
+  del: id => api.del(`/tags/${id}`),
+  edit: tg => api.put(`/tags/${tg.id}`, tg),
 
-}
+};
 
 export {
   auth,

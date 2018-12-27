@@ -5,14 +5,14 @@ import { REMOVE_NOTIFICATION } from 'types';
 
 
 const Header = styled.div`
-  padding-bottom: ${_size.s};
+  padding-bottom: ${size.s};
   text-transform: uppercase;
-  color: ${(p) => p.color};
+  color: ${p => p.color};
 `;
 
 const Message = styled.div`
   font-weight: 600;
-  margin: ${_size.s} 0;
+  margin: ${size.s} 0;
   font-size: 16px;
 `;
 
@@ -36,9 +36,9 @@ const Wrapper = styled.div`
   left: 0;
   right: 0;
   margin: auto;
-  top: ${_size.l};
-	padding: ${_size.m};
-	border-radius: ${_size.m};
+  top: ${size.l};
+	padding: ${size.m};
+	border-radius: ${size.m};
 	background-color: rgba(255, 255, 255, 0.8);
   box-shadow: 0 3px 5px 0 rgba(0,0,0,0.1);
   animation: ${translate} 1s ease-in-out;
@@ -55,8 +55,8 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const colors = {
-  success: _color.success,
-  error: _color.danger,
+  success: color.success,
+  error: color.danger,
 };
 
 const Notification = (notification) => {

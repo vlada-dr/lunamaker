@@ -1,4 +1,4 @@
-﻿import {
+import {
   HOME_PAGE_LOADED,
   ASYNC_START,
   ASYNC_END,

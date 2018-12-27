@@ -5,37 +5,37 @@ import PropTypes from 'prop-types'
 
 export const Flex = styled.div`
   display: flex;
-  ${(p) => p.column && css`
+  ${p => p.column && css`
         flex-direction: column${p.reverse ? '-reverse' : ''};
     `}
      
-    flex-direction: ${(p) => `${p.direction}${p.reverse ? '-reverse' : ''}`};
+    flex-direction: ${p => `${p.direction}${p.reverse ? '-reverse' : ''}`};
     
- ${(p) => p.width && css`
-        width: ${(p) => p.width};
+ ${p => p.width && css`
+        width: ${p => p.width};
     `}
- ${(p) => p.height && css`
-        height:  ${(p) => p.height};
+ ${p => p.height && css`
+        height:  ${p => p.height};
     `}
- ${(p) => p.p && css`
-        padding:  ${(p) => p.p};
+ ${p => p.p && css`
+        padding:  ${p => p.p};
     `}
- ${(p) => p.m && css`
-        margin:  ${(p) => p.m};
+ ${p => p.m && css`
+        margin:  ${p => p.m};
     `}
     
  & > *  {
-     ${(p) => p.child && css`
-         margin: ${(p) => p.child};
+     ${p => p.child && css`
+         margin: ${p => p.child};
      `}
  }
- ${(p) => p.wrap ? css`
+ ${p => p.wrap ? css`
     flex-wrap: wrap;
  ` : null}
- ${(p) => p.justify && css`
+ ${p => p.justify && css`
     justify-content: ${p.justify}
  `};
- ${(p) => p.align && css`
+ ${p => p.align && css`
     align-items: ${p.align}
  `};
  

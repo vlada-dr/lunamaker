@@ -1,4 +1,4 @@
-﻿import {
+import {
   CHANGE_FIELD,
   GET_PRESENT_FROM_API,
   DELETE_PRESENT,
@@ -13,10 +13,10 @@
   LOAD_PRESENTS,
   GET_PRESENT_FROM_STORE,
 
-} from 'types'
+} from 'types';
 
-import { presents } from 'api'
-import { validate } from '../validations'
+import { presents } from 'api';
+import { validate } from '../validations';
 
 
 export const all = () => ({
@@ -28,7 +28,7 @@ export const update = (key, value) => ({
   type: CHANGE_FIELD,
   key,
   value,
-})
+});
 
 export const blur = (key, value) => ({
   type: BLUR_FIELD,
@@ -37,60 +37,60 @@ export const blur = (key, value) => ({
   value,
 });
 
-export const presentById = (id) => ({
+export const presentById = id => ({
   type: GET_PRESENT_FROM_API,
   payload: presents.get(id),
-})
+});
 
 
-export const storeById = (id) => ({
+export const storeById = id => ({
   type: GET_PRESENT_FROM_STORE,
   id,
-})
+});
 
-export const deletePresent = (id) => ({
+export const deletePresent = id => ({
   type: DELETE_PRESENT,
   payload: presents.del(id),
 });
 
-export const edit = (present) => ({
+export const edit = present => ({
   type: EDIT_PRESENT,
-  payload: presents.edit(present),
+  payload: presents.edit(present.present.slug, present),
 });
 
-export const add = (present) => ({
+export const add = present => ({
   type: ADD_PRESENT,
   payload: presents.add(present),
 });
 
-export const changeSearchInput = (value) => ({
+export const changeSearchInput = value => ({
   type: CHANGE_SEARCH_PRESENT,
   key: 'title',
   value,
-})
+});
 export const changeSearch = (key, value) => ({
   type: CHANGE_SEARCH_PRESENT,
   key,
   value,
-})
+});
 export const filterOff = () => ({
   type: FILTER_VISIBILITY,
   isFilter: false,
-})
+});
 export const filterOn = () => ({
   type: FILTER_VISIBILITY,
   isFilter: true,
-})
+});
 
-export const searchPresent = (present) => ({
+export const searchPresent = present => ({
   type: SEARCH_PRESENT,
   payload: presents.search(present),
-})
-export const refreshTags = (tag) => ({
+});
+export const refreshTags = tag => ({
   type: CHANGE_SEARCH_PRESENT,
   key: 'tags',
   value: tag,
-})
-export const createForm = (type) => ({
+});
+export const createForm = type => ({
   type: type === 'new' ? ADD_PRESENT_FORM_LOAD : EDIT_PRESENT_FORM_LOAD,
-})
+});

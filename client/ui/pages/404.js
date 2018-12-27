@@ -1,7 +1,8 @@
-﻿import React from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Menu } from '../organisms'
+
 
 const RootContainer = styled.section`
     display: flex;
@@ -22,12 +23,11 @@ img {
 height:100%;
 }
 `
-const NotFound = () =>
-    <RootContainer>
-        <Menu />
-        <Image><img src='http://www.bittbox.com/wp-content/uploads/2008/06/10-37-Intriguing-404-Error-Page-Designs.jpg' />
-        </Image> <h3>404 page not found</h3>
-        <p>We are sorry but the page you are looking for does not exist.</p>
-    </RootContainer>
+const NotFound = () => (<RootContainer>
+  <Menu />
+  <Image><img src='http://www.bittbox.com/wp-content/uploads/2008/06/10-37-Intriguing-404-Error-Page-Designs.jpg' />
+  </Image> <h3>404 page not found</h3>
+  <p>We are sorry but the page you are looking for does not exist.</p>
+</RootContainer>)
 
 export default NotFound;

@@ -7,6 +7,7 @@
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/barryvdh/laravel-cors" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/barryvdh/laravel-ide-helper" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/barryvdh/reflection-docblock" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/bensampo/laravel-enum" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/dnoegel/php-xdg-base-dir" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/doctrine/inflector" />
@@ -16,6 +17,8 @@
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/hamcrest/hamcrest-php" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/jakub-onderka/php-console-color" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/jakub-onderka/php-console-highlighter" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/konekt/enum" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/konekt/enum-eloquent" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/laravel/framework" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/laravel/tinker" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/league/flysystem" />
@@ -30,7 +33,6 @@
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/phpdocumentor/reflection-common" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/phpdocumentor/reflection-docblock" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/phpdocumentor/type-resolver" />
-      <excludeFolder url="file://$MODULE_DIR$/api/vendor/phpseclib/phpseclib" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/phpspec/prophecy" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/phpunit/php-code-coverage" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/phpunit/php-file-iterator" />
@@ -61,7 +63,11 @@
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/finder" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/http-foundation" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/http-kernel" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/polyfill-ctype" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/polyfill-mbstring" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/polyfill-php56" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/polyfill-php70" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/polyfill-util" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/process" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/routing" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/symfony/translation" />

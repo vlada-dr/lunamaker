@@ -1,7 +1,8 @@
-﻿import * as React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Layout } from '../atoms';
+
 
 const Square = styled.div`
   transition: all .3s ease-in;
@@ -28,9 +29,7 @@ export const Checkbox = ({ active, text, checked, onClick }) => (
     <Square
       back={checked ? active : '#C8C8CE'}
       onClick={onClick}
-    >
-
-    </Square>
+    />
     <Title>{text}</Title>
   </Layout>
 );

@@ -43,6 +43,11 @@ export const App = enhance(Layout);
 const Content = styled.div`
   z-index: 3;
   position:relative;
+  padding-top: 78px;
+  
+  ${media.pho`
+    padding-top: 96px;
+  `}
 `;
 
 const Wrapper = styled.div`

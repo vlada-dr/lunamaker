@@ -6,9 +6,10 @@ import { Slider } from 'ui/molecules';
 import { Button, Input, Textarea, Layout, Tag } from 'ui/atoms';
 import { validate } from 'features/validations';
 
+
 const enhance = compose(
   withStateHandlers(
-    ({ errors }) => ({ errors }),
+    ({ errors, present }) => ({ errors, present }),
     {
       updateField: ({ touched, present }) => (name, value) => ({
         present: { ...present, [name]: value },
@@ -22,7 +23,7 @@ const enhance = compose(
   withHandlers({
     onChange: ({ errors, updateField, setError }) => ({ target: { name, value } }) => {
       updateField(name, value)
-      if (errors[name]) setError(name, value)
+      if (errors[name]) setError(name, value);
     },
     onRangeChange: ({ updateField }) => ({ start, end }) => {
       updateField('startAge', start);
@@ -31,25 +32,32 @@ const enhance = compose(
     onPriceChange: ({ updateField }) => ({ target: { value } }) => {
       updateField('price', value.replace(/[^\d+]/, ''));
     },
-    onAddTag: ({ present, updateField }) => (tag) => updateField('tagList', present.tagList.concat(tag)),
-    onDeleteTag: ({ present, updateField }) => (tag) => {
-      const newTags = present.tagList.filter((t) => t !== tag);
+    onAddTag: ({ present, updateField }) => tag => updateField('tagList', present.tagList.concat(tag)),
+    onDeleteTag: ({ present, updateField }) => tag => {
+      const newTags = present.tagList.filter(t => t !== tag);
 
       updateField('tagList', newTags)
     },
     valid: ({ setError }) => ({ target: { name, value } }) => setError(name, value),
-    onSubmit: ({ present, touched, errors, propsSubmit }) => (e) => {
+    onSubmit: ({ present, errors, propsSubmit }) => e => {
       e.preventDefault();
-      const withoutErrors = Object.values(errors).map((k) => k.length === 0);
+
+      const withoutErrors = errors ? Object.values(errors).map(k => k.length === 0) : true;
+
+      let tagList = present.tagList || [];
+
+      if (present.tagInput) {
+        tagList = [...tagList, ...present.tagInput.split(',')];
+      }
 
       if (withoutErrors) {
         propsSubmit({
           present: {
             ...present,
-            images: present.images.split('\n'),
-            tagList: [...present.tags, ...present.tagInput.split(',')],
+            images: present.images ? present.images.split('\n') : [],
+            tagList,
           },
-        })
+        });
       }
     },
   }),
@@ -58,17 +66,17 @@ const enhance = compose(
 const FormPart = styled(Layout)`
   width: 50%;
   display: inline-flex;
-  padding: ${_size.l};
+  padding: ${size.l};
   
   ${media.pho`
     width: 100%;
   `}
 `;
 
-const SubminButton = styled(Button);
+const SubminButton = styled(Button)``;
 
 const Wrapper = styled.div`
-  padding: ${_size.m};
+  padding: ${size.m};
   
   ${SubminButton} {
     display: flex;
@@ -168,13 +176,13 @@ const FormView = ({
       />
       <div>
         {
-          tags.map((t) => (
+          tags.map(t => (
             <Tag
               key={t}
               secondary={!present.tagList || !present.tagList.includes(t)}
               onClick={() => present.tagList.includes(t) ? onDeleteTag(t) : onAddTag(t)}
             >
-              #{t}
+              {t}
             </Tag>
           ))
         }

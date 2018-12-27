@@ -1,4 +1,4 @@
-﻿import {
+import {
   ASYNC_START,
   ASYNC_END,
   LOGIN,
@@ -70,7 +70,8 @@ const localStorageMiddleware = (store) => (next) => (action) => {
     if (!action.error) {
       window.localStorage.setItem('jwt', action.payload.user.token);
       setToken(action.payload.user.token);
-    } else {
+    }
+    else {
       window.localStorage.setItem('jwt', '');
       setToken(null);
     }

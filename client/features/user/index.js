@@ -1,1 +1,1 @@
-﻿export { Profile,Friends,Likes,Offers,EditUser } from './pages'
+export { Profile, Friends, Likes, Offers, EditUser } from './pages'

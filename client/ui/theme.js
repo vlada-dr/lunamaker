@@ -1,4 +1,4 @@
-﻿const css = String.raw;
+const css = String.raw;
 
 export const color = {
   primary: '#3897f0',

@@ -1,4 +1,4 @@
-﻿export const validate = (name, value) => {
+export const validate = (name, value) => {
   const error = String(value).replace(/\s+/g, '').length == 0
     ? 'Заповніть поле' : rules[name](value)
 

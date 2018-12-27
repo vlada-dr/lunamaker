@@ -7,8 +7,8 @@ export const Textarea = styled.textarea`
   flex: 1 0 0px;
   padding: 16px;
   font-size: 16px;
-  color: ${_color.darkGray};
-  border: 1px solid ${_color.gray};   
+  color: ${color.darkGray};
+  border: 1px solid ${color.gray};   
   overflow: hidden;
   outline: none;
   text-overflow: ellipsis;
@@ -17,6 +17,6 @@ export const Textarea = styled.textarea`
 
   &:focus {
     outline:none;
-    border: 1px solid ${_color.blue};
+    border: 1px solid ${color.blue};
   }
 `;

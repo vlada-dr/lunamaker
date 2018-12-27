@@ -15,10 +15,10 @@ const enhance = compose(
       present: state.present.presentById,
       tags: state.tag.tags,
     }),
-    (dispatch) => ({
+    dispatch => ({
       getTags: () => dispatch(getTags()),
-      update: (present) => dispatch(edit(present)),
-      getPresent: (id) => dispatch(presentById(id)),
+      update: present => dispatch(edit(present)),
+      getPresent: id => dispatch(presentById(id)),
     }),
   ),
   lifecycle({
@@ -37,17 +37,17 @@ const initialTouched = {
 };
 
 const PageWrapper = styled.div`
-  padding: 78px 48px 0;
+  padding: 0 48px;
 
   h3 {
     margin-bottom: 0;
   }
 `;
 
-const UpdatePresentView = ({ updatePresent, present, tags }) => present.images ? (
+const UpdatePresentView = ({ update, present, tags }) => present.images ? (
   <PageWrapper>
     <PresentForm
-      propsSubmit={updatePresent}
+      propsSubmit={update}
       present={{
         ...present,
         images: present.images.join('\n'),
@@ -61,12 +61,12 @@ const UpdatePresentView = ({ updatePresent, present, tags }) => present.images ?
 
 UpdatePresentView.propTypes = {
   present: PropTypes.objectOf(PropTypes.string),
-  updatePresent: PropTypes.func,
-}
+  update: PropTypes.func,
+};
 
 UpdatePresentView.defaultProps = {
   present: {},
-  updatePresent: null,
-}
+  update: null,
+};
 
 export const EditPresent = enhance(UpdatePresentView)

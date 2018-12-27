@@ -1,6 +1,7 @@
-﻿import React from 'react';
+import React from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
+
 
 const opacity = keyframes`
     0% { opacity: 0; }
@@ -8,7 +9,7 @@ const opacity = keyframes`
 `
 
 const LikeWrapper = styled.div`
-  ${(p) => p.liked && css`
+  ${p => p.liked && css`
     animation: ${opacity} 1s both;
   `}
 `
@@ -21,9 +22,7 @@ const LikeWrapper = styled.div`
     />
  */
 export const Like = ({ liked, onClick }) => (
-  <LikeWrapper liked={liked}>
-
-  </LikeWrapper>
+  <LikeWrapper liked={liked} />
 )
 
 Like.propTypes = {

@@ -1,17 +1,12 @@
-import React from 'react'
+import React from 'react';
 import styled, { css, keyframes } from 'styled-components';
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import { Flex, NavLink, Card, Button, Layout } from 'ui/atoms'
+import { Flex, NavLink, Card, Button, Layout, Tag } from 'ui/atoms';
 import { withRouter, Link } from 'react-router-dom';
-import { color } from '../../../ui/theme'
-import { Like } from '../../../ui/molecules'
-import { ProfileTemplate } from '../../../ui/templates'
-import { DailyWrapper } from '../../../ui/pages/home';
-import { presentById, storeById } from '../actions'
+import { presentById } from '../actions'
 import { Authenticated } from '../../auth';
-import { chunk } from './list'
 
 
 const mapStateToProps = (state, ownProps) => ({
@@ -26,7 +21,6 @@ const mapDispatchToProps = (dispatch) => ({
 export const Row = styled.div`
   display: flex;
   flex-flow: row nowrap;
-  margin-top: 78px;
   
    ${media.pho`
     flex-wrap: wrap;
@@ -90,8 +84,8 @@ const Content = styled.div`
 
 const EditButton = styled(Button)`
   position: absolute;
-  top: ${_size.m};
-  right: ${_size.m};
+  top: ${size.m};
+  right: ${size.m};
 `;
 
 class PresentPageView extends React.Component {
@@ -119,7 +113,7 @@ class PresentPageView extends React.Component {
           <div>
             <MainImage src={images[0]} />
             <Column>
-              {images.map((i) => <Img><img key={i} src={i} /></Img>)}
+              {images.map(i => <Img key={i}><img src={i} /></Img>)}
             </Column>
           </div>
           <Content>
@@ -141,15 +135,18 @@ class PresentPageView extends React.Component {
                 </Link>
               </Authenticated>
             </Layout>
+            <Layout flow='row' wrap>
+              {present.tagList.map(t => <Tag key={t}>{t}</Tag>)}
+            </Layout>
             <div>
-              {present.body.split('\n').map((d) => <p>{d}</p>)}
+              {present.body.split('\n').map(d => <p key={d}>{d}</p>)}
             </div>
             <h3>
               Коментарi
             </h3>
           </Content>
         </Row>
-      )
+      );
     }
 }
 

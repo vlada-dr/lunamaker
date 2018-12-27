@@ -1,9 +1,10 @@
 import React from 'react'
-import { Header, ArrowLink, Layout } from '../atoms'
-import { PresentsList } from '../../features'
 import styled, { css } from 'styled-components';
 import DailyItemImage from 'ui/images/daily-item.png';
 import DailyBackgroundImage from 'ui/images/daily-background.png';
+import { PresentsList } from '../../features'
+import { Header, ArrowLink, Layout } from '../atoms'
+
 
 const HomeView = () => (
   <div>
@@ -22,7 +23,7 @@ const HomeView = () => (
         </Layout>
         <Line />
         <div>
-      <ArrowLink to={''}/>
+          <ArrowLink to="" />
         </div>
       </DailyItem>
     </DailyWrapper>
@@ -33,22 +34,21 @@ const HomeView = () => (
 export const Home = HomeView;
 
 const Date = styled.div`
-  font-family: ${_font.playfair};
+  font-family: ${font.playfair};
   font-size: 36px;
-  color: ${_color.darkGray}
+  color: ${color.darkGray}
   font-weight: bold;
 `;
 
 const Title = styled.div`
   font-size: 20px;
   text-transform: uppercase;
-  margin: 32px auto ${_size.xl};
-  line-height: ${_size.l};
+  margin: 32px auto ${size.xl};
+  line-height: ${size.l};
   font-weight: 500;
 `;
 
 export const DailyWrapper = styled.div`
-  margin-top: 78px;
   width: 50vw;
   height: 50vw;
   display: inline-block;
@@ -68,12 +68,12 @@ export const DailyWrapper = styled.div`
 
 const DailyItem = styled(Layout)`
   position: absolute;
-  top: ${_size.xxl};
-  bottom: ${_size.xxl};
-  left: ${_size.xxl};
-  right: ${_size.xxl};
+  top: ${size.xxl};
+  bottom: ${size.xxl};
+  left: ${size.xxl};
+  right: ${size.xxl};
   background: white;
-  border: 2px solid ${_color.light};
+  border: 2px solid ${color.light};
   padding: 80px;
   
   & > * {
@@ -82,16 +82,16 @@ const DailyItem = styled(Layout)`
 `;
 
 const Line = styled.div`
-  width: ${_size.xxl};
+  width: ${size.xxl};
   height: 2px;
-  background: ${_color.yellow};
+  background: ${color.yellow};
   top: 50%;
   bottom: 50%;
 `;
 
 const Text = styled.div`
   font-size: 16px;
-  color: ${_color.lightGray};
+  color: ${color.lightGray};
   width: 400px;
   margin: 16px auto;
   line-height: 24px;

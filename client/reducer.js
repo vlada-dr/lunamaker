@@ -1,9 +1,9 @@
-﻿import { combineReducers } from 'redux'
-import { userReducer as user } from 'features/user/reducer'
-import { presentReducer as present } from 'features/present/reducer'
-import { authReducer as auth } from 'features/auth/reducer'
-import { tagReducer as tag } from 'features/tag/reducer'
-import { commonReducer as common } from 'features/reducer'
+import { combineReducers } from 'redux';
+import { userReducer as user } from 'features/user/reducer';
+import { presentReducer as present } from 'features/present/reducer';
+import { authReducer as auth } from 'features/auth/reducer';
+import { tagReducer as tag } from 'features/tag/reducer';
+import { commonReducer as common } from 'features/reducer';
 
 
 export const reducer = combineReducers({

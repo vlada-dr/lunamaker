@@ -65,9 +65,9 @@ const config = {
 
   plugins: [
     new ProvidePlugin({
-      _color: ['ui/theme', 'color'],
-      _size: ['ui/theme', 'size'],
-      _font: ['ui/theme', 'font'],
+      color: ['ui/theme', 'color'],
+      size: ['ui/theme', 'size'],
+      font: ['ui/theme', 'font'],
       media: ['ui/media', 'default'],
     }),
     new HappyPack({

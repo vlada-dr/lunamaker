@@ -24,9 +24,9 @@ const Icon = styled.div`
   height: 42px;
   position: absolute;
   background: white;
-  border: 2px solid ${_color.darkGray};
-  top: -${_size.s};
-  left: -${_size.s};
+  border: 2px solid ${color.darkGray};
+  top: -${size.s};
+  left: -${size.s};
 `;
 
 export const Card = styled(Link)`
@@ -39,7 +39,7 @@ export const Card = styled(Link)`
   cursor: pointer;
   display: block;
   transition: all .3s ease-in-out;
-  background: url('${(p) => p.background ? p.background : p.photo}') no-repeat center center / cover;
+  background: url('${p => p.background ? p.background : p.photo}') no-repeat center center / cover;
   
   &:hover {
     box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.1);

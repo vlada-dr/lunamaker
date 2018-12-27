@@ -9,7 +9,8 @@ import { PresentForm } from '../organisms';
 import { add } from '../actions';
 import { Row } from './page';
 
-const mapDispatchToProps = (dispatch) => ({
+
+const mapDispatchToProps = dispatch => ({
   getTags: () => dispatch(getTags()),
   createPresent: present => dispatch(add(present)),
 });
@@ -46,16 +47,18 @@ const Image = styled(Row)`
 `;
 
 const Header = styled.div`
-  padding: 24px 128px;
+  padding: 64px 128px;
   position: absolute;
   left: 0;
   top: 0;
   width: 50vw;
+  margin: 80px auto;
   
   ${media.pho`
     position: relative;
     width: 100vw;
-    padding: 0 ${_size.m};
+    padding: 0 ${size.m};
+    margin: auto;
   `}
 `;
 
@@ -73,7 +76,10 @@ const CreatePresentView = ({ createPresent, tags }) => (
         Заповніть форму нижче та дочекайтеся, поки вона пройде перевiрку модеротора
       </div>
     </Header>
-    <PresentForm tags={tags} propsSubmit={createPresent} />
+    <PresentForm
+      tags={tags}
+      propsSubmit={createPresent}
+    />
   </>
 );
 

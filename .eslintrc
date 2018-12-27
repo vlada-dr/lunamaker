@@ -14,7 +14,10 @@
     "import/extensions":  ["error", "never", { "json": 1, "scss": 1 }],
     "indent": ["error", 2, {"SwitchCase": 1}],
     "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "import/no-unresolved": "off",
+    "arrow-parens": ["error", "as-needed"],
+    "quotes": "off"
   },
   "settings": {
     "import/resolver": {

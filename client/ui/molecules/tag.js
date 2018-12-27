@@ -1,6 +1,7 @@
-﻿import React from 'react'
+import React from 'react'
 import styled, { css } from 'styled-components'
 import PropTypes from 'prop-types'
+
 
 const TagWrapper = styled.div`
     font-family: 'Lobster';
@@ -15,7 +16,7 @@ const TagWrapper = styled.div`
     position: relative;
     overflow: hidden;
     transition: all .7s ease;
-    ${(p) => p.check && css`
+    ${p => p.check && css`
         border: 1px solid #ECE4F4;
         background: rgba(255, 255, 255, 0.5);
         &:hover {
@@ -24,17 +25,17 @@ const TagWrapper = styled.div`
     `}
 `
 
-export const Tag = props => <TagWrapper check={props.check} onClick={props.add} props={props} >
+export const Tag = (props) => (<TagWrapper check={props.check} onClick={props.add} props={props} >
     #{props.name}
-</TagWrapper>;
+                               </TagWrapper>);
 
 Tag.propTypes = {
-    add: PropTypes.func,
-    check: PropTypes.bool,
-    delete: PropTypes.func,
-    name: PropTypes.string.isRequired
+  add: PropTypes.func,
+  check: PropTypes.bool,
+  delete: PropTypes.func,
+  name: PropTypes.string.isRequired,
 }
 
 Tag.defaultProps = {
-    check: false
+  check: false,
 }

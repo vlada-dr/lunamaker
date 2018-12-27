@@ -1,4 +1,4 @@
-﻿import {
+import {
   GET_TAGS,
 } from 'types'
 

@@ -37,7 +37,7 @@ const Wrapper = styled.div`
   transition: all .7s ease;
   margin-left: 1vw;
   position: relative;
-  ${(p) => p.open && css`
+  ${p => p.open && css`
     @media (orientation: portrait) {
         width: 30vw;
     }
@@ -62,13 +62,9 @@ export const Search = ({ isFilter, value, onChange, onSearch, openSearch }) => (
     />
     {
       isFilter ? (
-        <Right>
-
-        </Right>
+        <Right />
       ) : (
-        <SearchIcon>
-
-        </SearchIcon>
+        <SearchIcon />
       )
     }
   </Wrapper>

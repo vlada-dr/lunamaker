@@ -1,4 +1,4 @@
-﻿import {
+import {
   APP_LOAD,
   REDIRECT,
   LOGOUT,

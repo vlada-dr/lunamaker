@@ -1,4 +1,4 @@
-﻿import React from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose, withHandlers, withState } from 'recompose'
@@ -12,9 +12,7 @@ import { login } from '../actions'
  */
 
 const Social = () => (
-  <Layout flow='row' justify='space-around' width='100%' padding={2}>
-
-  </Layout>
+  <Layout flow='row' justify='space-around' width='100%' padding={2} />
 )
 
 const mapDispatchToProps = (dispatch) => ({ onLogin: (user) => dispatch(login(user)) })

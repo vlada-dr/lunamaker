@@ -1,12 +1,12 @@
-﻿import React from 'react'
+import React from 'react'
 import styled, { css } from 'styled-components'
 import PropTypes from 'prop-types'
 import { MaleAvatar, FemaleAvatar } from 'ui/icons'
 
 
 const Image = styled.div`
- width: ${(p) => p.size};
- height: ${(p) => p.size};
+ width: ${p => p.size};
+ height: ${p => p.size};
 border-radius: 50%;
 overflow:hidden;
 `
@@ -15,7 +15,7 @@ const Photo = styled.div`
  width: 100%;
  height: 100%;
 background-size:cover;
-      background-image:  url("${(p) => p.src}");
+      background-image:  url("${p => p.src}");
 `
 
 const GenderPic = ({ gender, size }) => gender === 0
@@ -32,6 +32,7 @@ GenderPic.propTypes = {
   gender: PropTypes.number,
   size: PropTypes.string,
 }
+
 GenderPic.defaultProps = {
   gender: 0,
   size: '5vh',

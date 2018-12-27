@@ -27,8 +27,9 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const MenuLink = styled(Link)`
-  font-family: ${_font.lato};
+  font-family: ${font.lato};
   margin: 0 24px;
+  z-index: 102;
 `;
 
 class MenuView extends Component {
@@ -49,9 +50,12 @@ class MenuView extends Component {
     const scroll = this.state.windowPosition > 0 && !isFilter
 
     return (
+      <>
+      <LogoWrapper>
+        <Logo collapse />
+      </LogoWrapper>
       <MenuWrapper>
         <div>
-
           <MenuLink to="">
           Про нас
           </MenuLink>
@@ -59,7 +63,6 @@ class MenuView extends Component {
           Запропонуйте подарунок
           </MenuLink>
         </div>
-        <Logo />
         <div>
           <MenuLink to="">
           Пошук
@@ -69,6 +72,7 @@ class MenuView extends Component {
           </MenuLink>
         </div>
       </MenuWrapper>
+        </>
     )
   }
 }
@@ -79,7 +83,7 @@ export const Menu = compose(
 )(MenuView);
 
 const MenuWrapper = styled.div`
-   box-shadow: 0 1px 0 0 rgba(0,0,0,0.1);
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1);
   
   & > div {
     display: flex;
@@ -97,10 +101,49 @@ const MenuWrapper = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 100vw;
   z-index: 100;
   background: white;
   padding: 0 64px;
+  
+  ${media.pho`
+    margin: 48px 0 0;
+    height: 48px;
+    padding: 0;
+    justify-content: center;
+    
+    & > div {
+      width: 100%;
+      justify-content: space-around;
+      
+      &:last-child {
+        justify-content: space-around;
+      }
+    }
+  `}
+`;
+
+const LogoWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  height: 78px;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: calc(50% - 82px);
+  right: calc(50% - 82px);
+  margin: 0;
+  background: transparent;
+  z-index: 101;
+  
+  ${media.pho`
+    left: 0;
+    right: 0;
+    height: 48px; 
+    width: 100vw;
+    background: white;
+    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1);
+  `}
 `;
 
 MenuView.propTypes = {

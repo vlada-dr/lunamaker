@@ -1,4 +1,4 @@
-﻿import React from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom';
@@ -58,22 +58,23 @@ const Tab = styled.div`
     z-index:4;
     right:20%;
 `
-export const LoginTemplate = ({ children, tab, onClick}) => (
-    <PageContainer>
-        <Image>  <Tab><Button light shine onClick={onClick}>{tab}</Button> </Tab> </Image>
-        <FormContainer >
-            <Link to={'/'}><Name size='3rem' /> </Link>
-            {children}
-        </FormContainer>
-        </PageContainer>
+
+export const LoginTemplate = ({ children, tab, onClick }) => (
+  <PageContainer>
+    <Image>  <Tab><Button light shine onClick={onClick}>{tab}</Button> </Tab> </Image>
+    <FormContainer >
+      <Link to="/"><Name size='3rem' /> </Link>
+      {children}
+    </FormContainer>
+  </PageContainer>
 )
 
 LoginTemplate.propTypes = {
-    children: PropTypes.node.isRequired,
-    onClick: PropTypes.func,
-    tab: PropTypes.string
+  children: PropTypes.node.isRequired,
+  onClick: PropTypes.func,
+  tab: PropTypes.string,
 }
 
 LoginTemplate.defaultTypes = {
-    tab: 'Реєстрація'
+  tab: 'Реєстрація',
 }

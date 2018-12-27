@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 export const Button = styled.button`
   padding: 12px 16px;
-  font-size: ${_size.m};
+  font-size: ${size.m};
   cursor: pointer;
   -webkit-appearance: none;
   outline: none !important;
@@ -15,39 +15,39 @@ export const Button = styled.button`
   align-items: center;
   border-color: transparent;
   
-  background: ${_color.blue};
+  background: ${color.blue};
   color: white;
     
   &:hover {
-    background: ${_color.darkBlue};
+    background: ${color.darkBlue};
   }
  
-  ${(p) => p.secondary && css`
+  ${p => p.secondary && css`
     background: white;
-    color: ${_color.darkGray};
-    border: 1px solid ${_color.blue};
+    color: ${color.darkGray};
+    border: 1px solid ${color.blue};
     
     &:hover {
-      background: ${_color.blue};
+      background: ${color.blue};
       color: white;
     }
   `}
   
-  ${(p) => p.uppercase && css`
+  ${p => p.uppercase && css`
     text-transform: uppercase;
   `}
   
-  ${(p) => p.fluid && css`
+  ${p => p.fluid && css`
     width: 100%;
     justify-content: center;
     margin: 16px auto;
   `}
   
   svg {
-    width: ${_size.m};
-    height: ${_size.m};
-    margin-right: ${_size.m};
-    fill: ${_color.darkGray};
+    width: ${size.m};
+    height: ${size.m};
+    margin-right: ${size.m};
+    fill: ${color.darkGray};
   }
 `;
 

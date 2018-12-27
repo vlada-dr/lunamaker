@@ -1,4 +1,4 @@
-﻿import {
+import {
   PROFILE_PAGE_LOADED,
   LOGIN,
   CHANGE_SETTINGS_FIELD,

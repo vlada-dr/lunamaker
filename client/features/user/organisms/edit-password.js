@@ -1,4 +1,4 @@
-﻿import * as React from 'react'
+import * as React from 'react'
 import { Flex, Input } from 'ui/atoms'
 import { withState, withHandlers, compose } from 'recompose'
 import { validate } from 'features/validations'
