@@ -1,6 +1,9 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import DailyBackgroundImage from 'ui/images/daily-background.png';
+import Balloons from 'ui/images/balloons.png';
+import BlackBalloons from 'ui/images/black-balloons.png';
+import NavyBalloons from 'ui/images/navy-balloons.png';
 import { PresentsList } from 'features';
 import { ArrowLink, Layout, Category } from 'ui/atoms';
 import { withRouter } from 'react-router-dom';
@@ -8,9 +11,7 @@ import { withRouter } from 'react-router-dom';
 
 export const HomePage = withRouter(() => (
   <div>
-    <DailyWrapper>
-      <img src='https://beridari.ua/image/cache/data/products/China/vino/_MG_0065-600x600.jpg' />
-    </DailyWrapper>
+    <Image src='https://beridari.ua/image/cache/data/products/China/vino/_MG_0065-600x600.jpg' />
     <DailyWrapper background={DailyBackgroundImage}>
       <DailyItem flow='column' align='center'>
         <Layout flow='column'>
@@ -29,25 +30,34 @@ export const HomePage = withRouter(() => (
     </DailyWrapper>
     <Categories>
       <Category
-        name='На новий рiк'
+        name='На день всіх закоханих'
         link='/'
-        image={DailyBackgroundImage}
+        image={Balloons}
       /><Category
         name='Для сестри'
         link='/'
-        image={DailyBackgroundImage}
+        image={BlackBalloons}
       /><Category
         name='На день народження'
         link='/'
-        image={DailyBackgroundImage}
+        image={NavyBalloons}
       />
     </Categories>
     <PresentsList />
   </div>
 ));
 
+const Image = styled.img`
+  width: 30vw;
+  height: 30vw;
+`;
+
 const Categories = styled(Layout)`
   padding: ${size.m};
+  
+  ${media.pho`
+    flex-wrap: wrap;
+  `}
 `;
 
 const Date = styled.div`
@@ -66,8 +76,8 @@ const Title = styled.div`
 `;
 
 export const DailyWrapper = styled.div`
-  width: 50vw;
-  height: 50vw;
+  width: 70vw;
+  height: 30vw;
   display: inline-block;
   position: relative;
   background-size: cover;

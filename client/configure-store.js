@@ -5,7 +5,7 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { reducer } from './reducer';
 import { promiseMiddleware, localStorageMiddleware } from './middleware';
 
-
+// eslint-disable-next-line no-underscore-dangle
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const loggerOptions = {

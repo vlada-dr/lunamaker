@@ -7,11 +7,11 @@ const responseBody = res => res.body;
 
 let token = null;
 
-const setToken = (_token) => {
+const setToken = _token => {
   token = _token;
 };
 
-const withToken = (req) => {
+const withToken = req => {
   // if (token) {
   req.set('Authorization', `Token ${token || 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hcGkvdXNlcnMiLCJpYXQiOjE1NDUxNzg1MjcsImV4cCI6MTU1MDM2MjUyNywibmJmIjoxNTQ1MTc4NTI3LCJqdGkiOiJJS3lobGU2aXA4c3RuNjRxIn0.Jse8WUQsEzKjYLGug0anVySlVvKju0QWR9jSREIjMik'}`);
   // }
@@ -57,6 +57,8 @@ const presents = {
   del: id => api.del(`/presents/${id}`),
   edit: (id, present) => api.put(`/presents/${id}`, present),
   search: present => api.get(`/presents?${present}`),
+  like: id => api.post(`/presents/${id}/favorite`),
+  unlike: id => api.del(`/presents/${id}/favorite`),
 };
 
 const tag = {
@@ -65,7 +67,6 @@ const tag = {
   add: tg => api.post('/tags', tg),
   del: id => api.del(`/tags/${id}`),
   edit: tg => api.put(`/tags/${tg.id}`, tg),
-
 };
 
 export {

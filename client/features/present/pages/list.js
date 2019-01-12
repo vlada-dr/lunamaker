@@ -2,11 +2,10 @@ import * as React from 'react';
 import styled, { css } from 'styled-components';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { compose } from 'redux';
 import { Header } from 'ui/atoms';
-
-import { Link, withRouter } from 'react-router-dom';
-import { all } from '../actions';
+import { withRouter } from 'react-router-dom';
+import { all, like } from '../actions';
+import { PresentCard } from '../organisms';
 
 
 const mapStateToProps = state => ({
@@ -21,6 +20,70 @@ export const chunk = (arr, size) => Array.from({
   length: Math.ceil(arr.length / size),
 }, (v, i) => arr.slice(i * size, (i * size) + size));
 
+class ListView extends React.Component {
+  componentDidMount() {
+    this.props.onLoad();
+  }
+
+  render() {
+    const { presents } = this.props;
+
+    return (
+      <div>
+        <Header>
+          Популярнi
+        </Header>
+        <Popular>
+          {presents && presents.slice(0, 4).map(({ images, slug, favorited }) => (
+            <PresentCard
+              key={slug}
+              src={images[0]}
+              to={`/present/${slug}`}
+              id={slug}
+              favorited={favorited}
+            />
+          ))}
+        </Popular>
+        <Header>
+          Latest Updates
+        </Header>
+        {
+          presents ? chunk(presents, 5).map((row, i) => (
+            <Row key={row[0].title}>
+              <Half second={i % 2 !== 0}>
+                <PresentCard
+                  main
+                  src={row[0].images[0]}
+                  to={`/present/${row[0].slug}`}
+                  id={row[0].slug}
+                  favorited={row[0].favorited}
+                />
+              </Half>
+              <Half>
+                {chunk(row.slice(1), 2).map(column => (
+                  <Column key={column[0].title}>
+                    {
+                      column.map(({ images, slug, favorited }) => (
+                        <PresentCard
+                          key={slug}
+                          src={images[0]}
+                          to={`/present/${slug}`}
+                          id={slug}
+                          favorited={favorited}
+                        />
+                      ))
+                    }
+                  </Column>
+                ))}
+              </Half>
+            </Row>
+          )) : null
+        }
+      </div>
+    );
+  }
+};
+
 const Row = styled.div`
   display: flex;
   flex-flow: row wrap;
@@ -32,18 +95,6 @@ const Popular = styled(Row)`
   
   & > * {
     width: 25%;
-  }
-`;
-
-const Item = styled(Link)`
-  padding: ${size.m};
-  display: block;
-  width: 100%;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
   }
 `;
 
@@ -71,71 +122,6 @@ const Column = styled.div`
   height: 50%;
   flex: 1;
 `;
-
-
-class ListView extends React.Component {
-  componentDidMount() {
-    this.props.onLoad();
-  }
-
-  render() {
-    const { presents, history } = this.props;
-
-    const Image = ({ src, to }) => (
-      <Item to={to}>
-        <img src={src} /> {/*eslint-disable-line*/}
-      </Item>
-    );
-
-    return (
-      <div>
-        <Header>
-          Популярнi
-        </Header>
-        <Popular>
-          {presents && presents.slice(0, 4).map(({ images, slug }) => (
-            <Image
-              key={slug}
-              src={images[0]}
-              to={`/present/${slug}`}
-            />
-          ))}
-        </Popular>
-        <Header>
-          Latest Updates
-        </Header>
-        {
-          presents ? chunk(presents, 5).map((row, i) => (
-            <Row key={row[0].title}>
-              <Half second={i % 2 !== 0}>
-                <Image
-                  main
-                  src={row[0].images[0]}
-                  to={`/present/${row[0].slug}`}
-                />
-              </Half>
-              <Half>
-                {chunk(row.slice(1), 2).map(column => (
-                  <Column key={column[0].title}>
-                    {
-                      column.map(({ images, slug }) => (
-                        <Image
-                          key={slug}
-                          src={images[0]}
-                          to={`/present/${slug}`}
-                        />
-                      ))
-                    }
-                  </Column>
-                ))}
-              </Half>
-            </Row>
-          )) : null
-        }
-      </div>
-    );
-  }
-}
 
 ListView.propTypes = {
   presents: PropTypes.array,

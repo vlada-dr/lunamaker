@@ -13,6 +13,10 @@ const Wrapper = styled(Layout)`
   padding: 0 ${size.m} ${size.m};
   border: 1px solid ${color.gray};   
 
+  h3 {
+    width: 50%;
+  }
+
   img {
     height: 100%;
     object-fit: cover;
@@ -20,6 +24,11 @@ const Wrapper = styled(Layout)`
     right: 0;
     top: 0;
   }
+  
+  ${media.pho`
+    width: 100vw;
+    flex: 1 1 100%;
+  `}
 `;
 
 export const Category = ({ name, link, image }) => (

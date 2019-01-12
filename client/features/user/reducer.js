@@ -3,7 +3,7 @@ import {
   LOGIN,
   CHANGE_SETTINGS_FIELD,
   BLUR_SETTINGS_FIELD,
-} from 'types'
+} from 'types';
 
 
 const initial = {
@@ -12,7 +12,7 @@ const initial = {
     touched: {},
     password: {},
   },
-}
+};
 
 export const userReducer = (state = initial, action) => {
   switch (action.type) {

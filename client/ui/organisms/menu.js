@@ -1,43 +1,35 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import styled, { css } from 'styled-components'
-import { Link, withRouter } from 'react-router-dom'
-import { compose } from 'recompose'
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { Link, withRouter } from 'react-router-dom';
+import { compose } from 'recompose';
+import { connect } from 'react-redux';
 
-import { changeSearchInput, filterOn, searchPresent } from 'features/present/actions'
-import { logout } from 'features/auth/actions'
-import { Logo } from 'ui/atoms'
-import { Avatar } from 'ui/molecules'
-import { Search } from 'ui/organisms'
+import { changeSearchInput, filterOn, searchPresent } from 'features/present/actions';
+import { logout } from 'features/auth/actions';
+import { Logo } from 'ui/atoms';
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   id: state.common.user ? state.common.user.username : null,
   isAuth: state.common.user !== null,
   isFilter: state.isFilter,
   user: state.common.user,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onChange: (value) => dispatch(changeSearchInput(value)),
+const mapDispatchToProps = dispatch => ({
+  onChange: value => dispatch(changeSearchInput(value)),
   filterOn: () => dispatch(filterOn()),
   logout: () => dispatch(logout()),
-  onSearch: (present) => dispatch(searchPresent(present)),
+  onSearch: present => dispatch(searchPresent(present)),
 });
-
-const MenuLink = styled(Link)`
-  font-family: ${font.lato};
-  margin: 0 24px;
-  z-index: 102;
-`;
 
 class MenuView extends Component {
   state = {
     windowPosition: window.pageYOffset,
   };
 
-  onChange = (e) => this.props.onChange(e.target.value)
+  onChange = e => this.props.onChange(e.target.value)
 
   onSearch = () => this.props.onSearch(this.props.search)
 
@@ -46,34 +38,36 @@ class MenuView extends Component {
   logout = () => this.props.logout()
 
   render() {
-    const { isAuth, user, gender, photo, id, search, isFilter, match } = this.props
-    const scroll = this.state.windowPosition > 0 && !isFilter
+    const {
+      isAuth, user, gender, photo, id, search, isFilter, match,
+    } = this.props;
+    const scroll = this.state.windowPosition > 0 && !isFilter;
 
     return (
       <>
-      <LogoWrapper>
-        <Logo collapse />
-      </LogoWrapper>
-      <MenuWrapper>
-        <div>
-          <MenuLink to="">
-          Про нас
-          </MenuLink>
-          <MenuLink to="/presents/new">
-          Запропонуйте подарунок
-          </MenuLink>
-        </div>
-        <div>
-          <MenuLink to="">
-          Пошук
-          </MenuLink>
-          <MenuLink to="">
-          Улюбленi
-          </MenuLink>
-        </div>
-      </MenuWrapper>
+        <LogoWrapper>
+          <Logo collapse />
+        </LogoWrapper>
+        <MenuWrapper>
+          <div>
+            <MenuLink to="">
+              Про нас
+            </MenuLink>
+            <MenuLink to="/presents/new">
+              Запропонуйте подарунок
+            </MenuLink>
+          </div>
+          <div>
+            <MenuLink to="">
+              Пошук
+            </MenuLink>
+            <MenuLink to="">
+              Улюбленi
+            </MenuLink>
+          </div>
+        </MenuWrapper>
         </>
-    )
+    );
   }
 }
 
@@ -123,6 +117,13 @@ const MenuWrapper = styled.div`
   `}
 `;
 
+const MenuLink = styled(Link)`
+  font-family: ${font.lato};
+  margin: 0 24px;
+  z-index: 102;
+  text-align: center;
+`;
+
 const LogoWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -170,4 +171,4 @@ MenuView.defaultProps = {
   onSearch: null,
   photo: null,
   search: '',
-}
+};

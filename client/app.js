@@ -1,26 +1,22 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import styled, { keyframes, css } from 'styled-components';
+import styled from 'styled-components';
 import { rootRoutes } from 'routes';
 import { LOAD_USER } from 'types';
 import { auth } from 'api';
 import Notification from 'ui/notification';
 import { Menu, Footer } from 'ui/organisms';
-import { compose, withHandlers, lifecycle } from 'recompose'
+import { compose, lifecycle } from 'recompose';
 
-
-const mapStateToProps = (state) => ({
-  appLoaded: state.common.appLoaded,
-  user: state.common.user,
-  state: state,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLoad: () => dispatch({ type: LOAD_USER, payload: auth.current() }),
-});
 
 const enhance = compose(
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(state => ({
+    appLoaded: state.common.appLoaded,
+    user: state.common.user,
+    state,
+  }), dispatch => ({
+    onLoad: () => dispatch({ type: LOAD_USER, payload: auth.current() }),
+  })),
   lifecycle({
     componentDidMount() {
       this.props.onLoad();
@@ -43,11 +39,13 @@ export const App = enhance(Layout);
 
 const Content = styled.div`
   z-index: 3;
-  position:relative;
+  position: relative;
   padding-top: 78px;
+  width: 100vw;
+  overflow: hidden;
   
   ${media.pho`
-    padding-top: 96px;
+    padding: 96px 0;
   `}
 `;
 

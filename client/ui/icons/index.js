@@ -7,4 +7,5 @@ export { default as MoonIcon } from './moon.svg';
 export { default as ArrowRightIcon } from './arrow-right.svg';
 export { default as FacebookIcon } from './facebook.svg';
 export { default as InstagramIcon } from './instagram.svg';
-
+export { default as HeartIcon } from './heart.svg';
+export { default as HeartOutlineIcon } from './heart-outline.svg';

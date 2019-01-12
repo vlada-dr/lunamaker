@@ -3,20 +3,113 @@ import styled, { css, keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import { Flex, NavLink, Card, Button, Layout, Tag } from 'ui/atoms';
+import {
+  NavLink, Button, Layout, Tag,
+} from 'ui/atoms';
 import { withRouter, Link } from 'react-router-dom';
-import { presentById } from '../actions'
+import { presentById } from '../actions';
 import { Authenticated } from '../../auth';
 
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state, props) => ({
   present: state.present.presentById,
-  historyId: ownProps.match.params.id,
+  id: props.match.params.id,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onLoad: (id) => dispatch(presentById(id)),
+const mapDispatchToProps = dispatch => ({
+  onLoad: id => dispatch(presentById(id)),
 });
+
+class PresentPageView extends React.Component {
+  static propTypes = {
+    id: PropTypes.number.isRequired,
+    onLoad: PropTypes.func,
+    present: PropTypes.object,
+  };
+
+  static defaultProps = {
+    present: null,
+    onLoad: null,
+  };
+
+  state = {
+    liked: false,
+  };
+
+  componentDidMount() {
+    this.props.onLoad(this.props.id);
+  }
+
+  onLike = () => this.setState(prevState => ({ liked: !prevState.liked }));
+
+  onRemovePresent = () => true;
+
+  render() {
+    const { present, location } = this.props;
+
+    if (!present) {
+      return null;
+    }
+
+    const { images } = present;
+
+    return (
+      <Row>
+        <DesktopGallery>
+          <MainImage src={images[0]} />
+          <Column>
+            {images.map(i => (
+              <Img key={i}>
+                <img src={i} />
+              </Img>
+            ))}
+          </Column>
+        </DesktopGallery>
+        <PhoneGallery>
+          {images.map(i => (
+            <img src={i} />
+          ))}
+        </PhoneGallery>
+        <Content>
+          <NavLink to='/'>
+            Back to Accessories
+          </NavLink>
+          <h1>
+            {present.title}
+          </h1>
+          <Layout flow='row' gap={16}>
+            <Button secondary>
+              {present.price} грн
+            </Button>
+            <Authenticated>
+              <Link to={`${location.pathname}/edit`}>
+                <Button>
+                  Редагувати
+                </Button>
+              </Link>
+            </Authenticated>
+          </Layout>
+          <Layout flow='row' wrap>
+            {present.tagList.map(t => <Tag key={t}>{t}</Tag>)}
+          </Layout>
+          <div>
+            {present.body.split('\n').map(d => <p key={d}>{d}</p>)}
+          </div>
+          <h3>
+            Коментарi
+          </h3>
+        </Content>
+      </Row>
+    );
+  }
+}
+
+
+export const PresentPage = compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withRouter,
+)(PresentPageView);
+
 
 export const Row = styled.div`
   display: flex;
@@ -88,70 +181,25 @@ const EditButton = styled(Button)`
   right: ${size.m};
 `;
 
-class PresentPageView extends React.Component {
-    state = { liked: false }
+const DesktopGallery = styled.div`
+  ${media.pho`
+    display: none;
+  `}
+`;
 
-    componentDidMount() {
-      this.props.onLoad(this.props.historyId);
-    }
+const PhoneGallery = styled.div`
+  display: none;
 
-    onLike = () => this.setState((prevState) => ({ liked: !prevState.liked }))
-
-    onRemovePresent = () => true;
-
-    render() {
-      const { present, history, location } = this.props;
-
-      if (!present) {
-        return null;
-      }
-
-      const { images } = present;
-
-      return (
-        <Row>
-          <div>
-            <MainImage src={images[0]} />
-            <Column>
-              {images.map(i => <Img key={i}><img src={i} /></Img>)}
-            </Column>
-          </div>
-          <Content>
-            <NavLink to='/'>
-              Back to Accessories
-            </NavLink>
-            <h1>
-              {present.title}
-            </h1>
-            <Layout flow='row' gap={16}>
-              <Button secondary>
-                {present.price} грн
-              </Button>
-              <Authenticated>
-                <Link to={`${location.pathname}/edit`}>
-                  <Button>
-                  Редагувати
-                  </Button>
-                </Link>
-              </Authenticated>
-            </Layout>
-            <Layout flow='row' wrap>
-              {present.tagList.map(t => <Tag key={t}>{t}</Tag>)}
-            </Layout>
-            <div>
-              {present.body.split('\n').map(d => <p key={d}>{d}</p>)}
-            </div>
-            <h3>
-              Коментарi
-            </h3>
-          </Content>
-        </Row>
-      );
-    }
-}
-
-
-export const PresentPage = compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  withRouter,
-)(PresentPageView);
+  ${media.pho`
+    display: flex;
+    width: 100%;
+    height: 100vw;
+    flex-direction: row;
+    overflow-x: auto;
+  `}
+ 
+  img {
+    width: 100vw;
+    height: 100vw;
+  }
+`;

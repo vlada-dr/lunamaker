@@ -61,31 +61,7 @@ const enhance = compose(
       }
     },
   }),
-)
-
-const FormPart = styled(Layout)`
-  width: 50%;
-  display: inline-flex;
-  padding: ${size.l};
-  
-  ${media.pho`
-    width: 100%;
-  `}
-`;
-
-const SubminButton = styled(Button)``;
-
-const Wrapper = styled.div`
-  padding: ${size.m};
-  
-  ${SubminButton} {
-    display: flex;
-    
-    ${media.pho`
-      width: 100%;
-    `}
-  }
-`;
+);
 
 const FormView = ({
   onChange,
@@ -139,6 +115,13 @@ const FormView = ({
         error={errors.body}
         placeholder='Опис'
       />
+      <Layout flow='row' wrap>
+        {
+          present.images.split('\n').map(i => (
+            <Image key={i} src={i} />
+          ))
+        }
+      </Layout>
       <Textarea
         name='images'
         value={present.images}
@@ -193,6 +176,40 @@ const FormView = ({
     </SubminButton>
   </Wrapper>
 );
+
+const Image = styled.img`
+  width: 200px;
+  height: 200px;
+  margin: 0 ${size.m} ${size.m} 0;
+`;
+
+const FormPart = styled(Layout)`
+  width: 50%;
+  display: inline-flex;
+  padding: ${size.l};
+  
+  ${media.pho`
+    width: 100%;
+  `}
+`;
+
+const SubminButton = styled(Button)``;
+
+const Wrapper = styled.div`
+  padding: ${size.m};
+  
+  ${media.pho`
+    margin: 0 -48px;
+  `}
+  
+  ${SubminButton} {
+    display: flex;
+    
+    ${media.pho`
+      width: 100%;
+    `}
+  }
+`;
 
 FormView.propTypes = {
   onChange: PropTypes.func,
