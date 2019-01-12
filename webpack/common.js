@@ -1,23 +1,19 @@
-process.title = 'surprise-u:webpack'
+process.title = 'lunamaker:webpack';
 
-const { cpus } = require('os')
-const { resolve } = require('path')
-const {
-  optimize: { CommonsChunkPlugin },
-  EnvironmentPlugin,
-  ProvidePlugin,
-} = require('webpack')
-const HappyPack = require('happypack')
-const HtmlPlugin = require('html-webpack-plugin')
+const { cpus } = require('os');
+const { resolve } = require('path');
+const { EnvironmentPlugin, ProvidePlugin } = require('webpack');
+const HappyPack = require('happypack');
+const HtmlPlugin = require('html-webpack-plugin');
 
 
-const { NODE_ENV = 'development' } = process.env
-const IS_PROD = NODE_ENV === 'production'
-const IS_DEV = NODE_ENV === 'development'
-const IS_TEST = NODE_ENV === 'test'
+const { NODE_ENV = 'development' } = process.env;
+const IS_PROD = NODE_ENV === 'production';
+const IS_DEV = NODE_ENV === 'development';
+const IS_TEST = NODE_ENV === 'test';
 
-const DIST = resolve(__dirname, '..', 'dist')
-const SRC = resolve(__dirname, '..', 'client')
+const DIST = resolve(__dirname, '..', 'dist');
+const SRC = resolve(__dirname, '..', 'client');
 
 const config = {
   context: SRC,
@@ -46,9 +42,7 @@ const config = {
       {
         test: /\.m?js$/,
         exclude: /node_modules/,
-        use: [
-          'happypack/loader',
-        ],
+        use: ['happypack/loader'],
       },
       {
         test: /\.svg$/,
@@ -73,18 +67,6 @@ const config = {
     new HappyPack({
       threads: cpus().length,
       loaders: ['babel-loader'],
-    }),
-    new CommonsChunkPlugin({
-      name: 'vendor',
-      chunks: ['index'],
-      filename: IS_DEV ? '[name].js' : '[name]-[chunkhash].js',
-      minChunks: (module) => module.context && module.context.indexOf('node_modules') !== -1,
-    }),
-    new CommonsChunkPlugin({
-      name: 'index',
-      filename: IS_DEV ? '[name].js' : '[name]-[chunkhash].js',
-      children: true,
-      minChunks: 2,
     }),
     new HtmlPlugin({
       title: 'lunamak☾r',
