@@ -17,7 +17,8 @@
     "import/prefer-default-export": "off",
     "import/no-unresolved": "off",
     "arrow-parens": ["error", "as-needed"],
-    "quotes": "off"
+    "quotes": "off",
+    "no-undef": "off"
   },
   "settings": {
     "import/resolver": {

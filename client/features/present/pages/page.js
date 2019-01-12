@@ -1,14 +1,13 @@
 import React from 'react';
-import styled, { css, keyframes } from 'styled-components';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import {
   NavLink, Button, Layout, Tag,
 } from 'ui/atoms';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { presentById } from '../actions';
-import { Authenticated } from '../../auth';
 
 
 const mapStateToProps = (state, props) => ({
@@ -81,13 +80,6 @@ class PresentPageView extends React.Component {
             <Button secondary>
               {present.price} грн
             </Button>
-            <Authenticated>
-              <Link to={`${location.pathname}/edit`}>
-                <Button>
-                  Редагувати
-                </Button>
-              </Link>
-            </Authenticated>
           </Layout>
           <Layout flow='row' wrap>
             {present.tagList.map(t => <Tag key={t}>{t}</Tag>)}

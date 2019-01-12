@@ -5,11 +5,12 @@ import { compose, withStateHandlers, withHandlers } from 'recompose';
 import { Slider } from 'ui/molecules';
 import { Button, Input, Textarea, Layout, Tag } from 'ui/atoms';
 import { validate } from 'features/validations';
+import { Present } from 'features/present';
 
 
 const enhance = compose(
   withStateHandlers(
-    ({ errors, present }) => ({ errors, present }),
+    ({ present }) => ({ errors: { }, present }),
     {
       updateField: ({ touched, present }) => (name, value) => ({
         present: { ...present, [name]: value },
@@ -117,7 +118,7 @@ const FormView = ({
       />
       <Layout flow='row' wrap>
         {
-          present.images.split('\n').map(i => (
+          present.images && present.images.split('\n').map(i => (
             <Image key={i} src={i} />
           ))
         }
@@ -219,10 +220,10 @@ FormView.propTypes = {
   valid: PropTypes.func,
   onSubmit: PropTypes.func,
   errors: PropTypes.objectOf(PropTypes.string),
-  present: PropTypes.objectOf(PropTypes.any),
+  present: Present,
   updateField: PropTypes.func,
   tags: PropTypes.arrayOf(PropTypes.string),
-}
+};
 
 FormView.defaultProps = {
   onChange: null,

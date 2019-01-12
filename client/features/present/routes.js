@@ -1,4 +1,6 @@
-import { NewPresent, PresentPage, EditPresent } from './pages'
+import {
+  NewPresent, PresentPage, EditPresent, PresentsTable,
+} from './pages';
 
 
 export const presentsRoutes = () => [
@@ -16,5 +18,10 @@ export const presentsRoutes = () => [
     path: '/present/:id/edit',
     exact: true,
     component: EditPresent,
+  },
+  {
+    path: '/admin',
+    exact: true,
+    component: PresentsTable,
   },
 ];
