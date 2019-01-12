@@ -26,7 +26,8 @@ class PresentTransformer extends Transformer
                 'bio'       => $data['user']['bio'],
                 'image'     => $data['user']['image'],
                 'following' => $data['user']['following'],
-            ]
+            ],
+            'approved'          => $data['approved'],
         ];
     }
 }
