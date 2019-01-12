@@ -2,10 +2,9 @@
   "name": "@surpriseu/full",
   "version": "1.1.0",
   "scripts": {
-    "start": "webpack-dev-server --history-api-fallback",
+    "start": "webpack-dev-server --history-api-fallback --mode=development",
     "clean": "rimraf dist/*",
-    "build:prod": "cross-env NODE_ENV=production run-s clean build",
-    "build": "webpack",
+    "build:prod": "NODE_ENV=production webpack-cli",
     "lint": "eslint ./client",
     "fix": "eslint ./client --fix"
   },
@@ -17,6 +16,7 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "connected-react-router": "^4.3.0",
+    "cordova-uglify": "^0.3.3",
     "cors": "^2.8.4",
     "history": "^4.7.2",
     "isomorphic-fetch": "^2.2.1",
@@ -42,7 +42,9 @@
     "styled-normalize": "^4.0.0",
     "superagent": "^4.1.0",
     "superagent-promise": "^1.1.0",
-    "svg-react-loader": "^0.4.6"
+    "svg-react-loader": "^0.4.6",
+    "uglify-es": "^3.3.9",
+    "webpack-bundle-analyzer": "^3.0.3"
   },
   "devDependencies": {
     "@atomix/eslint-config": "^6.3.0",
@@ -59,6 +61,7 @@
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "@commitlint/cli": "^6.1.3",
+    "assets-webpack-plugin": "^3.9.6",
     "ajv": "^6.6.2",
     "ajv-keywords": "^3.2.0",
     "babel-eslint": "^9.0.0",
@@ -75,7 +78,9 @@
     "happypack": "^5.0.1",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^1.3.1",
+    "mini-css-extract-plugin": "^0.4.5",
     "npm-run-all": "^4.1.2",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
     "react-hot-loader": "^4.6.3",
     "react-svg-loader": "^2.1.0",
     "rimraf": "^2.6.2",
