@@ -17,6 +17,8 @@ Install all the dependencies using composer and npm
     cd api
     composer install
 
+Make the required configuration changes in the server/.env file
+
 Generate a new application key
 
     php artisan key:generate
