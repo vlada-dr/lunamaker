@@ -3,9 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import {
-  NavLink, Button, Layout, Tag,
-} from 'ui/atoms';
+import { Button, Layout, Tag } from 'ui/atoms';
 import { withRouter } from 'react-router-dom';
 import { presentById } from '../actions';
 
@@ -70,9 +68,6 @@ class PresentPageView extends React.Component {
           ))}
         </PhoneGallery>
         <Content>
-          <NavLink to='/'>
-            Back to Accessories
-          </NavLink>
           <h1>
             {present.title}
           </h1>
@@ -90,6 +85,23 @@ class PresentPageView extends React.Component {
           <h3>
             Коментарi
           </h3>
+          <Layout flow='column'>
+            {present.comments.map(c => (
+              <Comment flow='row' key={c.body}>
+                <img src={c.user.image}/>
+                <Layout flow='column'>
+                <div>
+                  <b>
+                    {c.user.username}
+                  </b>
+                </div>
+                <div>
+                  {c.body}
+                </div>
+                </Layout>
+              </Comment>
+            ))}
+          </Layout>
         </Content>
       </Row>
     );
@@ -102,6 +114,18 @@ export const PresentPage = compose(
   withRouter,
 )(PresentPageView);
 
+
+const Comment = styled(Layout)`
+  margin: ${size.s} 0;
+  
+  img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+`;
 
 export const Row = styled.div`
   display: flex;

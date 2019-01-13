@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link as BaseLink } from 'react-router-dom';
 import styled from 'styled-components';
-import { ArrowRightIcon } from 'ui/icons';
+import { ArrowLeftIcon } from 'ui/icons';
 
 
 const Wrapper = styled(BaseLink)`
@@ -10,8 +10,9 @@ const Wrapper = styled(BaseLink)`
   margin: ${size.l} 0;
   
   svg {
-    width: 12px;
-    height: 16px;
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
     fill: ${color.blue};
   }
 `;
@@ -23,6 +24,7 @@ export const Link = styled.div`
   line-height: 16px;
   width: auto;
   cursor: pointer;
+  font-size: 24px;
   
   &:hover {
     color: ${color.blue};
@@ -31,7 +33,7 @@ export const Link = styled.div`
 
 export const NavLink = ({ to, children }) => (
   <Wrapper to={to}>
-    <ArrowRightIcon />
+    <ArrowLeftIcon />
     <Link>
       {children}
     </Link>

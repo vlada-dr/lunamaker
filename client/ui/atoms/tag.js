@@ -5,10 +5,6 @@ import { Button } from './button';
 
 const Wrapper = styled(Button)`
   margin: ${size.s};
-  
-  &:first-child {
-    margin-left: 0;
-  }
 `;
 
 export const Tag = ({ children, ...props }) => (

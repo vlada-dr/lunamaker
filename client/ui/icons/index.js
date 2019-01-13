@@ -1,3 +1,4 @@
+export { default as ArrowLeftIcon } from './arrow-left.svg';
 export { default as ArrowRightIcon } from './arrow-right.svg';
 export { default as CancelFilledIcon } from './cancel-filled.svg';
 export { default as CheckIcon } from './check.svg';

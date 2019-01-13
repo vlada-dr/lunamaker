@@ -13,7 +13,7 @@ const setToken = _token => {
 
 const withToken = req => {
   // if (token) {
-  req.set('Authorization', `Token ${token || 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hcGkvdXNlcnMiLCJpYXQiOjE1NDUxNzg1MjcsImV4cCI6MTU1MDM2MjUyNywibmJmIjoxNTQ1MTc4NTI3LCJqdGkiOiJJS3lobGU2aXA4c3RuNjRxIn0.Jse8WUQsEzKjYLGug0anVySlVvKju0QWR9jSREIjMik'}`);
+  req.set('Authorization', `Token ${token || 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjQsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hcGkvdXNlcnMiLCJpYXQiOjE1NDczNDkyNzYsImV4cCI6MTU1MjUzMzI3NiwibmJmIjoxNTQ3MzQ5Mjc2LCJqdGkiOiJpV0N6VnRONE5PYTk1N0gyIn0.iNO-_h8j-n97P8mC4Zgay1Q1Spa2cdRip5thJgignkg'}`);
   // }
 };
 

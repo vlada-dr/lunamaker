@@ -4,7 +4,7 @@ import { presentsRoutes } from 'features/present/routes';
 import { authRoutes } from 'features/auth/routes';
 import { userRoutes } from 'features/user/routes';
 import { Route, Switch } from 'react-router';
-import { HomePage, NotFoundPage } from 'features/common';
+import { HomePage, NotFoundPage, AboutPage } from 'features/common';
 
 
 const routes = [
@@ -14,6 +14,11 @@ const routes = [
   {
     path: '/',
     component: HomePage,
+    exact: true,
+  },
+  {
+    path: '/about',
+    component: AboutPage,
     exact: true,
   },
   { component: NotFoundPage },

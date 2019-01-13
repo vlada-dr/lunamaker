@@ -116,13 +116,13 @@ const FormView = ({
         error={errors.body}
         placeholder='Опис'
       />
-      <Layout flow='row' wrap>
-        {
-          present.images && present.images.split('\n').map(i => (
+      {present.images && (
+        <Layout flow='row' wrap>
+          {present.images.split('\n').map(i => (
             <Image key={i} src={i} />
-          ))
-        }
-      </Layout>
+          ))}
+        </Layout>
+      )}
       <Textarea
         name='images'
         value={present.images}
@@ -131,6 +131,8 @@ const FormView = ({
         error={errors.images}
         placeholder='Фото'
       />
+    </FormPart>
+    <FormPart flow='column' gap={24}>
       <h3>
         Контакти
       </h3>
@@ -142,21 +144,14 @@ const FormView = ({
         placeholder='Контакти'
         style={{ width: '100%' }}
       />
-    </FormPart>
-    <FormPart flow='column' gap={24}>
-      <h3>
+      <h3 style={{ marginTop: 8}}>
           Теги
       </h3>
-      <Slider
-        start={present.startAge}
-        end={present.endAge}
-        onChange={onRangeChange}
-      />
       <Input
         name='tagInput'
         value={present.tagInput}
         onChange={onChange}
-        placeholder="Роздiлiть теги комами"
+        placeholder="Роздiлiть теги комами або оберіть з запропонованих"
       />
       <div>
         {
@@ -188,27 +183,33 @@ const FormPart = styled(Layout)`
   width: 50%;
   display: inline-flex;
   padding: ${size.l};
-  
+
   ${media.pho`
     width: 100%;
   `}
 `;
 
-const SubminButton = styled(Button)``;
+const SubminButton = styled(Button)`
+  margin: auto;
+`;
 
 const Wrapper = styled.div`
   padding: ${size.m};
-  
+
   ${media.pho`
     margin: 0 -48px;
   `}
-  
+
   ${SubminButton} {
     display: flex;
-    
+
     ${media.pho`
       width: 100%;
     `}
+  }
+  
+  h3 {
+    margin: 0;
   }
 `;
 

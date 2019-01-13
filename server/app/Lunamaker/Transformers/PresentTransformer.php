@@ -28,6 +28,7 @@ class PresentTransformer extends Transformer
                 'following' => $data['user']['following'],
             ],
             'approved'          => $data['approved'],
+            'comments'          => $data['comments']
         ];
     }
 }

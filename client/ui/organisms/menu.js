@@ -50,19 +50,13 @@ class MenuView extends Component {
         </LogoWrapper>
         <MenuWrapper>
           <div>
-            <MenuLink to="">
+            <MenuLink to="/about">
               Про нас
-            </MenuLink>
-            <MenuLink to="/presents/new">
-              Запропонуйте подарунок
             </MenuLink>
           </div>
           <div>
-            <MenuLink to="">
-              Пошук
-            </MenuLink>
-            <MenuLink to="">
-              Улюбленi
+            <MenuLink to="/presents/new">
+              Запропонуйте подарунок
             </MenuLink>
           </div>
         </MenuWrapper>
